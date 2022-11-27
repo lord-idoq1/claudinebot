@@ -71,4 +71,5 @@ Ayra is licensed under [GNU Affero General Public License](https://www.gnu.org/l
 * [Lonami](https://github.com/LonamiWebs/) for [Telethon.](https://github.com/LonamiWebs/Telethon)
 * [MarshalX](https://github.com/MarshalX) for [PyTgCalls.](https://github.com/MarshalX/tgcalls)
 
-> Kanged by [Riizz](https://t.me/Riizzvbss).    
+> Kanged by
+* [![Riizz]](https://img.shields.io/static/v1?label=Teamultroid&message=devs&color=critical)](https://t.me/riizzvbss)
