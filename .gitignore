@@ -1,18 +1,44 @@
-# Build and Release Folders
+.env
+*.session-journal
+*.session
+build
+test*
+*.mp3
+*.webm
+*.webp
+*.mp4
+*.tgs
+/*.jpg
+/*.png
+/*.mp4
+*.log
+target/npmlist.json
+package-lock.json
+resources/extras/thumbnail.jpg
+
+# Directories
+addons/
+vcbot/
+__pycache__/
+venv/
+node_modules/
+glitch_me/
+src/glitch-me
+.idea/
+.vscode/
+temp/
 bin-debug/
 bin-release/
 [Oo]bj/
 [Bb]in/
-
-# Other files and folders
 .settings/
-
-# Executables
 *.swf
 *.air
 *.ipa
 *.apk
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+# temporary files
+*.raw
+
+# fly.io configs
+fly.toml
