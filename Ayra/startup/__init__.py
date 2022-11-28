@@ -89,7 +89,7 @@ if run_as_module:
     )
 
     LOGS.info(f"Python version - {platform.python_version()}")
-    LOGS.info(f"pyAyra Version - {__pyayra__}")
+    LOGS.info(f"Ayra Version - {__Ayra__}")
     LOGS.info(f"Telethon Version - {__version__} [Layer: {LAYER}]")
     LOGS.info(f"Ayra Version - {ayra_version} [{HOSTED_ON}]")
 
