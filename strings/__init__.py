@@ -26,7 +26,7 @@ for file in glob("strings/strings/*yml"):
 
 
 def get_string(key: str, _res: bool = True) -> Any:
-    lang = AyConfig.lang.lang or "id"
+    lang = AyConfig.lang or "id"
     try:
         return languages[lang][key]
     except KeyError:
