@@ -31,7 +31,7 @@ def get_string(key: str, _res: bool = True) -> Any:
         return languages[lang][key]
     except KeyError:
         try:
-            en_ = languages["id"][key]
+            id_ = languages["id"][key]
             tr = translate(id_, lang_tgt=lang).replace("\ N", "\n")
             if id_.count("{}") != tr.count("{}"):
                 tr = id_
