@@ -21,9 +21,8 @@ from telethon.errors.rpcerrorlist import (
     ChatSendMediaForbiddenError,
 )
 
-from Ayra.dB import DEVLIST
 from Ayra.version import __version__ as AyraVer
-
+from Ayra.dB import DEVLIST
 from . import HOSTED_ON, LOGS
 
 try:
@@ -38,15 +37,13 @@ from . import (
     ATRA_COL,
     LOGS,
     OWNER_NAME,
+    AYRA_IMAGES,
     Button,
     Carbon,
     Telegraph,
     Var,
     allcmds,
     asst,
-    ayra_cmd,
-    ayra_IMAGES,
-    ayra_version,
     bash,
     call_back,
     callback,
@@ -61,12 +58,14 @@ from . import (
     start_time,
     time_formatter,
     udB,
+    ayra_cmd,
+    ayra_version,
     updater,
 )
 
 
 def AYRAPIC():
-    return inline_pic() or choice(ayra_IMAGES)
+    return inline_pic() or choice(AYRA_IMAGES)
 
 
 buttons = [
@@ -173,7 +172,7 @@ async def lol(ayra):
             except BaseException as er:
                 LOGS.exception(er)
     await eor(
-        ult,
+        ayra,
         als,
         parse_mode=parse,
         link_preview=False,
@@ -181,13 +180,7 @@ async def lol(ayra):
     )
 
 
-@ayra_cmd(
-    pattern="ping$",
-    incoming=True,
-    from_users=DEVLIST,
-    chats=[],
-    type=["official", "assistant"],
-)
+@ayra_cmd(pattern="ping$", incoming=True, from_users=DEVLIST, chats=[], type=["official", "assistant"])
 async def _(event):
     start = time.time()
     x = await event.eor("Pong !")
@@ -272,7 +265,7 @@ async def inline_alive(ayra):
     rep = xx.replace(".git", f"/tree/{y}")
     kk = f"<a href={rep}>{y}</a>"
     als = in_alive.format(
-        header, f"{ayra_version} [{HOSTED_ON}]", UltVer, pyver(), uptime, kk
+        header, f"{ayra_version} [{HOSTED_ON}]", AyraVer, pyver(), uptime, kk
     )
 
     if _e := udB.get_key("ALIVE_EMOJI"):
@@ -329,7 +322,7 @@ async def _(e):
     if m:
         x = await asst.send_file(
             udB.get_key("LOG_CHANNEL"),
-            ULTPIC(),
+            AYRAPIC(),
             caption="• **Pembaruan tersedia** •",
             force_document=False,
             buttons=Button.inline("Changelog", data="changes"),
@@ -353,7 +346,7 @@ async def updava(event):
     await event.delete()
     await asst.send_file(
         udB.get_key("LOG_CHANNEL"),
-        ULTPIC(),
+        AYRAPIC(),
         caption="• **Pembaruan tersedia** •",
         force_document=False,
         buttons=Button.inline("Changelog", data="changes"),
