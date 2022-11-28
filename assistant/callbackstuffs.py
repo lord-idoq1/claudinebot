@@ -553,7 +553,9 @@ async def emoji(event):
     var = "EMOJI_IN_HELP"
     name = f"Emoji in `{HNDLR}help` menu"
     async with event.client.conversation(pru) as conv:
-        await conv.send_message("Kirim emoji yang ingin kamu atur 🙃.\n\nGunakan /cancel to cancel.")
+        await conv.send_message(
+            "Kirim emoji yang ingin kamu atur 🙃.\n\nGunakan /cancel to cancel."
+        )
         response = conv.wait_event(events.NewMessage(chats=pru))
         response = await response
         themssg = response.message.message
@@ -804,7 +806,7 @@ async def media(event):
     name = "Alive Media"
     async with event.client.conversation(pru) as conv:
         await conv.send_message(
-            "**Alive Media**\Kirimi saya foto/gif/media untuk ditetapkan sebagai media hidup.\n\nGunakan /cancel untuk menghentikan operasi.",
+            "**Alive Media**\\Kirimi saya foto/gif/media untuk ditetapkan sebagai media hidup.\n\nGunakan /cancel untuk menghentikan operasi.",
         )
         response = await conv.get_response()
         try:

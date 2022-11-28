@@ -5,26 +5,17 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-import asyncio
-import os
-import time
 from random import choice
 
-import requests
-from telethon import Button, events
 from telethon.tl import functions, types  # pylint:ignore
 
 from Ayra import *
-from Ayra._misc._assistant import asst_cmd, callback, in_pattern
 from Ayra._misc._decorators import ayra_cmd
-from Ayra._misc._wrappers import eod, eor
-from Ayra.dB import DEVLIST, ayra_IMAGES
+from Ayra.dB import ayra_IMAGES
 from Ayra.fns.helper import *
 from Ayra.fns.info import *
 from Ayra.fns.misc import *
 from Ayra.fns.tools import *
-from Ayra.version import __version__, ayra_version
-from strings import get_help, get_string
 
 Redis = udB.get_key
 con = TgConverter
