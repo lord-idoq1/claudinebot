@@ -2,14 +2,14 @@ import sys
 import os
 from typing import Any, Dict, List, Union
 from glob import glob
-from pyUltroid import *
-from pyUltroid.fns.tools import translate
+from Ayra import *
+from Ayra.fns.tools import translate
 try:
     from yaml import safe_load
 except ModuleNotFoundError:
-    from pyUltroid.fns.tools import safe_load
+    from Ayra.fns.tools import safe_load
 
-ULTConfig.lang = udB.get_key("language") or os.getenv("LANGUAGE", "id")
+AyConfig.lang = udB.get_key("language") or os.getenv("LANGUAGE", "id")
 
 languages = {}
 
@@ -26,7 +26,7 @@ for file in glob("strings/strings/*yml"):
 
 
 def get_string(key: str, _res: bool = True) -> Any:
-    lang = ULTConfig.lang or "id"
+    lang = AyConfig.lang.lang or "id"
     try:
         return languages[lang][key]
     except KeyError:
