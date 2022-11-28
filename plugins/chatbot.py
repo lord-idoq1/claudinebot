@@ -12,7 +12,7 @@ __doc__ = get_help("help_chatbot")
 
 from Ayra.fns.tools import get_chatbot_reply
 
-from . import eod, get_string, inline_mention, udB, ayra_cmd
+from . import ayra_cmd, eod, get_string, inline_mention, udB
 
 
 @ayra_cmd(pattern="repai")

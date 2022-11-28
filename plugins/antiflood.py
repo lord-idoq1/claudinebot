@@ -18,7 +18,7 @@ from Ayra.dB import DEVLIST
 from Ayra.dB.antiflood_db import get_flood, get_flood_limit, rem_flood, set_flood
 from Ayra.fns.admins import admin_check
 
-from . import Button, Redis, asst, callback, eod, get_string, ayra_bot, ayra_cmd
+from . import Button, Redis, asst, ayra_bot, ayra_cmd, callback, eod, get_string
 
 _check_flood = {}
 

@@ -24,13 +24,13 @@ from Ayra.fns.admins import ban_time
 from . import (
     HNDLR,
     LOGS,
+    ayra_cmd,
     eod,
     eor,
     get_string,
     get_uinfo,
     inline_mention,
     types,
-    ayra_cmd,
 )
 
 
@@ -384,7 +384,9 @@ async def fastpurgerme(purg):
     if msgs:
         await purg.client.delete_messages(chat, msgs)
     await purg.eor(
-        "__Pembersihan cepat selesai!__\n**Dihapus** `" + str(len(msgs)) + "` **messages.**",
+        "__Pembersihan cepat selesai!__\n**Dihapus** `"
+        + str(len(msgs))
+        + "` **messages.**",
         time=5,
     )
 

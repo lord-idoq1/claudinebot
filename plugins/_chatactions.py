@@ -24,7 +24,7 @@ try:
     from ProfanityDetector import detector
 except ImportError:
     detector = None
-from . import LOG_CHANNEL, LOGS, asst, get_string, types, udB, ayra_bot
+from . import LOG_CHANNEL, LOGS, asst, ayra_bot, get_string, types, udB
 from ._inline import something
 
 

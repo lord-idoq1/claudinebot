@@ -29,13 +29,13 @@ from telegraph import upload_file as uf
 
 from . import (
     AyConfig,
+    ayra_cmd,
     bash,
     con,
     downloader,
     get_paste,
     get_string,
     udB,
-    ayra_cmd,
     uploader,
 )
 
@@ -185,7 +185,7 @@ async def _(event):
     except BaseException:
         what, key = await get_paste(d)
         await xx.edit(
-            f"**PESAN MELEBIHI BATAS TELEGRAM**\n\Jadi Ditempelkan Di [SPACEBIN](https://spaceb.in/{key})"
+            f"**PESAN MELEBIHI BATAS TELEGRAM**\n\\Jadi Ditempelkan Di [SPACEBIN](https://spaceb.in/{key})"
         )
     if rem:
         os.remove(b)

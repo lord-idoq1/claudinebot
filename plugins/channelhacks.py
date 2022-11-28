@@ -28,7 +28,7 @@ from Ayra.dB.ch_db import (
     rem_source_channel,
 )
 
-from . import LOGS, asst, eor, events, get_string, udB, ayra_bot, ayra_cmd
+from . import LOGS, asst, ayra_bot, ayra_cmd, eor, events, get_string, udB
 
 ERROR = {}
 

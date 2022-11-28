@@ -20,7 +20,7 @@ except ImportError:
     uf = None
 from telethon import events, utils
 
-from . import asst, get_string, mediainfo, udB, ayra_cmd
+from . import asst, ayra_cmd, get_string, mediainfo, udB
 
 
 @ayra_cmd(pattern="addcmd( (.*)|$)")

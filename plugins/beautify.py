@@ -14,7 +14,7 @@ import random
 
 from telethon.utils import get_display_name
 
-from . import Carbon, eor, get_string, inline_mention, os, ayra_cmd
+from . import Carbon, ayra_cmd, eor, get_string, inline_mention, os
 
 _colorspath = "resources/colorlist.txt"
 

@@ -12,7 +12,7 @@ __doc__ = get_help("help_calculator")
 
 import re
 
-from . import Button, asst, callback, get_string, in_pattern, udB, ayra_cmd
+from . import Button, asst, ayra_cmd, callback, get_string, in_pattern, udB
 
 CALC = {}
 

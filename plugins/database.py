@@ -13,7 +13,7 @@ __doc__ = get_help("help_database")
 
 import re
 
-from . import Redis, eor, get_string, udB, ayra_cmd
+from . import Redis, ayra_cmd, eor, get_string, udB
 
 
 @ayra_cmd(pattern="setdb( (.*)|$)", fullsudo=True)

@@ -15,7 +15,7 @@ from telethon.tl.types import Channel
 from Ayra.dB import autoban_db, dnd_db
 from Ayra.fns.admins import get_update_linked_chat
 
-from . import LOGS, asst, get_string, inline_mention, ayra_bot, ayra_cmd
+from . import LOGS, asst, ayra_bot, ayra_cmd, get_string, inline_mention
 
 
 async def dnd_func(event):
@@ -102,7 +102,9 @@ async def do_magic(event):
     if match == "list":
         cha = autoban_db.get_whitelisted_channels(event.chat_id)
         if not cha:
-            return await msg.edit("`Tidak ada saluran Daftar Putih untuk obrolan saat ini.`")
+            return await msg.edit(
+                "`Tidak ada saluran Daftar Putih untuk obrolan saat ini.`"
+            )
         Msg = "**Saluran Daftar Putih di Obrolan Saat Ini**\n\n"
         for ch in cha:
             Msg += f"(`{ch}`) "

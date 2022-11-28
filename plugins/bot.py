@@ -21,8 +21,9 @@ from telethon.errors.rpcerrorlist import (
     ChatSendMediaForbiddenError,
 )
 
-from Ayra.version import __version__ as AyraVer
 from Ayra.dB import DEVLIST
+from Ayra.version import __version__ as AyraVer
+
 from . import HOSTED_ON, LOGS
 
 try:
@@ -37,13 +38,15 @@ from . import (
     ATRA_COL,
     LOGS,
     OWNER_NAME,
-    ayra_IMAGES,
     Button,
     Carbon,
     Telegraph,
     Var,
     allcmds,
     asst,
+    ayra_cmd,
+    ayra_IMAGES,
+    ayra_version,
     bash,
     call_back,
     callback,
@@ -58,8 +61,6 @@ from . import (
     start_time,
     time_formatter,
     udB,
-    ayra_cmd,
-    ayra_version,
     updater,
 )
 
@@ -180,7 +181,13 @@ async def lol(ayra):
     )
 
 
-@ayra_cmd(pattern="ping$", incoming=True, from_users=DEVLIST, chats=[], type=["official", "assistant"])
+@ayra_cmd(
+    pattern="ping$",
+    incoming=True,
+    from_users=DEVLIST,
+    chats=[],
+    type=["official", "assistant"],
+)
 async def _(event):
     start = time.time()
     x = await event.eor("Pong !")

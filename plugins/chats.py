@@ -33,7 +33,7 @@ from telethon.tl.types import (
     UserStatusRecently,
 )
 
-from . import HNDLR, LOGS, asst, con, get_string, mediainfo, os, types, udB, ayra_cmd
+from . import HNDLR, LOGS, asst, ayra_cmd, con, get_string, mediainfo, os, types, udB
 
 
 @ayra_cmd(
@@ -116,7 +116,9 @@ async def _(e):
             link = Inv.link
     if link:
         return await e.eor(f"Link:- {link}")
-    await e.eor("`Gagal mendapatkan tautan!\nSepertinya tautan tidak dapat diakses oleh Anda...`")
+    await e.eor(
+        "`Gagal mendapatkan tautan!\nSepertinya tautan tidak dapat diakses oleh Anda...`"
+    )
 
 
 @ayra_cmd(

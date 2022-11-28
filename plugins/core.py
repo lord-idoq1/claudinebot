@@ -15,7 +15,7 @@ import os
 
 from Ayra.startup.loader import load_addons
 
-from . import LOGS, async_searcher, eod, get_string, safeinstall, ayra_cmd, un_plug
+from . import LOGS, async_searcher, ayra_cmd, eod, get_string, safeinstall, un_plug
 
 
 @ayra_cmd(pattern="install", fullsudo=True)

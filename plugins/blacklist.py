@@ -17,7 +17,7 @@ from Ayra.dB.blacklist_db import (
     rem_blacklist,
 )
 
-from . import events, get_string, udB, ayra_bot, ayra_cmd
+from . import ayra_bot, ayra_cmd, events, get_string, udB
 
 
 @ayra_cmd(pattern="blacklist( (.*)|$)", admins_only=True)

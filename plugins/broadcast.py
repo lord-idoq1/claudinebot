@@ -17,7 +17,7 @@ from telethon.utils import get_display_name
 
 from Ayra.dB.broadcast_db import *
 
-from . import HNDLR, LOGS, eor, get_string, udB, ayra_bot, ayra_cmd
+from . import HNDLR, LOGS, ayra_bot, ayra_cmd, eor, get_string, udB
 
 
 @ayra_cmd(
@@ -140,7 +140,9 @@ async def forw(event):
     channels = get_channels()
     x = await event.eor("Mengirim...")
     if not channels:
-        return await x.edit(f"Tambahkan saluran dengan menggunakan `{HNDLR}add` in them.")
+        return await x.edit(
+            f"Tambahkan saluran dengan menggunakan `{HNDLR}add` in them."
+        )
     error_count = 0
     sent_count = 0
     if event.reply_to_msg_id:
@@ -182,7 +184,9 @@ async def sending(event):
         return await x.edit(get_string("ex_1"))
     channels = get_channels()
     if not channels:
-        return await x.edit(f"Tambahkan saluran dengan menggunakan `{HNDLR}add` in them.")
+        return await x.edit(
+            f"Tambahkan saluran dengan menggunakan `{HNDLR}add` in them."
+        )
     await x.edit("Mengirim....")
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
