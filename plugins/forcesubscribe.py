@@ -131,7 +131,7 @@ async def diesoon(e):
     await e.edit(get_string("fsub_8"))
 
 
-async def force_sub(ult):
+async def force_sub(ayra):
     if not udB.get_key("FORCESUB"):
         return
     user = await ayra.get_sender()
