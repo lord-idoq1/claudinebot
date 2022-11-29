@@ -203,7 +203,7 @@ heroku_api = Var.HEROKU_API
     pattern="restart$",
     fullsudo=True,
 )
-async def restartbt(ayra):
+async def restart(ayra):
     ok = await ayra.eor(get_string("bot_5"))
     call_back()
     who = "bot" if ayra.client._bot else "user"
