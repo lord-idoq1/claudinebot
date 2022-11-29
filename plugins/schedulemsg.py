@@ -1,0 +1,55 @@
+# Ayra - UserBot
+# Copyright (C) 2021-2022 senpai80
+#
+# This file is a part of < https://github.com/senpai80/Ayra/ >
+# PLease read the GNU Affero General Public License in
+# <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
+"""
+◈ Perintah Tersedia
+
+•`{i}schedule <text/reply to msg> <time>`
+    Pada waktunya Anda dapat menggunakan detik sebagai angka, atau sejenisnya 1h or 1m
+    eg. `{i}schedule Hello 100` It deliver msg after 100 sec.
+    eg. `{i}schedule Hello 1h` It deliver msg after an hour.
+"""
+from datetime import timedelta
+
+from Ayra.fns.admins import ban_time
+
+from . import get_string, ayra_cmd
+
+
+@ayra_cmd(pattern="schedule( (.*)|$)", fullsudo=True)
+async def _(e):
+    x = e.pattern_match.group(1).strip()
+    xx = await e.get_reply_message()
+    if x and not xx:
+        y = x.split(" ")[-1]
+        k = x.replace(y, "")
+        if y.isdigit():
+            await e.client.send_message(
+                e.chat_id, k, schedule=timedelta(seconds=int(y))
+            )
+            await e.eor(get_string("schdl_1"), time=5)
+        else:
+            try:
+                z = ban_time(y)
+                await e.client.send_message(e.chat_id, k, schedule=z)
+                await e.eor(get_string("schdl_1"), time=5)
+            except BaseException:
+                await e.eor(get_string("schdl_2"), time=5)
+    elif xx and x:
+        if x.isdigit():
+            await e.client.send_message(
+                e.chat_id, xx, schedule=timedelta(seconds=int(x))
+            )
+            await e.eor(get_string("schdl_1"), time=5)
+        else:
+            try:
+                z = ban_time(x)
+                await e.client.send_message(e.chat_id, xx, schedule=z)
+                await e.eor(get_string("schdl_1"), time=5)
+            except BaseException:
+                await e.eor(get_string("schdl_2"), time=5)
+    else:
+        return await e.eor(get_string("schdl_2"), time=5)
