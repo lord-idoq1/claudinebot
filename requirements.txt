@@ -23,4 +23,3 @@ speedtest-cli
 textblob
 wikipedia
 spotdl
-async_searcher
