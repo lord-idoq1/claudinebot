@@ -12,7 +12,7 @@ __doc__ = get_help("help_chatbot")
 
 from Ayra.fns.tools import get_chatbot_reply
 
-from . import ayra_cmd, eod, get_string, inline_mention, udB
+from . import eod, get_string, inline_mention, udB, ayra_cmd
 
 
 @ayra_cmd(pattern="repai")
@@ -44,7 +44,7 @@ async def lister(event):
     users = key.get(event.chat_id, [])
     if not users:
         return await event.eor(get_string("chab_2"), time=5)
-    msg = "**Daftar Total Pengguna yang Diaktifkan AI Dalam Obrolan Ini :**\n\n"
+    msg = "**Total List Of AI Enabled Users In This Chat :**\n\n"
     for i in users:
         try:
             user = await event.client.get_entity(int(i))
@@ -86,4 +86,4 @@ async def chat_bot_fn(event, type_):
             if chat in key and not key[chat]:
                 del key[chat]
     udB.set_key("CHATBOT_USERS", str(key))
-    await event.eor(f"**ObrolanBot:**\n{type_}ed {inline_mention(user_)}")
+    await event.eor(f"**ChatBot:**\n{type_}ed {inline_mention(user_)}")
