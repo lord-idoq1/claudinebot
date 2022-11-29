@@ -1,9 +1,9 @@
 # Ayra - UserBot
-# Copyright (C) 2021-2022 Teamayra
+# Copyright (C) 2021-2022 senpai80
 #
 # This file is a part of < https://github.com/senpai80/Ayra/ >
 # PLease read the GNU Affero General Public License in
-# <https://github.com/senpai80/Ayra/blob/main/LICENSE>.
+# <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
 import asyncio
 import inspect
@@ -149,10 +149,10 @@ def ayra_cmd(
                     udB.get_key("LOG_CHANNEL"),
                     "Session String expired, create new session from 👇",
                     buttons=[
-                        Button.url("Bot", "t.me/SessionGeneratorBot?start="),
+                        Button.url("Bot", "t.me/Stringman?start="),
                         Button.url(
                             "Repl",
-                            "https://replit.com/@senpai80/AyraStringSession",
+                            "https://replit.com/@Ayra/AyraStringSession",
                         ),
                     ],
                 )
@@ -166,8 +166,8 @@ def ayra_cmd(
                 date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
                 naam = get_display_name(chat)
                 ftext = "**Ayra Client Error:** `Forward this to` @stufsupport\n\n"
-                ftext += "**Py-Ayra Version:** `" + str(pyver)
-                ftext += "`\n**Ayra Version:** `" + str(ayra_ver)
+                ftext += "**Ayra Version:** `" + str(pyver)
+                ftext += "`\n**Userbot Version:** `" + str(ayra_ver)
                 ftext += "`\n**Telethon Version:** `" + str(telever)
                 ftext += f"`\n**Hosted At:** `{HOSTED_ON}`\n\n"
                 ftext += "--------START AYRA CRASH LOG--------"
