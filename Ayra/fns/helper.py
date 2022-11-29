@@ -1,5 +1,5 @@
 # Ayra - UserBot
-# Copyright (C) 2021-2022 Teamayra
+# Copyright (C) 2021-2022 senpai80
 #
 # This file is a part of < https://github.com/senpai80/Ayra/ >
 # PLease read the GNU Affero General Public License in
@@ -207,7 +207,7 @@ if run_as_module:
         await event.client.send_file(
             event.chat_id,
             file="ayra-heroku.log",
-            thumb=AyraConfig.thumb,
+            thumb=AyConfig.thumb,
             caption="**Ayra Heroku Logs.**",
         )
 
@@ -218,7 +218,7 @@ if run_as_module:
         await ayra.client.send_file(
             ayra.chat_id,
             file=file,
-            thumb=AyraConfig.thumb,
+            thumb=AyConfig.thumb,
             caption="**Ayra Logs.**",
         )
 
