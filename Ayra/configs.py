@@ -41,7 +41,7 @@ class Var:
     LOG_CHANNEL = config("LOG_CHANNEL", default=0, cast=int)
     HEROKU_APP_NAME = config("HEROKU_APP_NAME", default=None)
     HEROKU_API = config("HEROKU_API", default=None)
-    VC_SESSION = config("VC_SESSION", default=None)
+    VC_SESSION = config("VC_SESSION", default=SESSION)
     ADDONS = config("ADDONS", default=False, cast=bool)
     VCBOT = config("VCBOT", default=True, cast=bool)
     # for railway
