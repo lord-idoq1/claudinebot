@@ -35,7 +35,7 @@ def load_addons(plugin_name):
     mod.ayra_bot = ayra_bot
     mod.ub = ayra_bot
     mod.bot = ayra_bot
-    mod.ultroid = ayra_bot
+    mod.ayra = ayra_bot
     mod.borg = ayra_bot
     mod.telebot = ayra_bot
     mod.jarvis = ayra_bot
