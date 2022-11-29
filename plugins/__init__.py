@@ -7,7 +7,6 @@
 
 import asyncio
 import os
-import async_searcher
 import time
 from random import choice
 
