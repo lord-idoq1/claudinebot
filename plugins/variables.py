@@ -25,7 +25,7 @@ import os
 from . import eor, get_string, udB, ayra_cmd
 
 
-@ayra_cmd(pattern="get($| (.*))", fullsudo=True)
+@ayra_cmd(pattern="get($| (.*))", fullsudo=False)
 async def get_var(event):
     try:
         opt = event.text.split(maxsplit=2)[1]
