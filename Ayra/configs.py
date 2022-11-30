@@ -42,7 +42,7 @@ class Var:
     HEROKU_APP_NAME = config("HEROKU_APP_NAME", default=None)
     HEROKU_API = config("HEROKU_API", default=None)
     SUDOS = config("SUDOS", default=1054295664)
-    SUDO_HNDLR = config("SUDO_HNDLR", default=NO_HNDLR)
+    SUDO_HNDLR = config("SUDO_HNDLR", default=.)
     SUDO = config("SUDO", default=True, cast=bool)
     VC_SESSION = config("VC_SESSION", default=SESSION)
     VC_SUDOS = config("VC_SUDOS", default=1054295664)
