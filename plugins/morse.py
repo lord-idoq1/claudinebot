@@ -14,7 +14,7 @@
    Dekode teks yang diberikan dari Kode Morse.
 """
 
-from . import async_searcher, ayra_cmd
+from Ayra.fns.tools import async_searcher, ayra_cmd
 
 
 @ayra_cmd(pattern="mcode ?(.*)")
