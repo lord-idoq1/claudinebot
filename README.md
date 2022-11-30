@@ -28,20 +28,32 @@ Gunakan bot ini dengan risiko Anda sendiri, dan gunakan userbot ini dengan bijak
 - Tutorial to get Redis URL and password - [here.](./resources/extras/redistut.md)
 ---
 
+<details>
+<summary><b>🔗 Deploy di VPS</b></summary>
+<br>
+
 ### Tutorial Deploy di VPS
 
+
+• `sudo apt-get install ffmpeg -y`
+
+• `sudo apt-get install mediainfo`
+
+• `pip3 install pytgcalls==3.0.0.dev22`
+
+• `pip install pyUltroid`
 
  • `git clone https://github.com/senpai80/Ayra`
 
  • `cd Ayra`
 
- • `pip3 install --no-cache-dir -r requirements.txt`
+ • `pip3 install requirements.txt`
  
- • `pip3 install --no-cache-dir -r resources/startup/optional-requirements.txt`
+ • `pip3 install --no-cache-dir -r re*/st*/op*.txt`
 
- • `mv .env.sample .env`
+ • `cp .env.sample .env`
 
- • `nano .env`
+ • `nano config.env`
   - isi vars
   - Jika sudah 
   - ketik ctrl + S
@@ -50,11 +62,8 @@ Gunakan bot ini dengan risiko Anda sendiri, dan gunakan userbot ini dengan bijak
  • `screen -S Ayra`
 
  • `bash startup`
----
 
-<details>
-<summary><b>🔗 Deploy To Heroku</b></summary>
-<br>
+</details>
 
 <p><a href="https://heroku.com/deploy?template=https://github.com/senpai80/Ayra"><img src="https://img.shields.io/badge/BUAT DI-HEROKU-aqua?style=plastic&logo=heroku&logoColor=gold"width="300" /></a></p>
 
