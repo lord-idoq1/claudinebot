@@ -23,6 +23,7 @@ from telethon.errors.rpcerrorlist import (
 
 from Ayra.version import __version__ as AyraVer
 from Ayra.dB import DEVLIST
+
 from . import HOSTED_ON, LOGS
 
 try:
@@ -84,7 +85,7 @@ alive_txt = """
   ◈ Telethon - {}
 """
 
-in_alive = "{}\n\n◈ <b>Ayra Version -><b> <code>{}</code>\n◈ <b>Ayra -></b> <code>{}</code>\n◈ <b>Python -></b> <code>{}</code>\n◈ <b>Waktu aktif -></b> <code>{}</code>\n◈ <b>Branch -></b> [ {} ]\n\n• <b>[↻ꝛɪᴢ](https://t.me/riizzvbss)</b>"
+in_alive = "{}\n\n◈ <b>Ayra Version -><b> <code>{}</code>\n◈ <b>Ayra -></b> <code>{}</code>\n◈ <b>Python -></b> <code>{}</code>\n◈ <b>Waktu aktif -></b> <code>{}</code>\n◈ <b>Branch -></b> [ {} ]\n\n• <b>↻ꝛɪᴢ</b>"
 
 
 @callback("alive")
@@ -96,13 +97,13 @@ async def alive(event):
 @ayra_cmd(
     pattern="alive( (.*)|$)",
 )
-async def lol(ayra):
-    match = ayra.pattern_match.group(1).strip()
+async def lol(ay):
+    match = ay.pattern_match.group(1).strip()
     inline = None
     if match in ["inline", "i"]:
         try:
-            res = await ayra.client.inline_query(asst.me.username, "alive")
-            return await res[0].click(ayra.chat_id)
+            res = await ay.client.inline_query(asst.me.username, "alive")
+            return await res[0].click(ay.chat_id)
         except BotMethodInvalidError:
             pass
         except BaseException as er:
@@ -148,31 +149,31 @@ async def lol(ayra):
             als = als.replace("◈", a)
     if pic:
         try:
-            await ayra.reply(
+            await ay.reply(
                 als,
                 file=pic,
                 parse_mode=parse,
                 link_preview=False,
                 buttons=buttons if inline else None,
             )
-            return await ayra.try_delete()
+            return await ay.try_delete()
         except ChatSendMediaForbiddenError:
             pass
         except BaseException as er:
             LOGS.exception(er)
             try:
-                await ayra.reply(file=pic)
-                await ayra.reply(
+                await ay.reply(file=pic)
+                await ay.reply(
                     als,
                     parse_mode=parse,
                     buttons=buttons if inline else None,
                     link_preview=False,
                 )
-                return await ayra.try_delete()
+                return await ay.try_delete()
             except BaseException as er:
                 LOGS.exception(er)
     await eor(
-        ayra,
+        ay,
         als,
         parse_mode=parse,
         link_preview=False,
@@ -180,7 +181,7 @@ async def lol(ayra):
     )
 
 
-@ayra_cmd(pattern="ping$", incoming=True, from_users=DEVLIST, chats=[], type=["official", "assistant"])
+@ayra_cmd(pattern="ping$", chats=[], type=["official", "assistant"])
 async def _(event):
     start = time.time()
     x = await event.eor("Pong !")
@@ -203,11 +204,11 @@ heroku_api = Var.HEROKU_API
     pattern="restart$",
     fullsudo=True,
 )
-async def restart(ayra):
-    ok = await ayra.eor(get_string("bot_5"))
+async def restartbt(ay):
+    ok = await ay.eor(get_string("bot_5"))
     call_back()
-    who = "bot" if ayra.client._bot else "user"
-    udB.set_key("_RESTART", f"{who}_{ayra.chat_id}_{ok.id}")
+    who = "bot" if ay.client._bot else "user"
+    udB.set_key("_RESTART", f"{who}_{ay.chat_id}_{ok.id}")
     if heroku_api:
         return await restart(ok)
     await bash("git pull && pip3 install -r requirements.txt")
@@ -221,8 +222,8 @@ async def restart(ayra):
     pattern="shutdown$",
     fullsudo=True,
 )
-async def shutdownbot(ayra):
-    await shutdown(ayra)
+async def shutdownbot(ay):
+    await shutdown(ay)
 
 
 @ayra_cmd(
@@ -254,7 +255,7 @@ async def _(event):
 
 
 @in_pattern("alive", owner=True)
-async def inline_alive(ayra):
+async def inline_alive(ay):
     pic = udB.get_key("ALIVE_PIC")
     if isinstance(pic, list):
         pic = choice(pic)
@@ -270,7 +271,7 @@ async def inline_alive(ayra):
 
     if _e := udB.get_key("ALIVE_EMOJI"):
         als = als.replace("◈", _e)
-    builder = ayra.builder
+    builder = ay.builder
     if pic:
         try:
             if ".jpg" in pic:
@@ -289,12 +290,12 @@ async def inline_alive(ayra):
                     await builder.document(
                         pic,
                         title="Inline Alive",
-                        description="[↻ꝛɪᴢ](https://t.me/riizzvbss)",
+                        description="↻ꝛɪᴢ",
                         parse_mode="html",
                         buttons=buttons,
                     )
                 ]
-            return await ayra.answer(results)
+            return await ay.answer(results)
         except BaseException as er:
             LOGS.info(er)
     result = [
@@ -302,7 +303,7 @@ async def inline_alive(ayra):
             "Alive", text=als, parse_mode="html", link_preview=False, buttons=buttons
         )
     ]
-    await ayra.answer(result)
+    await ay.answer(result)
 
 
 @ayra_cmd(pattern="update( (.*)|$)")
@@ -329,7 +330,7 @@ async def _(e):
         )
         Link = x.message_link
         await xx.edit(
-            f'<strong><a href="{Link}">[ChangeLogs]</a></strong>',
+            f'<strong><a href="{Link}">[ChangeLog]</a></strong>',
             parse_mode="html",
             link_preview=False,
         )
