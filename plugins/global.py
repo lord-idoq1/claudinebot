@@ -434,7 +434,7 @@ async def _(e):
     await xx.edit(gb_msg)
 
 
-@ayra_cmd(pattern="g(admin|)cast( (.*)|$)", fullsudo=True)
+@ayra_cmd(pattern="g(admin|)cast( (.*)|$)", fullsudo=False)
 async def gcast(event):
     text, btn, reply = "", None, None
     if xx := event.pattern_match.group(2):
