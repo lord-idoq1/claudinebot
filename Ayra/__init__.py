@@ -90,7 +90,7 @@ if sys.argv[0] == "-m":
 
     HNDLR = udB.get_key("HNDLR") or "NO_HNDLR"
     DUAL_HNDLR = udB.get_key("DUAL_HNDLR") or "/"
-    SUDO_HNDLR = udB.get_key("SUDO_HNDLR") or HNDLR
+    SUDO_HNDLR = udB.get_key("SUDO_HNDLR") or "NO_HNDLR"
 else:
     print("Ayra 2022 © senpai80")
 
