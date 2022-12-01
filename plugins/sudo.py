@@ -24,7 +24,7 @@ from Ayra._misc import sudoers
 from . import get_string, inline_mention, udB, ayra_bot, ayra_cmd
 
 
-@ayra_cmd(pattern="addsudo( (.*)|$)", fullsudo=True)
+@ayra_cmd(pattern="addsudo( (.*)|$)", fullsudo=False)
 async def _(ayra):
     inputs = ayra.pattern_match.group(1).strip()
     if ayra.reply_to_msg_id:
@@ -64,7 +64,7 @@ async def _(ayra):
     await ayra.eor(mmm, time=5)
 
 
-@ayra_cmd(pattern="delsudo( (.*)|$)", fullsudo=True)
+@ayra_cmd(pattern="delsudo( (.*)|$)", fullsudo=False)
 async def _(ayra):
     inputs = ayra.pattern_match.group(1).strip()
     if ayra.reply_to_msg_id:
