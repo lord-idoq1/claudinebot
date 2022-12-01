@@ -153,7 +153,7 @@ async def setting(event):
                 Button.inline("•Stats•", data="alive"),
                 Button.inline("•Uᴘᴅᴀᴛᴇ•", data="doupdate"),
             ],
-            [Button.inline("« Bᴀᴄᴋ", data="open")],
+            [Button.inline("«", data="open")],
         ],
     )
 
@@ -204,7 +204,7 @@ async def uptd_plugin(event):
         buttons.append(
             [
                 Button.inline(
-                    "« Sᴇɴᴅ Pʟᴜɢɪɴ »",
+                    "Kirim Plugin",
                     data=data,
                 )
             ]
@@ -214,7 +214,7 @@ async def uptd_plugin(event):
         data += f"|{index}"
     buttons.append(
         [
-            Button.inline("« Bᴀᴄᴋ", data=data),
+            Button.inline("«", data=data),
         ]
     )
     try:
@@ -245,7 +245,7 @@ async def _(event):
             file="ayra_updates.txt",
             buttons=[
                 [Button.inline("• Uᴘᴅᴀᴛᴇ Nᴏᴡ •", data="updatenow")],
-                [Button.inline("« Bᴀᴄᴋ", data="ownr")],
+                [Button.inline("«", data="ownr")],
             ],
         )
         remove("ayra_updates.txt")
@@ -254,7 +254,7 @@ async def _(event):
             changelog_str,
             buttons=[
                 [Button.inline("Update Now", data="updatenow")],
-                [Button.inline("« Bᴀᴄᴋ", data="ownr")],
+                [Button.inline("«", data="ownr")],
             ],
             parse_mode="html",
         )
@@ -287,7 +287,7 @@ async def _(e):
     button = InButtons.copy()
     button.append(
         [
-            Button.inline("« Bᴀᴄᴋ", data="open"),
+            Button.inline("«", data="open"),
         ],
     )
     await e.edit(buttons=button, link_preview=False)
@@ -314,7 +314,7 @@ async def opner(event):
 async def on_plug_in_callback_query_handler(event):
     await event.edit(
         get_string("inline_5"),
-        buttons=Button.inline("Oᴘᴇɴ Aɢᴀɪɴ", data="open"),
+        buttons=Button.inline("Buka", data="open"),
     )
 
 
@@ -335,17 +335,17 @@ def page_num(index, key):
         new_ = fl_[0] if fl_ else []
         index = 0
     if index == 0 and len(fl_) == 1:
-        new_.append([Button.inline("« Bᴀᴄᴋ »", data="open")])
+        new_.append([Button.inline("Kembali", data="open")])
     else:
         new_.append(
             [
                 Button.inline(
-                    "« Pʀᴇᴠɪᴏᴜs",
+                    "«",
                     data=f"uh_{key}_{index-1}",
                 ),
-                Button.inline("« Bᴀᴄᴋ »", data="open"),
+                Button.inline("Kembali", data="open"),
                 Button.inline(
-                    "Nᴇxᴛ »",
+                    "»",
                     data=f"uh_{key}_{index+1}",
                 ),
             ]
