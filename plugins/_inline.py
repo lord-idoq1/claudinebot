@@ -136,7 +136,8 @@ async def setting(event):
     for x in LIST.values():
         z.extend(x)
     await event.edit(
-        get_string("inline_4"),
+        get_string("inline_4").format(
+            None,
             len(HELP.get("Official", [])),
             len(HELP.get("Addons", [])),
             len(z),
@@ -299,7 +300,8 @@ async def opner(event):
     for x in LIST.values():
         z.extend(x)
     await event.edit(
-        get_string("inline_4"),
+        get_string("inline_4").format(
+            None,
             len(HELP.get("Official", [])),
             len(HELP.get("Addons", [])),
             len(z),
