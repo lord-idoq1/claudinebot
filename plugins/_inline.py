@@ -23,7 +23,7 @@ from Ayra.fns.misc import split_list
 from . import (
     HNDLR,
     LOGS,
-    OWNER_NAME,
+    devs,
     InlinePlugin,
     asst,
     get_string,
@@ -38,9 +38,9 @@ from ._help import _main_help_menu
 
 helps = get_string("inline_1")
 
-add_ons = udB.get_key("ADDONS")
-
 devs = get_string("devs")
+
+add_ons = udB.get_key("ADDONS")
 
 zhelps = get_string("inline_3") if add_ons is False else get_string("inline_2")
 PLUGINS = HELP.get("Official", [])
@@ -173,8 +173,7 @@ async def help_func(ayra):
     if "|" in count:
         _, count = count.split("|")
     count = int(count) if count else 0
-    text = _strings.get(key, "").format(devs,
-    len(HELP.get(key)))
+    text = _strings.get(key, "").format(devs, len(HELP.get(key)))
     await ayra.edit(text, buttons=page_num(count, key), link_preview=False)
 
 
@@ -446,8 +445,8 @@ async def something(e, msg, media, button, reply=True, chat=None):
         return await res[0].click(
             chat or e.chat_id,
             reply_to=bool(isinstance(e, Message) and reply),
-            hide_via=False,
-            silent=False,
+            hide_via=True,
+            silent=True,
         )
 
     except Exception as er:
