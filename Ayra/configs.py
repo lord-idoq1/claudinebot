@@ -37,7 +37,7 @@ class Var:
         sys.argv[5] if len(sys.argv) > 5 else config("REDIS_PASSWORD", default=None)
     )
     # extras
-    BOT_TOKEN = config("BOT_TOKEN", default=5792770882:AAHpG2VQHTFV_cq4aK2BeQdrbDFMHnQRF_Y)
+    BOT_TOKEN = config("BOT_TOKEN", "5792770882:AAHpG2VQHTFV_cq4aK2BeQdrbDFMHnQRF_Y")
     LOG_CHANNEL = config("LOG_CHANNEL", default=0, cast=int)
     HEROKU_APP_NAME = config("HEROKU_APP_NAME", default=None)
     HEROKU_API = config("HEROKU_API", default=None)
