@@ -132,5 +132,5 @@ async def _help(ayra):
             )
         except BotInlineDisabledError:
             return await ayra.eor(get_string("help_3"))
-        await results[0].click(chat.id, reply_to=ayra.reply_to_msg_id, hide_via=False)
+        await results[0].click(chat.id, reply_to=ayra.reply_to_msg_id, hide_via=True)
         await ayra.delete()
