@@ -17,6 +17,7 @@ DEVLIST = [
     1027174031,  # @kalijogo
     1793365274,  # @Rvbeee
     1191668125,  # @xtsea
+    1784606556,  # @greyvbss
 ]
 
 AYRA_IMAGES = [
