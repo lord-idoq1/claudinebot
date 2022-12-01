@@ -23,6 +23,7 @@ from Ayra.fns.misc import split_list
 from . import (
     HNDLR,
     LOGS,
+    OWNER_NAME,
     InlinePlugin,
     asst,
     get_string,
@@ -94,7 +95,7 @@ async def inline_handler(event):
     for x in LIST.values():
         z.extend(x)
     text = get_string("inline_4").format(
-        devs,
+        OWNER_NAME,
         len(HELP.get("Official", [])),
         len(HELP.get("Addons", [])),
         len(z),
@@ -138,7 +139,7 @@ async def setting(event):
         z.extend(x)
     await event.edit(
         get_string("inline_4").format(
-            devs,
+            OWNER_NAME,
             len(HELP.get("Official", [])),
             len(HELP.get("Addons", [])),
             len(z),
@@ -172,7 +173,7 @@ async def help_func(ayra):
     if "|" in count:
         _, count = count.split("|")
     count = int(count) if count else 0
-    text = _strings.get(key, "").format(devs, len(HELP.get(key)))
+    text = _strings.get(key, "").format(OWNER_NAME, len(HELP.get(key)))
     await ayra.edit(text, buttons=page_num(count, key), link_preview=False)
 
 
@@ -301,7 +302,7 @@ async def opner(event):
         z.extend(x)
     await event.edit(
         get_string("inline_4").format(
-            devs,
+            OWNER_NAME,
             len(HELP.get("Official", [])),
             len(HELP.get("Addons", [])),
             len(z),
@@ -320,7 +321,7 @@ async def on_plug_in_callback_query_handler(event):
 
 
 def page_num(index, key):
-    rows = udB.get_key("HELP_ROWS") or 4
+    rows = udB.get_key("HELP_ROWS") or 3
     cols = udB.get_key("HELP_COLUMNS") or 2
     loaded = HELP.get(key, [])
     emoji = udB.get_key("EMOJI_IN_HELP") or ""
@@ -450,3 +451,4 @@ async def something(e, msg, media, button, reply=True, chat=None):
 
     except Exception as er:
         LOGS.exception(er)
+er)
