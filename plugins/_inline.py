@@ -62,7 +62,7 @@ SUP_BUTTONS = [
 
 @in_pattern(owner=False, func=lambda x: not x.text)
 async def inline_alive(o):
-    TLINK = inline_pic() or None
+    TLINK = inline_pic() or "https://graph.org/file/a51b51ca8a7cc5327fd42.jpg"
     MSG = "◈ **ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ ◈**"
     WEB0 = InputWebDocument(
         "https://graph.org/file/a51b51ca8a7cc5327fd42.jpg", 0, "image/jpg", []
@@ -173,7 +173,7 @@ async def help_func(ayra):
     if "|" in count:
         _, count = count.split("|")
     count = int(count) if count else 0
-    text = _strings.get(key, "").format(None,
+    text = _strings.get(key, "").format(devs,
     len(HELP.get(key)))
     await ayra.edit(text, buttons=page_num(count, key), link_preview=False)
 
