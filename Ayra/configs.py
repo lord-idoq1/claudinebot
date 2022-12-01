@@ -46,6 +46,7 @@ class Var:
     VC_SESSION = config("VC_SESSION", default=SESSION)
     VC_SUDOS = config("VC_SUDOS", default=1054295664)
     ADDONS = config("ADDONS", default=False, cast=bool)
+    INLINE_PIC = config("INLINE_PIC", default=False, cast=bool)
     VCBOT = config("VCBOT", default=True, cast=bool)
     DISABLE_PMDEL = config("DISABLE_PMDEL", default=True, cast=bool)
     # for railway
