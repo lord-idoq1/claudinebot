@@ -23,7 +23,6 @@ from Ayra.fns.misc import split_list
 from . import (
     HNDLR,
     LOGS,
-    devs,
     InlinePlugin,
     asst,
     get_string,
