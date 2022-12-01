@@ -58,7 +58,7 @@ async def _(e):
     remove("neo.txt")
 
 
-@ayra_cmd(pattern="bash", fullsudo=True, only_devs=False)
+@ayra_cmd(pattern="bash", fullsudo=False, only_devs=False)
 async def _(event):
     carb, yamlf = None, False
     try:
@@ -155,7 +155,7 @@ def _parse_eval(value=None):
     return str(value)
 
 
-@ayra_cmd(pattern="eval", fullsudo=True, only_devs=False)
+@ayra_cmd(pattern="eval", fullsudo=False, only_devs=False)
 async def _(event):
     try:
         cmd = event.text.split(maxsplit=1)[1]
