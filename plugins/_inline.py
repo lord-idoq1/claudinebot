@@ -40,6 +40,8 @@ helps = get_string("inline_1")
 
 add_ons = udB.get_key("ADDONS")
 
+devs = get_string("devs")
+
 zhelps = get_string("inline_3") if add_ons is False else get_string("inline_2")
 PLUGINS = HELP.get("Official", [])
 ADDONS = HELP.get("Addons", [])
@@ -93,7 +95,7 @@ async def inline_handler(event):
     for x in LIST.values():
         z.extend(x)
     text = get_string("inline_4").format(
-        text,
+        devs,
         len(HELP.get("Official", [])),
         len(HELP.get("Addons", [])),
         len(z),
@@ -137,7 +139,7 @@ async def setting(event):
         z.extend(x)
     await event.edit(
         get_string("inline_4").format(
-            text,
+            devs,
             len(HELP.get("Official", [])),
             len(HELP.get("Addons", [])),
             len(z),
@@ -301,7 +303,7 @@ async def opner(event):
         z.extend(x)
     await event.edit(
         get_string("inline_4").format(
-            text,
+            devs,
             len(HELP.get("Official", [])),
             len(HELP.get("Addons", [])),
             len(z),
