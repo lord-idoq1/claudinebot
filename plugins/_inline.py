@@ -171,7 +171,7 @@ async def help_func(ayra):
     if "|" in count:
         _, count = count.split("|")
     count = int(count) if count else 0
-    text = _strings.get(key, "")
+    text = _strings.get(key, "").format(None,
     len(HELP.get(key)))
     await ayra.edit(text, buttons=page_num(count, key), link_preview=False)
 
