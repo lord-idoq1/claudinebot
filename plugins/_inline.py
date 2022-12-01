@@ -92,7 +92,8 @@ async def inline_handler(event):
     z = []
     for x in LIST.values():
         z.extend(x)
-    text = get_string("inline_4"),
+    text = get_string("inline_4").format(
+        None,
         len(HELP.get("Official", [])),
         len(HELP.get("Addons", [])),
         len(z),
