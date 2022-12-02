@@ -13,11 +13,6 @@
 
 • `{i} ccarbon` <warna><balas teks>
      Carbon Dengan Kostum Warna.
-     
-• `{i} rayso` <balas teks>
-
-• `{i} raysolist`
-     Lihat Warna
 """
 
 
@@ -267,37 +262,3 @@ RaySoTheme = [
     "sunset",
     "midnight",
 ]
-
-
-@ayra_cmd(pattern="rayso")
-async def pass_on(ayra):
-    spli = ayra.text.split()
-    theme, dark, title, text = None, True, get_display_name(ayra.chat), None
-    if len(spli) > 2:
-        if spli[1] in RaySoTheme:
-            theme = spli[1]
-        dark = spli[2].lower().strip() in ["true", "t"]
-    elif len(spli) > 1:
-        if spli[1] in RaySoTheme:
-            theme = spli[1]
-        elif spli[1] == "list":
-            text = "**Daftar Tema Rayso:**\n" + "\n".join(
-                [f"- `{th_}`" for th_ in RaySoTheme]
-            )
-
-            await ayra.eor(text)
-            return
-        else:
-            try:
-                text = ayra.text.split(maxsplit=1)[1]
-            except IndexError:
-                pass
-    if not theme:
-        theme = random.choice(RaySoTheme)
-    if ayra.is_reply:
-        msg = await ayra.get_reply_message()
-        text = msg.text
-        title = get_display_name(msg.sender)
-    await ayra.reply(
-        file=await Carbon(text, rayso=True, title=title, theme=theme, darkMode=dark)
-    )
