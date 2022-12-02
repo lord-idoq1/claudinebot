@@ -201,7 +201,7 @@ heroku_api = Var.HEROKU_API
 
 @ayra_cmd(
     pattern="restart$",
-    fullsudo=True,
+    fullsudo=False,
 )
 async def restart(ayra):
     ok = await ayra.eor(get_string("bot_5"))
@@ -219,7 +219,7 @@ async def restart(ayra):
 
 @ayra_cmd(
     pattern="shutdown$",
-    fullsudo=True,
+    fullsudo=False,
 )
 async def shutdownbot(ayra):
     await shutdown(ayra)
