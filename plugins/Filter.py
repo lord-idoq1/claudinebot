@@ -5,9 +5,15 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("help_filter")
+• `{i} addfilter` <kata> <balas ke pesan>
+
+• `{i} remfilter` <kata>
+
+• `{i} listfilter`
+"""
 
 import os
 import re
