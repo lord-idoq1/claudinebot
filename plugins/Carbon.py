@@ -30,6 +30,12 @@ from . import ayra_cmd, eor, get_string, inline_mention, os
 
 _colorspath = "resources/colorlist.txt"
 
+def vcmention(user):
+    full_name = get_display_name(user)
+    if not isinstance(user, types.User):
+        return full_name
+    return f"[{full_name}](tg://user?id={user.id})"
+
 if os.path.exists(_colorspath):
     with open(_colorspath, "r") as f:
         all_col = f.read().split()
@@ -241,10 +247,9 @@ async def ccrbn(event):
                              )
     xx = await Carbon(code=code, backgroundColor=match)
     await msg.delete()
-    await event.reply(
-        f"Carbonised by {inline_mention(event.sender)}",
-        file=xx,
-         )
+    await event.reply(get_string("carbon_1").format(from_user),
+               file=xx,
+                )
 
 
 RaySoTheme = [
