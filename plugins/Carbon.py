@@ -186,13 +186,12 @@ else:
 ]
 
 
-@ayra_cmd(
-    pattern="(rc|c)arbon",
-)
+@ayra_cmd(pattern="(rc|c)arbon")
 async def crbn(event):
-    xxxx = await event.eor(get_string("com_1"))
-    te = event.pattern_match.group(1)
-    col = random.choice(all_col) if te[0] == "r" else "White"
+    from_user = vcmention(event.sender)
+    xxxx = await eor(event, get_string("com_1"))
+    te = event.text
+    col = choice(all_col) if te[1] == "r" else "Grey"
     if event.reply_to_msg_id:
         temp = await event.get_reply_message()
         if temp.media:
@@ -206,23 +205,23 @@ async def crbn(event):
         try:
             code = event.text.split(" ", maxsplit=1)[1]
         except IndexError:
-            return await eor(xxxx, get_string("carbon_2"))
+            return await eor(xxxx, get_string("carbon_2"), time=30
+                             )
     xx = await Carbon(code=code, file_name="ayra_carbon", backgroundColor=col)
     await xxxx.delete()
-    await event.reply(
-        f"Carbonised by {inline_mention(event.sender)}",
-        file=xx,
-    )
+    await event.reply(get_string("carbon_1").format(from_user),
+                      file=xx,
+                      )
 
 
-@ayra_cmd(
-    pattern="ccarbon( (.*)|$)",
-)
-async def crbn(event):
+@ayra_cmd(pattern="ccarbon ?(.*)")
+async def ccrbn(event):
+    from_user = vcmention(event.sender)
     match = event.pattern_match.group(1).strip()
     if not match:
-        return await event.eor(get_string("carbon_3"))
-    msg = await event.eor(get_string("com_1"))
+        return await eor(event, get_string("carbon_3")
+                         )
+    msg = await eor(event, get_string("com_1"))
     if event.reply_to_msg_id:
         temp = await event.get_reply_message()
         if temp.media:
@@ -238,13 +237,14 @@ async def crbn(event):
             code = match[1]
             match = match[0]
         except IndexError:
-            return await eor(msg, get_string("carbon_2"))
+            return await eor(msg, get_string("carbon_2"), time=30
+                             )
     xx = await Carbon(code=code, backgroundColor=match)
     await msg.delete()
     await event.reply(
         f"Carbonised by {inline_mention(event.sender)}",
         file=xx,
-    )
+         )
 
 
 RaySoTheme = [
