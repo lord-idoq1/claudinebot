@@ -5,9 +5,23 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("help_converter")
+• `{i} convert` <gif/img/stiker/webm>
+
+• `{i} doc <filename.ext>`
+     Balas pesan teks untuk menyimpannya dalam file.
+
+• `{i} open`
+     Balas file untuk mengungkapkan teksnya.
+
+• `{i} rename <nama file dengan ekstensi>`
+     Ubah nama file
+
+• `{i} thumbnail <Balas ke file gambar/thumbnail>`
+     Unggah file Anda dengan thumbnail khusus Anda
+"""
 
 import os
 import time
