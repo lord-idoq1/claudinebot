@@ -218,7 +218,8 @@ async def crbn(event):
                              )
     xx = await Carbon(code=code, file_name="ayra_carbon", backgroundColor=col)
     await xxxx.delete()
-    await event.reply(get_string("carbon_1").format(from_user),
+    await event.reply(get_string("carbon_1").format(
+              from_user),
                      file=xx,
                      )
 
@@ -250,7 +251,8 @@ async def ccrbn(event):
                              )
     xx = await Carbon(code=code, backgroundColor=match)
     await msg.delete()
-    await event.reply(get_string("carbon_1").format(from_user),
+    await event.reply(get_string("carbon_1").format(
+              from_user),
                      file=xx,
                      )
 
