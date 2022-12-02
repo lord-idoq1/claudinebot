@@ -4,9 +4,31 @@
 # This file is a part of < https://github.com/senpai80/Ayra/ >
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
-from . import get_help
 
-__doc__ = get_help("help_chats")
+
+"""
+◈ Perintah Tersedia
+
+• `{i} delchat`
+
+• `{i} getlink`
+     Link
+
+• `{i} create` <b/g/c>
+     B -> Grup Biasa
+     S -> Supergrup
+     C -> Channel
+
+• `{i} setgpic` <balas foto>
+
+• `{i} delgpic` <username grup/digrup>
+
+• `{i} unbanall`
+     Unban Semua
+
+• `{i} rmusers`
+     Hapus Orang Tertentu
+"""
 
 
 from telethon.errors import ChatAdminRequiredError as no_admin
