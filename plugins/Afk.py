@@ -5,9 +5,12 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("help_afk")
+• `{i} afk <alasan>`
+     Bisa kostum dengan gambar/video
+"""
 
 
 import asyncio
