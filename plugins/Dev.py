@@ -5,9 +5,20 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("help_devtools")
+• `{i} bash` <cmds>
+
+• `{i} bash -c` <cmds>
+     Gambar karbon sebagai output perintah.
+
+• `{i} eval` <code>
+
+• `{i} cpp` <code>
+
+• `{i} sysinfo`
+"""
 
 import inspect
 import sys
