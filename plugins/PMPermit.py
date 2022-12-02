@@ -68,6 +68,7 @@ COUNT_PM = {}
 LASTMSG = {}
 WARN_MSGS = {}
 U_WARNS = {}
+PMWARNS = 3
 PMPIC = udB.get_key("PMPIC")
 LOG_CHANNEL = udB.get_key("LOG_CHANNEL")
 UND = get_string("pmperm_1")
@@ -82,7 +83,7 @@ if udB.get_key("PM_TEXT"):
         + "\n\n ᴋᴀᴍᴜ ᴘᴜɴʏᴀ {warn}/{twarn} ᴘᴇʀɪɴɢᴀᴛᴀɴ"
     )
 # 1
-WARNS = udB.get_key("PMWARNS") or 3
+WARNS = udB.get_key("PMWARNS") or 4
 PMCMDS = [
     f"{HNDLR}a",
     f"{HNDLR}ok",
@@ -173,7 +174,7 @@ if udB.get_key("PMSETTING"):
                 return
             if is_approved(miss.id):
                 return
-            approve_user(miss.id)
+            ok_user(miss.id)
             await delete_pm_warn_msgs(miss.id)
             try:
                 await ayra_bot.edit_folder(miss.id, folder=0)
@@ -229,7 +230,7 @@ if udB.get_key("PMSETTING"):
                     _not_approved[user.id],
                     f"Pesan Masuk dari **{mention}** [`{user.id}`] with **{wrn}/{WARNS}** peringatan!",
                     buttons=[
-                        Button.inline("Setujui", data=f"approve_{user.id}"),
+                        Button.inline("Setujui", data=f"ok_{user.id}"),
                         Button.inline("Block", data=f"block_{user.id}"),
                     ],
                 )
@@ -238,7 +239,7 @@ if udB.get_key("PMSETTING"):
                     int(udB.get_key("LOG_CHANNEL")),
                     f"Pesan Masuk dari **{mention}** [`{user.id}`] with **1/{WARNS}** peringatan!",
                     buttons=[
-                        Button.inline("Setujui", data=f"approve_{user.id}"),
+                        Button.inline("Setujui", data=f"ok_{user.id}"),
                         Button.inline("Block", data=f"block_{user.id}"),
                     ],
                 )
@@ -408,7 +409,7 @@ if udB.get_key("PMSETTING"):
                 "Terdeteksi Devs Dari ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ ",
             )
         if not is_approved(user.id):
-            approve_user(user.id)
+            ok_user(user.id)
             try:
                 await delete_pm_warn_msgs(user.id)
                 await apprvpm.client.edit_folder(user.id, folder=0)
@@ -425,7 +426,7 @@ if udB.get_key("PMSETTING"):
                     _not_approved[user.id],
                     f"#APPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>disetujui untuk PM Anda!</code>",
                     buttons=[
-                        Button.inline("Tolak", data=f"disapprove_{user.id}"),
+                        Button.inline("Tolak", data=f"no_{user.id}"),
                         Button.inline("Block", data=f"block_{user.id}"),
                     ],
                     parse_mode="html",
@@ -435,7 +436,7 @@ if udB.get_key("PMSETTING"):
                     int(udB.get_key("LOG_CHANNEL")),
                     f"#APPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>disetujui untuk PM Anda!</code>",
                     buttons=[
-                        Button.inline("Tolak", data=f"disapprove_{user.id}"),
+                        Button.inline("Tolak", data=f"no_{user.id}"),
                         Button.inline("Block", data=f"block_{user.id}"),
                     ],
                     parse_mode="html",
@@ -459,7 +460,7 @@ if udB.get_key("PMSETTING"):
                 "`Terdeteksi Devs Dari ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ`",
             )
         if is_approved(user.id):
-            disapprove_user(user.id)
+            no_user(user.id)
             await eod(
                 e,
                 f"<b>{inline_mention(user, html=True)}</b> <code>Ditolak ke PM!</code>",
@@ -471,7 +472,7 @@ if udB.get_key("PMSETTING"):
                     _not_approved[user.id],
                     f"#DISAPPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>tidak disetujui untuk PM Anda.</code>",
                     buttons=[
-                        Button.inline("Setujui", data=f"approve_{user.id}"),
+                        Button.inline("Setujui", data=f"ok_{user.id}"),
                         Button.inline("Block", data=f"block_{user.id}"),
                     ],
                     parse_mode="html",
@@ -481,7 +482,7 @@ if udB.get_key("PMSETTING"):
                     int(udB.get_key("LOG_CHANNEL")),
                     f"#DISAPPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>tidak disetujui untuk PM Anda.</code>",
                     buttons=[
-                        Button.inline("Setujui", data=f"approve_{user.id}"),
+                        Button.inline("Setujui", data=f"ok_{user.id}"),
                         Button.inline("Block", data=f"block_{user.id}"),
                     ],
                     parse_mode="html",
@@ -515,7 +516,7 @@ async def blockpm(block):
     aname = await block.client.get_entity(user)
     await block.eor(f"{inline_mention(aname)} [`{user}`] `telah diblokir!`")
     try:
-        disapprove_user(user)
+        no_user(user)
     except AttributeError:
         pass
     try:
@@ -633,7 +634,7 @@ async def list_approved(event):
 
 @callback(
     re.compile(
-        b"approve_(.*)",
+        b"ok_(.*)",
     ),
     from_users=[ayra_bot.uid],
 )
@@ -642,7 +643,7 @@ async def apr_in(event):
     if uid in DEVLIST:
         await event.edit("Terdeteksi Devs Dari ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ ")
     if not is_approved(uid):
-        approve_user(uid)
+        ok_user(uid)
         try:
             await ayra_bot.edit_folder(uid, folder=0)
         except BaseException:
@@ -655,7 +656,7 @@ async def apr_in(event):
             f"#APPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>disetujui untuk PM Anda!</code>",
             buttons=[
                 [
-                    Button.inline("Tolak", data=f"disapprove_{uid}"),
+                    Button.inline("Tolak", data=f"no_{uid}"),
                     Button.inline("Block", data=f"block_{uid}"),
                 ],
             ],
@@ -668,7 +669,7 @@ async def apr_in(event):
             "`Pengguna sudah disetujui.`",
             buttons=[
                 [
-                    Button.inline("Tolak", data=f"disapprove_{uid}"),
+                    Button.inline("Tolak", data=f"no_{uid}"),
                     Button.inline("Block", data=f"block_{uid}"),
                 ],
             ],
@@ -677,14 +678,14 @@ async def apr_in(event):
 
 @callback(
     re.compile(
-        b"disapprove_(.*)",
+        b"no_(.*)",
     ),
     from_users=[ayra_bot.uid],
 )
 async def disapr_in(event):
     uid = int(event.data_match.group(1).decode("UTF-8"))
     if is_approved(uid):
-        disapprove_user(uid)
+        no_user(uid)
         try:
             user = await ayra_bot.get_entity(uid)
         except BaseException:
@@ -693,7 +694,7 @@ async def disapr_in(event):
             f"#DISAPPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>tidak disetujui untuk PM Anda!</code>",
             buttons=[
                 [
-                    Button.inline("Setujui", data=f"approve_{uid}"),
+                    Button.inline("Setujui", data=f"ok_{uid}"),
                     Button.inline("Block", data=f"block_{uid}"),
                 ],
             ],
@@ -705,7 +706,7 @@ async def disapr_in(event):
             "`Pengguna tidak pernah disetujui!`",
             buttons=[
                 [
-                    Button.inline("Tolak", data=f"disapprove_{uid}"),
+                    Button.inline("Tolak", data=f"no_{uid}"),
                     Button.inline("Block", data=f"block_{uid}"),
                 ],
             ],
@@ -844,7 +845,7 @@ async def _admin_tools(event):
     await event.edit(
         buttons=[
             [
-                Button.inline("Setujui", data=f"approve_{chat}"),
+                Button.inline("Setujui", data=f"ok_{chat}"),
                 Button.inline("Block", data=f"block_{chat}"),
             ],
             [Button.inline("« Back", data=f"pmbk_{chat}")],
