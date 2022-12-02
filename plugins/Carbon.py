@@ -219,8 +219,9 @@ async def crbn(event):
     xx = await Carbon(code=code, file_name="ayra_carbon", backgroundColor=col)
     await xxxx.delete()
     await event.reply(
-    get_string("carbon_1").
-    format(from_user),file=xx)
+        f"Carbonised by {inline_mention(event.sender)}",
+        file=xx,
+    )
 
 
 @ayra_cmd(pattern="ccarbon ?(.*)")
@@ -250,10 +251,10 @@ async def ccrbn(event):
                              )
     xx = await Carbon(code=code, backgroundColor=match)
     await msg.delete()
-    await event.reply(get_string("carbon_1").
-              format(from_user),
-              file=xx,
-               )
+    await event.reply(
+        f"Carbonised by {inline_mention(event.sender)}",
+        file=xx,
+    )
 
 
 RaySoTheme = [
