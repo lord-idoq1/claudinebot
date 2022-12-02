@@ -5,9 +5,18 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("help_blacklist")
+• `{i} blacklist <kata>`
+    Daftar hitam kan kata yang dipilih.
+
+• `{i} remblacklist <kata>`
+     Hapus kata dari daftar hitam.
+     
+• `{i} listblacklist`
+     Lihat Semua Daftar Kata Terlarang .
+"""
 
 
 from Ayra.dB.blacklist_db import (
