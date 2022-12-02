@@ -5,9 +5,18 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("extra")
+• `{i} del <balasan ke pesan>`
+     Hapus pesan yang dibalas.
+
+• `{i} copy <balas ke pesan>`
+     Salin menjawab pesan / media.
+
+• `{i} reply`
+     Balas pesan terkirim terakhir untuk membalas pengguna.
+"""
 
 import asyncio
 
