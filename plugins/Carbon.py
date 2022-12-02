@@ -5,16 +5,28 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("help_beautify")
+• `{i} rc/carbon` <balas teks>
+     `rcarbon` Background Acak.
+
+• `{i} ccarbon` <warna><balas teks>
+     Carbon Dengan Kostum Warna.
+     
+• `{i} rayso` <balas teks>
+
+• `{i} raysolist`
+     Lihat Warna
+"""
 
 
 import random
 
 from telethon.utils import get_display_name
 
-from . import Carbon, ayra_cmd, eor, get_string, inline_mention, os
+from Ayra.fns.tools import Carbon
+from . import ayra_cmd, eor, get_string, inline_mention, os
 
 _colorspath = "resources/colorlist.txt"
 
