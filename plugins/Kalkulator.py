@@ -5,10 +5,11 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
+"""
+◈ Perintah Tersedia
 
-from . import get_help
-
-__doc__ = get_help("help_calculator")
+• `{i} calc` - Inline Calculator
+"""
 
 import re
 
