@@ -29,7 +29,7 @@ from strings import get_help, get_string
 Redis = udB.get_key
 con = TgConverter
 quotly = Quotly()
-OWNER_NAME = get_string("devs")
+OWNER_NAME = ayra_bot.full_name
 OWNER_ID = ayra_bot.uid
 
 LOG_CHANNEL = udB.get_key("LOG_CHANNEL")
@@ -65,7 +65,7 @@ NOSPAM_CHAT = [
     -1001256902287,  # DurovsChat
     -1001473548283,  # SharingUserbot
     -1001601365018,  # Stuf Chat
-    --1001687155877,  # Cilik Support
+    -1001687155877,  # Cilik Support
 ]
 
 KANGING_STR = [
