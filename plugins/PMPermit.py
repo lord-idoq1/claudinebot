@@ -731,7 +731,7 @@ async def blck_in(event):
         return await event.delete()
     await event.edit(
         f"BLOCKED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>diblokir!</code>",
-        buttons=Button.inline("Unblock", data=f"unblock_{uid}"),
+        buttons=Button.inline("Buka Blokir", data=f"unblock_{uid}"),
         parse_mode="html",
     )
     await event.answer("Blocked.", alert=True)
@@ -755,7 +755,7 @@ async def unblck_in(event):
         return await event.delete()
     await event.edit(
         f"#UNBLOCKED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>telah dibuka blokirnya!</code>",
-        buttons=Button.inline("Block", data=f"block_{uid}"),
+        buttons=Button.inline("Blokir", data=f"block_{uid}"),
         parse_mode="html",
     )
     await event.answer("Unblocked.", alert=True)
@@ -785,7 +785,7 @@ async def in_pm_ans(event):
     wrns = f"{warns}/{WARNS}"
     buttons = [
         [
-            Button.inline("Warns", data=f"admin_only{from_user}"),
+            Button.inline("Peringatan", data=f"admin_only{from_user}"),
             Button.inline(wrns, data=f"don_{wrns}"),
         ]
     ]
@@ -845,10 +845,10 @@ async def _admin_tools(event):
     await event.edit(
         buttons=[
             [
-                Button.inline("Setuju", data=f"approve_{chat}"),
+                Button.inline("Setujui", data=f"approve_{chat}"),
                 Button.inline("Blokir", data=f"block_{chat}"),
             ],
-            [Button.inline("« Kembali", data=f"pmbk_{chat}")],
+            [Button.inline("Kembali", data=f"pmbk_{chat}")],
         ],
     )
 
