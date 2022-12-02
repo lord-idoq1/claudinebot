@@ -5,9 +5,27 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("help_admintools")
+• `{i} promote` <balas ke pengguna/userid/username>
+
+• `{i} demote` <balas ke pengguna/userid/username>
+
+• `{i} ban` <balas ke pengguna/userid/username>
+
+• `{i} unban` <balas ke pengguna/userid/username>
+
+• `{i} kick` <balas ke pengguna/userid/username>
+
+• `{i} pin` <balas ke pesan>
+
+• `{i} purgeall` <balas ke pesan>
+
+• `{i} purge` <balas ke pesan>
+
+• `{i} purgeme` <balas ke pesan/angka>
+"""
 
 import asyncio
 
