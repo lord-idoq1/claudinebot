@@ -6,9 +6,15 @@
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("help_database")
+• `{i} setdb` <key>
+
+• `{i} deldb` <key>
+
+• `{i} rendb` <key>
+"""
 
 
 import re
