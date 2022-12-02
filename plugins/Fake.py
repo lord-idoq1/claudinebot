@@ -5,9 +5,12 @@
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
-from . import get_help
+"""
+◈ Perintah Tersedia
 
-__doc__ = get_help("help_fakeaction")
+• `{i} f<typing/audio/contact/document/game/location/sticker/photo/round/video>` <time/in secs>
+     Buat Nipu Oy
+"""
 
 import math
 import time
