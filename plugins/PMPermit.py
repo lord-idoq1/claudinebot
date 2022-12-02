@@ -86,9 +86,9 @@ if udB.get_key("PM_TEXT"):
 WARNS = udB.get_key("PMWARNS") or 3
 PMCMDS = [
     f"{HNDLR}a",
-    f"{HNDLR}ok",
+    f"{HNDLR}approve",
     f"{HNDLR}da",
-    f"{HNDLR}no",
+    f"{HNDLR}disapprove",
     f"{HNDLR}block",
     f"{HNDLR}unblock",
 ]
@@ -836,7 +836,7 @@ async def in_pm_ans(event):
                 content=cont,
             )
         ]
-    await event.answer(res, switch_pm="◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ ◈", switch_pm_param="start")
+    await event.answer(res, switch_pm="• Ayra •", switch_pm_param="start")
 
 
 @callback(re.compile("admin_only(.*)"), from_users=[ayra_bot.uid])
@@ -873,7 +873,7 @@ async def edt(event):
     await event.edit(
         buttons=[
             [
-                Button.inline("Warns", data=f"admin_only{from_user}"),
+                Button.inline("Peringatan", data=f"admin_only{from_user}"),
                 Button.inline(wrns, data=f"don_{wrns}"),
             ]
         ],
