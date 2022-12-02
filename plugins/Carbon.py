@@ -220,9 +220,7 @@ async def crbn(event):
     await xxxx.delete()
     await event.reply(
     get_string("carbon_1").
-    format(from_user),
-                         file=xx,
-                         )
+    format(from_user),file=xx)
 
 
 @ayra_cmd(pattern="ccarbon ?(.*)")
