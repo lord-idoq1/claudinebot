@@ -23,6 +23,9 @@
 
 import random
 
+import os
+from secrets import choice
+from telethon.tl import types
 from telethon.utils import get_display_name
 
 from Ayra.fns.tools import Carbon
