@@ -36,6 +36,8 @@ from ._help import _main_help_menu
 
 # ================================================#
 
+riz = get_string("riz_1")
+
 helps = get_string("inline_1")
 
 add_ons = udB.get_key("ADDONS")
@@ -93,7 +95,7 @@ async def inline_handler(event):
     for x in LIST.values():
         z.extend(x)
     text = get_string("inline_4").format(
-        OWNER_NAME,
+        riz,
         len(HELP.get("Official", [])),
         len(HELP.get("Addons", [])),
         len(z),
@@ -137,7 +139,7 @@ async def setting(event):
         z.extend(x)
     await event.edit(
         get_string("inline_4").format(
-            OWNER_NAME,
+            riz,
             len(HELP.get("Official", [])),
             len(HELP.get("Addons", [])),
             len(z),
@@ -171,7 +173,7 @@ async def help_func(ayra):
     if "|" in count:
         _, count = count.split("|")
     count = int(count) if count else 0
-    text = _strings.get(key, "").format(OWNER_NAME, len(HELP.get(key)))
+    text = _strings.get(key, "").format(riz, len(HELP.get(key)))
     await ayra.edit(text, buttons=page_num(count, key), link_preview=False)
 
 
@@ -300,7 +302,7 @@ async def opner(event):
         z.extend(x)
     await event.edit(
         get_string("inline_4").format(
-            OWNER_NAME,
+            riz,
             len(HELP.get("Official", [])),
             len(HELP.get("Addons", [])),
             len(z),
