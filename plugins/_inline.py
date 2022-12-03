@@ -443,8 +443,8 @@ async def something(e, msg, media, button, reply=True, chat=None):
         return await res[0].click(
             chat or e.chat_id,
             reply_to=bool(isinstance(e, Message) and reply),
-            hide_via=True,
-            silent=True,
+            hide_via=False,
+            silent=False,
         )
 
     except Exception as er:
