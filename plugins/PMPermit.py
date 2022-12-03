@@ -68,22 +68,21 @@ COUNT_PM = {}
 LASTMSG = {}
 WARN_MSGS = {}
 U_WARNS = {}
-PMWARNS = 3
 PMPIC = udB.get_key("PMPIC")
 LOG_CHANNEL = udB.get_key("LOG_CHANNEL")
 UND = get_string("pmperm_1")
 UNS = get_string("pmperm_2")
 NO_REPLY = get_string("pmperm_3")
 
-UNAPPROVED_MSG = "**ᴋᴇᴀᴍᴀɴᴀɴ ᴘᴇsᴀɴ ʙʏ ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ {ON}!**\n\n{UND}\n\n ᴋᴀᴍᴜ ᴘᴜɴʏᴀ {warn}/{twarn} ᴘᴇʀɪɴɢᴀᴛᴀɴ"
+UNAPPROVED_MSG = "**PMSecurity of {ON}!**\n\n{UND}\n\nYou have {warn}/{twarn} warnings!"
 if udB.get_key("PM_TEXT"):
     UNAPPROVED_MSG = (
-        "**ᴋᴇᴀᴍᴀɴᴀɴ ᴘᴇsᴀɴ ʙʏ ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ {ON}!**\n\n"
+        "**PMSecurity of {ON}!**\n\n"
         + udB.get_key("PM_TEXT")
-        + "\n\n ᴋᴀᴍᴜ ᴘᴜɴʏᴀ {warn}/{twarn} ᴘᴇʀɪɴɢᴀᴛᴀɴ"
+        + "\n\nYou have {warn}/{twarn} warnings!"
     )
 # 1
-WARNS = udB.get_key("PMWARNS") or 3
+WARNS = udB.get_key("PMWARNS") or 4
 PMCMDS = [
     f"{HNDLR}a",
     f"{HNDLR}approve",
@@ -127,24 +126,24 @@ if udB.get_key("PMLOG"):
     )
     async def _(e):
         if not e.is_private:
-            return await e.eor("`Gunakan saya di Pribadi.`", time=3)
+            return await e.eor("`Use me in Private.`", time=3)
         if not is_logger(e.chat_id):
-            return await e.eor("`Tidak mencatat pesan dari sini.`", time=3)
+            return await e.eor("`Wasn't logging msgs from here.`", time=3)
 
         nolog_user(e.chat_id)
-        return await e.eor("`Sekarang saya akan mencatat pesan dari sini.`", time=3)
+        return await e.eor("`Now I Will log msgs from here.`", time=3)
 
     @ayra_cmd(
         pattern="nologpm$",
     )
     async def _(e):
         if not e.is_private:
-            return await e.eor("`Gunakan saya di Pribadi.`", time=3)
+            return await e.eor("`Use me in Private.`", time=3)
         if is_logger(e.chat_id):
-            return await e.eor("`Tidak mencatat pesan dari sini.`", time=3)
+            return await e.eor("`Wasn't logging msgs from here.`", time=3)
 
         log_user(e.chat_id)
-        return await e.eor("`Sekarang saya tidak akan mencatat pesan dari sini.`", time=3)
+        return await e.eor("`Now I Won't log msgs from here.`", time=3)
 
     @ayra_bot.on(
         events.NewMessage(
@@ -184,13 +183,13 @@ if udB.get_key("PMSETTING"):
                 await asst.edit_message(
                     LOG_CHANNEL,
                     _not_approved[miss.id],
-                    f"#AutoApproved : <b>Pesan Keluar.\nUser : {inline_mention(miss, html=True)}</b> [<code>{miss.id}</code>]",
+                    f"#AutoApproved : <b>OutGoing Message.\nUser : {inline_mention(miss, html=True)}</b> [<code>{miss.id}</code>]",
                     parse_mode="html",
                 )
             except KeyError:
                 await asst.send_message(
                     LOG_CHANNEL,
-                    f"#AutoApproved : <b>Pesan Keluar.\nUser : {inline_mention(miss, html=True)}</b> [<code>{miss.id}</code>]",
+                    f"#AutoApproved : <b>OutGoing Message.\nUser : {inline_mention(miss, html=True)}</b> [<code>{miss.id}</code>]",
                     parse_mode="html",
                 )
             except MessageNotModifiedError:
@@ -228,19 +227,19 @@ if udB.get_key("PMSETTING"):
                 await asst.edit_message(
                     int(udB.get_key("LOG_CHANNEL")),
                     _not_approved[user.id],
-                    f"Pesan Masuk dari **{mention}** [`{user.id}`] with **{wrn}/{WARNS}** peringatan!",
+                    f"Incoming PM from **{mention}** [`{user.id}`] with **{wrn}/{WARNS}** warning!",
                     buttons=[
-                        Button.inline("Setujui", data=f"approve_{user.id}"),
-                        Button.inline("Blokir", data=f"block_{user.id}"),
+                        Button.inline("Approve PM", data=f"approve_{user.id}"),
+                        Button.inline("Block PM", data=f"block_{user.id}"),
                     ],
                 )
             except KeyError:
                 _not_approved[user.id] = await asst.send_message(
                     int(udB.get_key("LOG_CHANNEL")),
-                    f"Pesan Masuk dari **{mention}** [`{user.id}`] with **1/{WARNS}** peringatan!",
+                    f"Incoming PM from **{mention}** [`{user.id}`] with **1/{WARNS}** warning!",
                     buttons=[
-                        Button.inline("Setujui", data=f"approve_{user.id}"),
-                        Button.inline("Blokir", data=f"block_{user.id}"),
+                        Button.inline("Approve PM", data=f"approve_{user.id}"),
+                        Button.inline("Block PM", data=f"block_{user.id}"),
                     ],
                 )
                 wrn = 1
@@ -249,7 +248,7 @@ if udB.get_key("PMSETTING"):
             if user.id in LASTMSG:
                 prevmsg = LASTMSG[user.id]
                 if event.text != prevmsg:
-                    if "ᴋᴇᴀᴍᴀɴᴀɴ ᴘᴇsᴀɴ" in event.text or "**ᴋᴇᴀᴍᴀɴᴀɴ ᴘᴇsᴀɴ" in event.text:
+                    if "PMSecurity" in event.text or "**PMSecurity" in event.text:
                         return
                     await delete_pm_warn_msgs(user.id)
                     message_ = UNAPPROVED_MSG.format(
@@ -368,7 +367,7 @@ if udB.get_key("PMSETTING"):
                 except KeyError:
                     await asst.send_message(
                         int(udB.get_key("LOG_CHANNEL")),
-                        "PMPermit kacau! Tolong restart botnya!!",
+                        "PMPermit is messed! Pls restart the bot!!",
                     )
                     return LOGS.info("COUNT_PM is messed.")
                 await ayra_bot(BlockRequest(user.id))
@@ -376,7 +375,7 @@ if udB.get_key("PMSETTING"):
                 await asst.edit_message(
                     int(udB.get_key("LOG_CHANNEL")),
                     _not_approved[user.id],
-                    f"**{mention}** [`{user.id}`] Diblokir karena spamming.",
+                    f"**{mention}** [`{user.id}`] was Blocked for spamming.",
                 )
 
     @ayra_cmd(pattern="(start|stop|clear)archive$", fullsudo=True)
@@ -384,14 +383,14 @@ if udB.get_key("PMSETTING"):
         x = e.pattern_match.group(1).strip()
         if x == "start":
             udB.set_key("MOVE_ARCHIVE", "True")
-            await e.eor("Sekarang saya akan memindahkan DM baru yang Belum Disetujui ke arsip", time=5)
+            await e.eor("Now I will move new Unapproved DM's to archive", time=5)
         elif x == "stop":
             udB.set_key("MOVE_ARCHIVE", "False")
-            await e.eor("Sekarang saya tidak akan memindahkan DM baru yang Belum Disetujui ke arsip", time=5)
+            await e.eor("Now I won't move new Unapproved DM's to archive", time=5)
         elif x == "clear":
             try:
                 await e.client.edit_folder(unpack=1)
-                await e.eor("Batalkan pengarsipan semua obrolan", time=5)
+                await e.eor("Unarchived all chats", time=5)
             except Exception as mm:
                 await e.eor(str(mm), time=5)
 
@@ -406,7 +405,7 @@ if udB.get_key("PMSETTING"):
         if user.id in DEVLIST:
             return await eor(
                 apprvpm,
-                "Terdeteksi Devs Dari ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ ",
+                "Lol, He is my Developer\nHe is auto Approved",
             )
         if not is_approved(user.id):
             approve_user(user.id)
@@ -417,34 +416,34 @@ if udB.get_key("PMSETTING"):
                 pass
             await eod(
                 apprvpm,
-                f"<b>{inline_mention(user, html=True)}</b> <code>disetujui untuk PM!</code>",
+                f"<b>{inline_mention(user, html=True)}</b> <code>approved to PM!</code>",
                 parse_mode="html",
             )
             try:
                 await asst.edit_message(
                     int(udB.get_key("LOG_CHANNEL")),
                     _not_approved[user.id],
-                    f"#APPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>disetujui untuk PM Anda!</code>",
+                    f"#APPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>was approved to PM you!</code>",
                     buttons=[
-                        Button.inline("Tolak", data=f"disapprove_{user.id}"),
-                        Button.inline("Blokir", data=f"block_{user.id}"),
+                        Button.inline("Disapprove PM", data=f"disapprove_{user.id}"),
+                        Button.inline("Block", data=f"block_{user.id}"),
                     ],
                     parse_mode="html",
                 )
             except KeyError:
                 _not_approved[user.id] = await asst.send_message(
                     int(udB.get_key("LOG_CHANNEL")),
-                    f"#APPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>disetujui untuk PM Anda!</code>",
+                    f"#APPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>was approved to PM you!</code>",
                     buttons=[
-                        Button.inline("Tolak", data=f"disapprove_{user.id}"),
-                        Button.inline("Blokir", data=f"block_{user.id}"),
+                        Button.inline("Disapprove PM", data=f"disapprove_{user.id}"),
+                        Button.inline("Block", data=f"block_{user.id}"),
                     ],
                     parse_mode="html",
                 )
             except MessageNotModifiedError:
                 pass
         else:
-            await apprvpm.eor("`Pengguna sudah disetujui.`", time=5)
+            await apprvpm.eor("`User may already be approved.`", time=5)
 
     @ayra_cmd(pattern="(da|no)(?: |$)", fullsudo=True)
     async def disapprovepm(e):
@@ -457,33 +456,33 @@ if udB.get_key("PMSETTING"):
         if user.id in DEVLIST:
             return await eor(
                 e,
-                "`Terdeteksi Devs Dari ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ`",
+                "`Lol, He is my Developer\nHe Can't Be DisApproved.`",
             )
         if is_approved(user.id):
             disapprove_user(user.id)
             await eod(
                 e,
-                f"<b>{inline_mention(user, html=True)}</b> <code>Ditolak ke PM!</code>",
+                f"<b>{inline_mention(user, html=True)}</b> <code>Disapproved to PM!</code>",
                 parse_mode="html",
             )
             try:
                 await asst.edit_message(
                     int(udB.get_key("LOG_CHANNEL")),
                     _not_approved[user.id],
-                    f"#DISAPPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>tidak disetujui untuk PM Anda.</code>",
+                    f"#DISAPPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>was disapproved to PM you.</code>",
                     buttons=[
-                        Button.inline("Setujui", data=f"approve_{user.id}"),
-                        Button.inline("Blokir", data=f"block_{user.id}"),
+                        Button.inline("Approve PM", data=f"approve_{user.id}"),
+                        Button.inline("Block", data=f"block_{user.id}"),
                     ],
                     parse_mode="html",
                 )
             except KeyError:
                 _not_approved[user.id] = await asst.send_message(
                     int(udB.get_key("LOG_CHANNEL")),
-                    f"#DISAPPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>tidak disetujui untuk PM Anda.</code>",
+                    f"#DISAPPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>was disapproved to PM you.</code>",
                     buttons=[
-                        Button.inline("Setujui", data=f"approve_{user.id}"),
-                        Button.inline("Blokir", data=f"block_{user.id}"),
+                        Button.inline("Approve PM", data=f"approve_{user.id}"),
+                        Button.inline("Block", data=f"block_{user.id}"),
                     ],
                     parse_mode="html",
                 )
@@ -492,7 +491,7 @@ if udB.get_key("PMSETTING"):
         else:
             await eod(
                 e,
-                f"<b>{inline_mention(user, html=True)}</b> <code>tidak pernah disetujui!</code>",
+                f"<b>{inline_mention(user, html=True)}</b> <code>was never approved!</code>",
                 parse_mode="html",
             )
 
@@ -514,7 +513,7 @@ async def blockpm(block):
 
     await block.client(BlockRequest(user))
     aname = await block.client.get_entity(user)
-    await block.eor(f"{inline_mention(aname)} [`{user}`] `telah diblokir!`")
+    await block.eor(f"{inline_mention(aname)} [`{user}`] `has been blocked!`")
     try:
         disapprove_user(user)
     except AttributeError:
@@ -523,17 +522,17 @@ async def blockpm(block):
         await asst.edit_message(
             int(udB.get_key("LOG_CHANNEL")),
             _not_approved[user],
-            f"#BLOCKED\n\n{inline_mention(aname)} [`{user}`] telah **diblokir**.",
+            f"#BLOCKED\n\n{inline_mention(aname)} [`{user}`] has been **blocked**.",
             buttons=[
-                Button.inline("Buka Blokir", data=f"unblock_{user}"),
+                Button.inline("UnBlock", data=f"unblock_{user}"),
             ],
         )
     except KeyError:
         _not_approved[user] = await asst.send_message(
             int(udB.get_key("LOG_CHANNEL")),
-            f"#BLOCKED\n\n{inline_mention(aname)} [`{user}`] telah **diblokir**.",
+            f"#BLOCKED\n\n{inline_mention(aname)} [`{user}`] has been **blocked**.",
             buttons=[
-                Button.inline("Buka Blokir", data=f"unblock_{user}"),
+                Button.inline("UnBlock", data=f"unblock_{user}"),
             ],
         )
     except MessageNotModifiedError:
@@ -552,20 +551,20 @@ async def unblockpm(event):
             u_s = await event.client(GetBlockedRequest(0, 0))
             count = len(u_s.users)
             if not count:
-                return await eor(msg, "__Anda belum memblokir Siapa pun...__")
+                return await eor(msg, "__You have not blocked Anyone...__")
             for user in u_s.users:
                 await asyncio.sleep(1)
                 await event.client(UnblockRequest(user.id))
             # GetBlockedRequest return 20 users at most.
             if count < 20:
-                return await eor(msg, f"__Tidak diblokir {count} Pengguna!__")
+                return await eor(msg, f"__Unblocked {count} Users!__")
             while u_s.users:
                 u_s = await event.client(GetBlockedRequest(0, 0))
                 for user in u_s.users:
                     await asyncio.sleep(3)
                     await event.client(UnblockRequest(user.id))
                 count += len(u_s.users)
-            return await eor(msg, f"__Tidak diblokir {count} pengguna.__")
+            return await eor(msg, f"__Unblocked {count} users.__")
 
         try:
             user = await event.client.parse_id(match)
@@ -578,24 +577,24 @@ async def unblockpm(event):
     try:
         await event.client(UnblockRequest(user))
         aname = await event.client.get_entity(user)
-        await event.eor(f"{inline_mention(aname)} [`{user}`] `sudah Tidak diblokir!`")
+        await event.eor(f"{inline_mention(aname)} [`{user}`] `has been UnBlocked!`")
     except Exception as et:
         return await event.eor(f"ERROR - {et}")
     try:
         await asst.edit_message(
             udB.get_key("LOG_CHANNEL"),
             _not_approved[user],
-            f"#UNBLOCKED\n\n{inline_mention(aname)} [`{user}`] sudah **dibuka blokirnya**.",
+            f"#UNBLOCKED\n\n{inline_mention(aname)} [`{user}`] has been **unblocked**.",
             buttons=[
-                Button.inline("Blokir", data=f"block_{user}"),
+                Button.inline("Block", data=f"block_{user}"),
             ],
         )
     except KeyError:
         _not_approved[user] = await asst.send_message(
             udB.get_key("LOG_CHANNEL"),
-            f"#UNBLOCKED\n\n{inline_mention(aname)} [`{user}`] sudah **dibuka blokirnya**.",
+            f"#UNBLOCKED\n\n{inline_mention(aname)} [`{user}`] has been **unblocked**.",
             buttons=[
-                Button.inline("Blokir", data=f"block_{user}"),
+                Button.inline("Block", data=f"block_{user}"),
             ],
         )
     except MessageNotModifiedError:
@@ -607,7 +606,7 @@ async def list_approved(event):
     xx = await event.eor(get_string("com_1"))
     all = get_approved()
     if not all:
-        return await xx.eor("`Anda belum menyetujui siapa pun!`", time=5)
+        return await xx.eor("`You haven't approved anyone yet!`", time=5)
     users = []
     for i in all:
         try:
@@ -624,7 +623,7 @@ async def list_approved(event):
             text = "".join(f"[{user[-1]}] - {user[0]}" for user in users)
             list_appr.write(text)
     await event.reply(
-        f"Daftar pengguna yang disetujui oleh [{OWNER_NAME}](tg://user?id={OWNER_ID})",
+        f"List of users approved by [{OWNER_NAME}](tg://user?id={OWNER_ID})",
         file="approved_pms.txt",
     )
 
@@ -641,7 +640,7 @@ async def list_approved(event):
 async def apr_in(event):
     uid = int(event.data_match.group(1).decode("UTF-8"))
     if uid in DEVLIST:
-        await event.edit("Terdeteksi Devs Dari ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ ")
+        await event.edit("It's a dev! Approved!")
     if not is_approved(uid):
         approve_user(uid)
         try:
@@ -653,11 +652,11 @@ async def apr_in(event):
         except BaseException:
             return await event.delete()
         await event.edit(
-            f"#APPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>disetujui untuk PM Anda!</code>",
+            f"#APPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>was approved to PM you!</code>",
             buttons=[
                 [
-                    Button.inline("Tolak", data=f"disapprove_{uid}"),
-                    Button.inline("Blokir", data=f"block_{uid}"),
+                    Button.inline("Disapprove PM", data=f"disapprove_{uid}"),
+                    Button.inline("Block", data=f"block_{uid}"),
                 ],
             ],
             parse_mode="html",
@@ -666,11 +665,11 @@ async def apr_in(event):
         await event.answer("Approved.", alert=True)
     else:
         await event.edit(
-            "`Pengguna sudah disetujui.`",
+            "`User may already be approved.`",
             buttons=[
                 [
-                    Button.inline("Tolak", data=f"disapprove_{uid}"),
-                    Button.inline("Blokir", data=f"block_{uid}"),
+                    Button.inline("Disapprove PM", data=f"disapprove_{uid}"),
+                    Button.inline("Block", data=f"block_{uid}"),
                 ],
             ],
         )
@@ -691,11 +690,11 @@ async def disapr_in(event):
         except BaseException:
             return await event.delete()
         await event.edit(
-            f"#DISAPPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>tidak disetujui untuk PM Anda!</code>",
+            f"#DISAPPROVED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>was disapproved to PM you!</code>",
             buttons=[
                 [
-                    Button.inline("Setujui", data=f"approve_{uid}"),
-                    Button.inline("Blokir", data=f"block_{uid}"),
+                    Button.inline("Approve PM", data=f"approve_{uid}"),
+                    Button.inline("Block", data=f"block_{uid}"),
                 ],
             ],
             parse_mode="html",
@@ -703,11 +702,11 @@ async def disapr_in(event):
         await event.answer("Disapproved.", alert=True)
     else:
         await event.edit(
-            "`Pengguna tidak pernah disetujui!`",
+            "`User was never approved!`",
             buttons=[
                 [
-                    Button.inline("Tolak", data=f"disapprove_{uid}"),
-                    Button.inline("Blokir", data=f"block_{uid}"),
+                    Button.inline("Disapprove PM", data=f"disapprove_{uid}"),
+                    Button.inline("Block", data=f"block_{uid}"),
                 ],
             ],
         )
@@ -730,8 +729,8 @@ async def blck_in(event):
     except BaseException:
         return await event.delete()
     await event.edit(
-        f"BLOCKED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>diblokir!</code>",
-        buttons=Button.inline("Buka Blokir", data=f"unblock_{uid}"),
+        f"BLOCKED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>was blocked!</code>",
+        buttons=Button.inline("UnBlock", data=f"unblock_{uid}"),
         parse_mode="html",
     )
     await event.answer("Blocked.", alert=True)
@@ -754,8 +753,8 @@ async def unblck_in(event):
     except BaseException:
         return await event.delete()
     await event.edit(
-        f"#UNBLOCKED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>telah dibuka blokirnya!</code>",
-        buttons=Button.inline("Blokir", data=f"block_{uid}"),
+        f"#UNBLOCKED\n\n<b>{inline_mention(user, html=True)}</b> [<code>{user.id}</code>] <code>was unblocked!</code>",
+        buttons=Button.inline("Block", data=f"block_{uid}"),
         parse_mode="html",
     )
     await event.answer("Unblocked.", alert=True)
@@ -764,7 +763,7 @@ async def unblck_in(event):
 @callback("deletedissht")
 async def ytfuxist(e):
     try:
-        await e.answer("Hapus.")
+        await e.answer("Deleted.")
         await e.delete()
     except BaseException:
         await ayra_bot.delete_messages(e.chat_id, e.id)
@@ -781,11 +780,11 @@ async def in_pm_ans(event):
     try:
         msg_ = WARN_MSGS[from_user]
     except KeyError:
-        msg_ = "**ᴋᴇᴀᴍᴀɴᴀɴ ᴘᴇsᴀɴ ʙʏ ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ {OWNER_NAME}**"
+        msg_ = "**PMSecurity of {OWNER_NAME}**"
     wrns = f"{warns}/{WARNS}"
     buttons = [
         [
-            Button.inline("Peringatan", data=f"admin_only{from_user}"),
+            Button.inline("Warns", data=f"admin_only{from_user}"),
             Button.inline(wrns, data=f"don_{wrns}"),
         ]
     ]
@@ -845,10 +844,10 @@ async def _admin_tools(event):
     await event.edit(
         buttons=[
             [
-                Button.inline("Setujui", data=f"approve_{chat}"),
-                Button.inline("Blokir", data=f"block_{chat}"),
+                Button.inline("Approve PM", data=f"approve_{chat}"),
+                Button.inline("Block PM", data=f"block_{chat}"),
             ],
-            [Button.inline("Kembali", data=f"pmbk_{chat}")],
+            [Button.inline("« Back", data=f"pmbk_{chat}")],
         ],
     )
 
@@ -856,8 +855,8 @@ async def _admin_tools(event):
 @callback(re.compile("don_(.*)"))
 async def _mejik(e):
     data = e.pattern_match.group(1).strip().decode("utf-8").split("/")
-    text = "👮‍♂ Peringatan : " + data[0]
-    text += "\n🤖 Jumlah Peringatan : " + data[1]
+    text = "👮‍♂ Warn Count : " + data[0]
+    text += "\n🤖 Total Warn Count : " + data[1]
     await e.answer(text, alert=True)
 
 
@@ -873,7 +872,7 @@ async def edt(event):
     await event.edit(
         buttons=[
             [
-                Button.inline("Peringatan", data=f"admin_only{from_user}"),
+                Button.inline("Warns", data=f"admin_only{from_user}"),
                 Button.inline(wrns, data=f"don_{wrns}"),
             ]
         ],
