@@ -60,35 +60,6 @@ SUP_BUTTONS = [
 # --------------------BUTTONS--------------------#
 
 
-@in_pattern(owner=False, func=lambda x: not x.text)
-async def inline_alive(o):
-    TLINK = inline_pic() or "https://graph.org/file/a51b51ca8a7cc5327fd42.jpg"
-    MSG = "◈ **ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ ◈**"
-    WEB0 = InputWebDocument(
-        "https://graph.org/file/a51b51ca8a7cc5327fd42.jpg", 0, "image/jpg", []
-    )
-    RES = [
-        await o.builder.article(
-            type="photo",
-            text=MSG,
-            include_media=True,
-            buttons=SUP_BUTTONS,
-            title="ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​",
-            description="Userbot | Telethon",
-            url=TLINK,
-            thumb=WEB0,
-            content=InputWebDocument(TLINK, 0, "image/jpg", []),
-        )
-    ]
-    await o.answer(
-        RES,
-        private=True,
-        cache_time=300,
-        switch_pm="👥 ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​",
-        switch_pm_param="start",
-    )
-
-
 @in_pattern("ayra", owner=False)
 async def inline_handler(event):
     z = []
@@ -111,7 +82,7 @@ async def inline_handler(event):
         result = await event.builder.article(
             title="Ayra Help Menu", text=text, buttons=_main_help_menu
         )
-    await event.answer([result], private=True, cache_time=300, gallery=True)
+    await event.answer([result], private=False, cache_time=500, gallery=True)
 
 
 @in_pattern("pasta", owner=False)
