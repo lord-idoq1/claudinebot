@@ -82,7 +82,7 @@ async def inline_handler(event):
         result = await event.builder.article(
             title="Ayra Help Menu", text=text, buttons=_main_help_menu
         )
-    await event.answer([result], private=False, cache_time=500, gallery=True)
+    await event.answer([result], private=False, cache_time=300, gallery=True)
 
 
 @in_pattern("pasta", owner=False)
