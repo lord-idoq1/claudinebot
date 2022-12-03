@@ -24,10 +24,6 @@ _main_help_menu = [
     ],
     [
         Button.inline(get_string("help_6"), data="uh_VCBot_"),
-        Button.inline(get_string("help_7"), data="inlone"),
-    ],
-    [
-        Button.inline(get_string("help_8"), data="ownr"),
         Button.url(
             get_string("help_9"), url=f"https://t.me/{asst.me.username}?start=set"
         ),
@@ -115,7 +111,7 @@ async def _help(ayra):
                 z.extend(x)
             cmd = len(z) + 10
             if udB.get_key("MANAGER") and udB.get_key("DUAL_HNDLR") == "/":
-                _main_help_menu[2:3] = [[Button.inline("• Manager Help •", "mngbtn")]]
+                _main_help_menu[2:2] = [[Button.inline("• Manager Help •", "mngbtn")]]
             return await ayra.reply(
                 get_string("inline_4").format(
                     OWNER_NAME,
