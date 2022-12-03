@@ -66,6 +66,7 @@ NOSPAM_CHAT = [
     -1001473548283,  # SharingUserbot
     -1001601365018,  # Stuf Chat
     -1001687155877,  # Cilik Support
+    -1001070335805,  # Private AOT
 ]
 
 KANGING_STR = [
