@@ -23,7 +23,7 @@ from . import (
 
 @ayra_cmd(outgoing=True, pattern="ngentot")
 async def _(event):
-     xx = await event.eor("**WOYY NGENTOD!!**")
+    xx = await event.eor("**WOYY NGENTOD!!**")
     sleep(1)
     await event.eor("**JANGAN SOK JAGOAN DAH LU**")
     sleep(1)
