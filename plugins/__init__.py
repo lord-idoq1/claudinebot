@@ -14,13 +14,6 @@ import time
 from random import choice
 from traceback import format_exc
 
-from pytgcalls import GroupCallFactory
-from pytgcalls.exceptions import GroupCallNotFoundError
-from telethon.errors.rpcerrorlist import (
-    ParticipantJoinMissingError,
-    ChatSendMediaForbiddenError,
-)
-
 import requests
 from telethon import events
 from telethon.utils import get_display_name
