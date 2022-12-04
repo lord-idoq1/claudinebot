@@ -7,23 +7,23 @@
 """
 ◈ Perintah Tersedia
 
-• `{i}startvc`
+• `{i} startvc`
     Mulai Panggilan Grup dalam grup.
 
-• `{i}stopvc`
+• `{i} stopvc`
     Hentikan Panggilan Grup dalam grup.
 
-• `{i}vctitle <title>`
+• `{i} vctitle <title>`
     Ubah judul Panggilan grup.
 
-• `{i}vcinvite`
+• `{i} vcinvite`
     Undang semua anggota grup di Group Call.
     (Anda harus bergabung)
     
-• `{i}joinvc` <chat id/username grup>
+• `{i} joinvc` <chat id/username grup>
    Bergabunglah dengan obrolan suara.
 
-• `{i}leavevc` <chat id/username grup>
+• `{i} leavevc` <chat id/username grup>
    Tinggalkan obrolan suara.
 
 """
