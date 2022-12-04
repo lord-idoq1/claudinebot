@@ -22,12 +22,6 @@ _main_help_menu = [
         Button.inline(get_string("help_4"), data="uh_Official_"),
         Button.inline(get_string("help_5"), data="uh_Addons_"),
     ],
-    [
-        Button.inline(get_string("help_6"), data="uh_VCBot_"),
-        Button.url(
-            get_string("help_9"), url=f"https://t.me/{asst.me.username}?start=set"
-        ),
-    ],
     [Button.inline(get_string("help_10"), data="close")],
 ]
 
@@ -47,12 +41,6 @@ async def _help(ayra):
             elif HELP.get("Addons") and plug in HELP["Addons"]:
                 output = f"**Plugin** - `{plug}`\n"
                 for i in HELP["Addons"][plug]:
-                    output += i
-                output += "\n© [↻ꝛɪᴢ](https://t.me/riizzvbss)"
-                await ayra.eor(output)
-            elif HELP.get("VCBot") and plug in HELP["VCBot"]:
-                output = f"**Plugin** - `{plug}`\n"
-                for i in HELP["VCBot"][plug]:
                     output += i
                 output += "\n© [↻ꝛɪᴢ](https://t.me/riizzvbss)"
                 await ayra.eor(output)
@@ -93,9 +81,6 @@ async def _help(ayra):
                             output += i
                     elif HELP.get("Addons") and file in HELP["Addons"]:
                         for i in HELP["Addons"][file]:
-                            output += i
-                    elif HELP.get("VCBot") and file in HELP["VCBot"]:
-                        for i in HELP["VCBot"][file]:
                             output += i
                     output += "\n© [↻ꝛɪᴢ](https://t.me/riizzvbss)"
                     await ayra.eor(output)
