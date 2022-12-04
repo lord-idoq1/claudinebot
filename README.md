@@ -80,6 +80,7 @@ Ayra is licensed under [GNU Affero General Public License](https://www.gnu.org/l
 * [Lonami](https://github.com/LonamiWebs/) for [Telethon.](https://github.com/LonamiWebs/Telethon)
 * [MarshalX](https://github.com/MarshalX) for [PyTgCalls.](https://github.com/MarshalX/tgcalls)
 * * [![Rᴀɴᴅʏ Yᴏsʜɪᴋᴀᴢᴜ𐦝 ⁪⁬⁮⁮⁮](https://img.shields.io/static/v1?label=Rᴀɴᴅʏ&message=Yᴏsʜɪᴋᴀᴢᴜ𐦝&color=critical)](https://t.me/xtsea)
+* * [![[𝐙𝐚𝐞𝐧]ꗈ‽ ⁪⁬⁮⁮⁮](https://img.shields.io/static/v1?label=[𝐙𝐚𝐞𝐧]&message=ꗈ‽&color=critical)](https://t.me/TeleUdahRusak)
 
 > Kanged by
 * [![↻ꝛɪᴢ ꭙ](https://img.shields.io/static/v1?label=↻ꝛɪᴢ&message=ꭙ&color=critical)](https://t.me/riizzvbss)
