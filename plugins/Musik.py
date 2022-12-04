@@ -8,46 +8,46 @@
 """
 ◈ Perintah Tersedia 
 
-• `{i}rejoin`
+• `{i} rejoin`
    Bergabunglah kembali dengan obrolan suara, jika terjadi kesalahan.
 
-• `{i}skip`
+• `{i} skip`
    Lewati lagu saat ini dan putar lagu berikutnya dalam antrean, jika ada.
 
-• `{i}play <nama lagu/link/balas audio>`
+• `{i} play` <nama lagu/link/balas audio>
    Putar lagu di obrolan suara, atau tambahkan lagu ke antrean.
    
-• `{i}vplay` <nama video/link/balas video>`
+• `{i} vplay` <nama video/link/balas video>
    Streaming Video dalam obrolan.
    
-• `{i}ytplaylist <playlist link>`
+• `{i} ytplaylist` <playlist link>
   Playlist Dari Youtube
 
-• `{i}mt`
+• `{i} mt`
    Bisukan pemutaran.
 
-• `{i}unmt`
+• `{i} unmt`
    Suarakan pemutaran.
 
-• `{i}ps`
+• `{i} ps`
    Jeda pemutaran.
 
-• `{i}rs`
+• `{i} rs`
    Lanjutkan pemutaran.
 
-• `{i}rp`
+• `{i} rp`
    Putar ulang lagu saat ini dari awal.
 
-• `{i}ytlive <link>`
+• `{i} ytlive <link>`
    Stream Live YouTube
 
-• `{i}addauth` <admins/all>
+• `{i} addauth` <admins/all>
   Auth izin untuk Menggunakan Musik`
 
-• `{i}remauth`
+• `{i} remauth`
    Hapus obrolan dari Vc Auth.
 
-• `{i}listauth`
+• `{i} listauth`
    Dapatkan Semua Obrolan Resmi Vc..
 """
 
