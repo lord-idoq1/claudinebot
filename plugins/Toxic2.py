@@ -22,7 +22,7 @@ from . import (
 
 
 @ayra_cmd(outgoing=True, pattern="ngentot")
-async def def _(event):
+async def _(event):
      xx = await event.eor("**WOYY NGENTOD!!**")
     sleep(1)
     await event.eor("**JANGAN SOK JAGOAN DAH LU**")
@@ -46,7 +46,7 @@ async def def _(event):
 
 
 @ayra_cmd(outgoing=True, pattern="goblok")
-async def def _(event):
+async def _(event):
     xx = await event.eor("**WOYY GOBLOK!!**")
     sleep(1)
     await event.eor("**KO LU GOBLOK BANGET SIH**")
@@ -70,7 +70,7 @@ async def def _(event):
 
 
 @ayra_cmd(outgoing=True, pattern="ngatain")
-async def def _(event):
+async def _(event):
     xx = await event.eor("**BABI!!**")
     sleep(1)
     await event.eor("**MUKA LU KAYA BABI**")
@@ -94,7 +94,7 @@ async def def _(event):
 
 
 @ayra_cmd(outgoing=True, pattern="yatim")
-async def def _(event):
+async def _(event):
     xx = await event.eor("`Hai Anak Kontol 🙈, Jangan Lupa Makan Yaa`")
     sleep(1)
     await event.eor("`Jangan Bilang Lu Ga Dikasih Makan Sama Ortu 😁`")
