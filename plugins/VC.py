@@ -28,6 +28,8 @@
 
 """
 
+import asyncio
+
 from telethon.tl.functions.channels import GetFullChannelRequest as getchat
 from telethon.tl.functions.phone import CreateGroupCallRequest as startvc
 from telethon.tl.functions.phone import DiscardGroupCallRequest as stopvc
@@ -123,10 +125,10 @@ async def join_(event):
     else:
         chat = event.chat_id
     aySongs = Player(chat, event)
-        await asyncio.sleep(1)
-        await aySongs.group_call.set_pause(False)
-        await asyncio.sleep(1)
-        await aySongs.group_call.set_pause(True)
+    await asyncio.sleep(1)
+    await aySongs.group_call.set_pause(False)
+    await asyncio.sleep(1)
+    await aySongs.group_call.set_pause(True)
     if not aySongs.group_call.is_connected:
         await aySongs.vc_joiner()
 
