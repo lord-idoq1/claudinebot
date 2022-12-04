@@ -19,6 +19,13 @@
 • `{i}vcinvite`
     Undang semua anggota grup di Group Call.
     (Anda harus bergabung)
+    
+• `{i}joinvc` <chat id/username grup>
+   Bergabunglah dengan obrolan suara.
+
+• `{i}leavevc` <chat id/username grup>
+   Tinggalkan obrolan suara.
+
 """
 
 from telethon.tl.functions.channels import GetFullChannelRequest as getchat
@@ -28,7 +35,7 @@ from telethon.tl.functions.phone import EditGroupCallTitleRequest as settitle
 from telethon.tl.functions.phone import GetGroupCallRequest as getvc
 from telethon.tl.functions.phone import InviteToGroupCallRequest as invitetovc
 
-from . import get_string, ayra_cmd
+from . import ayra_cmd, vc_asst, owner_and_sudos, get_string, udB, inline_mention, add_to_queue, mediainfo, file_download, LOGS, is_url_ok, bash, download, Player, VC_QUEUE, list_queue, CLIENTS,VIDEO_ON, vid_download, dl_playlist
 
 
 async def get_call(event):
@@ -103,3 +110,38 @@ async def _(e):
         await e.eor(get_string("vct_2").format(title))
     except Exception as ex:
         await e.eor(f"`{ex}`")
+        
+        
+@vc_asst("joinvc")
+async def join_(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(get_string("vcbot_2").format(str(e)))
+    else:
+        chat = event.chat_id
+    aySongs = Player(chat, event)
+    await aySongs.group_call.set_pause(True)
+    if not aySongs.group_call.is_connected:
+        await aySongs.vc_joiner()
+
+
+@vc_asst("(leavevc)")
+async def leaver(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(get_string("vcbot_2").format(str(e)))
+    else:
+        chat = event.chat_id
+    aySongs = Player(chat)
+    await aySongs.group_call.stop()
+    if CLIENTS.get(chat):
+        del CLIENTS[chat]
+    if VIDEO_ON.get(chat):
+        del VIDEO_ON[chat]
+    await event.eor(get_string("vcbot_1"))
