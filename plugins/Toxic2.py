@@ -23,7 +23,6 @@ from . import (
 
 @ayra_cmd(outgoing=True, pattern="ngentot")
 async def typewriter(event):
-    typew.pattern_match.group(1)
     sleep(1)
     await xx.edit("**WOYY NGENTOD!!**")
     sleep(1)
@@ -49,7 +48,6 @@ async def typewriter(event):
 
 @ayra_cmd(outgoing=True, pattern="goblok")
 async def typewriter(event):
-    typew.pattern_match.group(1)
     sleep(1)
     await xx.edit("**WOYY GOBLOK!!**")
     sleep(1)
@@ -75,7 +73,6 @@ async def typewriter(event):
 
 @ayra_cmd(outgoing=True, pattern="ngatain")
 async def typewriter(event):
-    typew.pattern_match.group(1)
     sleep(1)
     await xx.edit("**BABI!!**")
     sleep(1)
@@ -101,7 +98,6 @@ async def typewriter(event):
 
 @ayra_cmd(outgoing=True, pattern="yatim")
 async def typewriter(event):
-    typew.pattern_match.group(1)
     sleep(1)
     await xx.edit("`Hai Anak Kontol 🙈, Jangan Lupa Makan Yaa`")
     sleep(1)
@@ -127,7 +123,6 @@ async def typewriter(event):
 
 @ayra_cmd(outgoing=True, pattern="kont")
 async def typewriter(event):
-    typew.pattern_match.group(1)
     sleep(1)
     await xx.edit("**KONTOLL**")
     sleep(1.5)
