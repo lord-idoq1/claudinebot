@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from pyrogram import Client, filters
-from py-tgcalls import PyTgCalls
+import PyTgCalls
 
 # For Local Deploy
 if os.path.exists(".env"):
