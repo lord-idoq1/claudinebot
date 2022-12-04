@@ -8,12 +8,6 @@
 """
 ◈ Perintah Tersedia 
 
-• `{i}joinvc` <chat id/username grup>
-   Bergabunglah dengan obrolan suara.
-
-• `{i}leavevc` <chat id/username grup>
-   Tinggalkan obrolan suara.
-
 • `{i}rejoin`
    Bergabunglah kembali dengan obrolan suara, jika terjadi kesalahan.
 
@@ -344,41 +338,6 @@ async def clean_queue(event):
     if VC_QUEUE.get(chat):
         VC_QUEUE.pop(chat)
     await event.eor(get_string("vcbot_22"), time=5)
-    
-    
-@vc_asst("joinvc")
-async def join_(event):
-    if len(event.text.split()) > 1:
-        chat = event.text.split()[1]
-        try:
-            chat = await event.client.parse_id(chat)
-        except Exception as e:
-            return await event.eor(get_string("vcbot_2").format(str(e)))
-    else:
-        chat = event.chat_id
-    aySongs = Player(chat, event)
-    await aySongs.group_call.set_pause(False)
-    if not aySongs.group_call.is_connected:
-        await aySongs.vc_joiner()
-
-
-@vc_asst("(leavevc|stopvc)")
-async def leaver(event):
-    if len(event.text.split()) > 1:
-        chat = event.text.split()[1]
-        try:
-            chat = await event.client.parse_id(chat)
-        except Exception as e:
-            return await event.eor(get_string("vcbot_2").format(str(e)))
-    else:
-        chat = event.chat_id
-    aySongs = Player(chat)
-    await aySongs.group_call.stop()
-    if CLIENTS.get(chat):
-        del CLIENTS[chat]
-    if VIDEO_ON.get(chat):
-        del VIDEO_ON[chat]
-    await event.eor(get_string("vcbot_1"))
 
 
 @vc_asst("rejoin")
