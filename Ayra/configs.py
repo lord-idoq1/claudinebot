@@ -10,7 +10,7 @@ import os
 
 from decouple import config
 from pyrogram import Client, filters
-from py-tgcalls import PyTgCalls
+from pytgcalls import PyTgCalls
 
 try:
     from dotenv import load_dotenv
