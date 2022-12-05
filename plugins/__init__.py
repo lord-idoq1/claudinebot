@@ -20,6 +20,9 @@ from telethon.utils import get_display_name
 from telethon import Button, events
 from telethon.tl import functions, types  # pylint:ignore
 
+from pytgcalls import GroupCallFactory
+from pytgcalls.exceptions import GroupCallNotFoundError
+
 from Ayra import *
 from Ayra._misc._assistant import asst_cmd, callback, in_pattern
 from Ayra._misc._decorators import ayra_cmd, compile_pattern
