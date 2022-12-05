@@ -8,7 +8,7 @@ from pytgcalls.types.input_stream.quality import (
 )
 from pytgcalls.types.stream import StreamAudioEnded, StreamVideoEnded
 
-from config import bot, call_py
+from Ayra.config import bot, call_py
 from Ayra.helpers.queues import QUEUE, clear_queue, get_queue, pop_an_item
 
 
