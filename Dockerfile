@@ -17,4 +17,4 @@ RUN bash installer.sh
 WORKDIR "/root/senpai80"
 
 # start the bot.
-CMD ["bash", "startup"]
+CMD ["bash", "startup"] && ["python3", "-m", "main.py"]
