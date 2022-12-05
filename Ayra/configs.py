@@ -70,3 +70,11 @@ class Var:
     DATABASE_URL = config("DATABASE_URL", default=None)
     # for MONGODB users
     MONGO_URI = config("MONGO_URI", default=None)
+    
+    contact_filter = filters.create(
+    lambda _, __, message: (message.from_user and message.from_user.is_contact)
+    or message.outgoing
+)
+
+bot = Client(STRING_SESSION, API_ID, API_HASH, plugins=dict(root="Ayra"))
+call_py = PyTgCalls(bot)
