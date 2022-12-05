@@ -39,8 +39,8 @@ class Var:
     REDIS_PASSWORD = (
         sys.argv[5] if len(sys.argv) > 5 else config("REDIS_PASSWORD", default=None)
     )
-    STRING_SESSION = (
-        sys.argv[6] if len(sys.argv) > 6 else config("STRING_SESSION", default=None)
+    STRING_SESSION2 = (
+        sys.argv[6] if len(sys.argv) > 6 else config("STRING_SESSION2", default=None)
     )
     PREFIX = (
         sys.argv[7] if len(sys.argv) > 7 else config("PREFIX", "!")
@@ -76,5 +76,5 @@ class Var:
     or message.outgoing
 )
 
-bot = Client(STRING_SESSION, API_ID, API_HASH, plugins=dict(root="main"))
+bot = Client(STRING_SESSION2, API_ID, API_HASH, plugins=dict(root="main"))
 call_py = PyTgCalls(bot)
