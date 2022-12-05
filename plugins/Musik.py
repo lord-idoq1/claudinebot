@@ -8,546 +8,475 @@
 """
 ◈ Perintah Tersedia 
 
+• `{i} rejoin`
+   Bergabunglah kembali dengan obrolan suara, jika terjadi kesalahan.
+
+• `{i} skip`
+   Lewati lagu saat ini dan putar lagu berikutnya dalam antrean, jika ada.
+
 • `{i} play` <nama lagu/link/balas audio>
    Putar lagu di obrolan suara, atau tambahkan lagu ke antrean.
    
 • `{i} vplay` <nama video/link/balas video>
    Streaming Video dalam obrolan.
    
-• `{i} skip`
-   Lewati lagu saat ini dan putar lagu berikutnya dalam antrean, jika ada.
+• `{i} ytplaylist` <playlist link>
+  Playlist Dari Youtube
 
-• `{i} pause`
+• `{i} mt`
+   Bisukan pemutaran.
+
+• `{i} unmt`
+   Suarakan pemutaran.
+
+• `{i} ps`
    Jeda pemutaran.
 
-• `{i} resume`
+• `{i} rs`
    Lanjutkan pemutaran.
 
-• `{i} end`
-   Akhiri pemutaran.
+• `{i} rp`
+   Putar ulang lagu saat ini dari awal.
+
+• `{i} ytlive <link>`
+   Stream Live YouTube
+
+• `{i} addauth` <admins/all>
+  Auth izin untuk Menggunakan Musik`
+
+• `{i} remauth`
+   Hapus obrolan dari Vc Auth.
+
+• `{i} listauth`
+   Dapatkan Semua Obrolan Resmi Vc..
 """
 
+import re,os, asyncio
+from telethon.tl import types
+from telethon.errors.rpcerrorlist import ChatSendMediaForbiddenError
+from pytgcalls.exceptions import NotConnectedError
 
-import asyncio
-import random
+from . import vc_asst, owner_and_sudos, get_string, udB, inline_mention, add_to_queue, mediainfo, file_download, LOGS, is_url_ok, bash, download, Player, VC_QUEUE, list_queue, CLIENTS,VIDEO_ON, vid_download, dl_playlist
 
-from pyrogram import Client, filters
-from pyrogram.types import Message
-from pyrogram import Client, filters
-from pyrogram.types import Message
-from pytgcalls import StreamType
-from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
-from pytgcalls.types.input_stream.quality import (
-    HighQualityAudio,
-    HighQualityVideo,
-    LowQualityVideo,
-    MediumQualityVideo,
-)
-from youtubesearchpython import VideosSearch
-
-from config import PREFIX, bot, call_py
-from Ayra.helpers.queues import QUEUE, add_to_queue, get_queue, clear_queue
-from Ayra.helpers.decorators import authorized_users_only
-from Ayra.helpers.handlers import skip_current_song, skip_item
+from Ayra.dB.vc_sudos import add_vcsudo, del_vcsudo, get_vcsudos, is_vcsudo
+from telethon.errors.rpcerrorlist import ChatSendMediaForbiddenError, MessageIdInvalidError
 
 
-AMBILFOTO = [
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-    "https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-]
-
-IMAGE_THUMBNAIL = random.choice(AMBILFOTO)
-
-
-def convert_seconds(seconds):
-    seconds = seconds % (24 * 3600)
-    seconds %= 3600
-    minutes = seconds // 60
-    seconds %= 60
-    return "%02d:%02d" % (minutes, seconds)
-
-
-# music player
-def ytsearch(query):
+@vc_asst("play")
+async def play_music_(event):
+    if "playfrom" in event.text.split()[0]:
+        return  # For PlayFrom Conflict
     try:
-        search = VideosSearch(query, limit=1)
-        for r in search.result()["result"]:
-            ytid = r["id"]
-            if len(r["title"]) > 34:
-                songname = r["title"][:35] + "..."
-            else:
-                songname = r["title"]
-            url = f"https://www.youtube.com/watch?v={ytid}"
-            duration = r["duration"]
-        return [songname, url, duration]
-    except Exception as e:
-        print(e)
-        return 0
-
-
-async def ytdl(link):
-    proc = await asyncio.create_subprocess_exec(
-        "yt-dlp",
-        "-g",
-        "-f",
-        # CHANGE THIS BASED ON WHAT YOU WANT
-        "bestaudio",
-        f"{link}",
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
-    stdout, stderr = await proc.communicate()
-    if stdout:
-        return 1, stdout.decode().split("\n")[0]
-    else:
-        return 0, stderr.decode()
-
-
-# video player
-def ytsearch(query):
-    try:
-        search = VideosSearch(query, limit=1)
-        for r in search.result()["result"]:
-            ytid = r["id"]
-            if len(r["title"]) > 34:
-                songname = r["title"][:35] + "..."
-            else:
-                songname = r["title"]
-            url = f"https://www.youtube.com/watch?v={ytid}"
-            duration = r["duration"]
-        return [songname, url, duration]
-    except Exception as e:
-        print(e)
-        return 0
-
-
-async def ytdl(link):
-    proc = await asyncio.create_subprocess_exec(
-        "yt-dlp",
-        "-g",
-        "-f",
-        # CHANGE THIS BASED ON WHAT YOU WANT
-        "best[height<=?720][width<=?1280]",
-        f"{link}",
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
-    stdout, stderr = await proc.communicate()
-    if stdout:
-        return 1, stdout.decode().split("\n")[0]
-    else:
-        return 0, stderr.decode()
-
-
-@Client.on_message(filters.command(["play"], prefixes=f"{PREFIX}"))
-async def play(client, m: Message):
-    replied = m.reply_to_message
-    chat_id = m.chat.id
-    m.chat.title
-    if replied:
-        if replied.audio or replied.voice:
-            await m.delete()
-            huehue = await replied.reply("**◈ Memproses..**")
-            dl = await replied.download()
-            link = replied.link
-            if replied.audio:
-                if replied.audio.title:
-                    songname = replied.audio.title[:35] + "..."
-                else:
-                    songname = replied.audio.file_name[:35] + "..."
-                duration = convert_seconds(replied.audio.duration)
-            elif replied.voice:
-                songname = "Ayra Music"
-                duration = convert_seconds(replied.voice.duration)
-            if chat_id in QUEUE:
-                pos = add_to_queue(chat_id, songname, dl, link, "Audio", 0)
-                await huehue.delete()
-                # await m.reply_to_message.delete()
-                await m.reply_photo(
-                    photo="https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-                    caption=f"""
-**✚ Lagu Di Antrian Ke** `{pos}`
-🎵 **Judul:** [{songname}]({link})
-⏰ **Duration:** `{duration}`
-🎧 **Status:** `Playing`
-🙋‍♂ **Permintaan:** {m.from_user.mention}
-""",
-                )
-            else:
-                await call_py.join_group_call(
-                    chat_id,
-                    AudioPiped(
-                        dl,
-                    ),
-                    stream_type=StreamType().pulse_stream,
-                )
-                add_to_queue(chat_id, songname, dl, link, "Audio", 0)
-                await huehue.delete()
-                # await m.reply_to_message.delete()
-                await m.reply_photo(
-                    photo="https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-                    caption=f"""
-**📀 Mulai Memutar Lagu**
-🎵 **Judul:** [{songname}]({link})
-⏱️ **Duration:** `{duration}`
-🎧 **Status:** `Playing`
-🙋‍♂ **Atas Permintaan:** {m.from_user.mention}
-""",
-                )
-
-    else:
-        if len(m.command) < 2:
-            await m.reply("Balas ke File Audio atau berikan sesuatu untuk Pencarian")
-        else:
-            await m.delete()
-            huehue = await m.reply("**◈ Sedang Mencari Lagu..**")
-            query = m.text.split(None, 1)[1]
-            search = ytsearch(query)
-            if search == 0:
-                await huehue.edit("`Tidak Menemukan Apapun untuk Kueri yang Diberikan`")
-            else:
-                songname = search[0]
-                url = search[1]
-                duration = search[2]
-                hm, ytlink = await ytdl(url)
-                if hm == 0:
-                    await huehue.edit(f"**YTDL ERROR** \n\n`{ytlink}`")
-                else:
-                    if chat_id in QUEUE:
-                        pos = add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
-                        await huehue.delete()
-                        # await m.reply_to_message.delete()
-                        await m.reply_photo(
-                            photo=f"{IMAGE_THUMBNAIL}",
-                            caption=f"""
-**✚ Lagu Di Antrian Ke** `{pos}` 🎵
-🎵 **Judul:** [{songname}]({url})
-⏱️ **Duration:** `{duration}`
-🎧 **Status:** `Playing`
-🙋‍♂ **Atas Permintaan:** {m.from_user.mention}
-""",
-                        )
-                    else:
-                        try:
-                            await call_py.join_group_call(
-                                chat_id,
-                                AudioPiped(
-                                    ytlink,
-                                ),
-                                stream_type=StreamType().pulse_stream,
-                            )
-                            add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
-                            await huehue.delete()
-                            # await m.reply_to_message.delete()
-                            await m.reply_photo(
-                                photo=f"{IMAGE_THUMBNAIL}",
-                                caption=f"""
-**📀 Mulai Memutar Lagu**
-🎵 **Judul:** [{songname}]({url})
-⏱️ **Duration** `{duration}`
-🎧 **Status:** `Playing`
-🙋‍♂ **Atas Permintaan:** {m.from_user.mention}
-""",
-                            )
-                        except Exception as ep:
-                            await huehue.edit(f"`{ep}`")
-
-
-@Client.on_message(filters.command(["videoplay", "vplay"], prefixes=f"{PREFIX}"))
-async def videoplay(client, m: Message):
-    replied = m.reply_to_message
-    chat_id = m.chat.id
-    m.chat.title
-    if replied:
-        if replied.video or replied.document:
-            await m.delete()
-            huehue = await replied.reply("**◈ Memproses....**")
-            dl = await replied.download()
-            link = replied.link
-            if len(m.command) < 2:
-                Q = 720
-            else:
-                pq = m.text.split(None, 1)[1]
-                if pq == "720" or "480" or "360":
-                    Q = int(pq)
-                else:
-                    Q = 720
-                    await huehue.edit(
-                        "`Hanya 720, 480, 360 Diizinkan` \n`Sekarang Streaming masuk 720p`"
-                    )
+        xx = await event.eor(get_string("com_1"), parse_mode="md")
+    except MessageIdInvalidError:
+        # Changing the way, things work
+        xx = event
+        xx.out = False
+    chat = event.chat_id
+    from_user = inline_mention(event.sender, html=True)
+    reply, song = None, None
+    if event.reply_to:
+        reply = await event.get_reply_message()
+    if len(event.text.split()) > 1:
+        input = event.text.split(maxsplit=1)[1]
+        tiny_input = input.split()[0]
+        if tiny_input[0] in ["@", "-"]:
             try:
-                if replied.video:
-                    songname = replied.video.file_name[:70]
-                elif replied.document:
-                    songname = replied.document.file_name[:70]
-            except BaseException:
-                songname = "Ayra Video"
-
-            if chat_id in QUEUE:
-                pos = add_to_queue(chat_id, songname, dl, link, "Video", Q)
-                await huehue.delete()
-                # await m.reply_to_message.delete()
-                await m.reply_photo(
-                    photo="https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-                    caption=f"""
-**✚ Video Di Antrian Ke {pos} 🎥
-🎵 Judul: [{songname}]({link})
-🎥 Status: Playing
-🙋‍♂ Atas Permintaan: {m.from_user.mention}**
-""",
-                )
-            else:
-                if Q == 720:
-                    hmmm = HighQualityVideo()
-                elif Q == 480:
-                    hmmm = MediumQualityVideo()
-                elif Q == 360:
-                    hmmm = LowQualityVideo()
-                await call_py.join_group_call(
-                    chat_id,
-                    AudioVideoPiped(dl, HighQualityAudio(), hmmm),
-                    stream_type=StreamType().pulse_stream,
-                )
-                add_to_queue(chat_id, songname, dl, link, "Video", Q)
-                await huehue.delete()
-                # await m.reply_to_message.delete()
-                await m.reply_photo(
-                    photo="https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-                    caption=f"""
-**🎥 Mulai Memutar Video
-🎵 Judul: [{songname}]({link})
-🎥 Status: Playing
-🙋‍♂ Atas permintaan: {m.from_user.mention}**
-""",
-                )
-
-    else:
-        if len(m.command) < 2:
-            await m.reply(
-                "**Balas ke File Audio atau berikan sesuatu untuk Pencarian**"
-            )
+                chat = await event.client.parse_id(tiny_input)
+            except Exception as er:
+                LOGS.exception(er)
+                return await xx.edit(str(er))
+            try:
+                song = input.split(maxsplit=1)[1]
+            except IndexError:
+                pass
+            except Exception as e:
+                return await event.eor(str(e))
         else:
-            await m.delete()
-            huehue = await m.reply("**◈ Memprosess...**")
-            query = m.text.split(None, 1)[1]
-            search = ytsearch(query)
-            Q = 720
-            hmmm = HighQualityVideo()
-            if search == 0:
-                await huehue.edit(
-                    "**Tidak Menemukan Apa pun untuk Kueri yang Diberikan**"
-                )
-            else:
-                songname = search[0]
-                url = search[1]
-                duration = search[2]
-                hm, ytlink = await ytdl(url)
-                if hm == 0:
-                    await huehue.edit(f"**YTDL ERROR** \n\n`{ytlink}`")
-                else:
-                    if chat_id in QUEUE:
-                        pos = add_to_queue(chat_id, songname, ytlink, url, "Video", Q)
-                        await huehue.delete()
-                        # await m.reply_to_message.delete()
-                        await m.reply_photo(
-                            photo=f"{IMAGE_THUMBNAIL}",
-                            caption=f"""
-**✚ Video Di Antrian Ke** `{pos}` 🎥
-🎵 **Judul:** [{songname}]({url})
-⏱️ **Duration:** `{duration}`
-🎥 **Status:** `Playing`
-🙋‍♂ **Atas Permintaan:** {m.from_user.mention}
-""",
-                        )
-                    else:
-                        try:
-                            await call_py.join_group_call(
-                                chat_id,
-                                AudioVideoPiped(ytlink, HighQualityAudio(), hmmm),
-                                stream_type=StreamType().pulse_stream,
-                            )
-                            add_to_queue(chat_id, songname, ytlink, url, "Video", Q)
-                            await huehue.delete()
-                            # await m.reply_to_message.delete()
-                            await m.reply_photo(
-                                photo=f"{IMAGE_THUMBNAIL}",
-                                caption=f"""
-**🎥 Mulai Memutar Video**
-🎵 **Judul:** [{songname}]({url})
-⏱️ **Duration:** `{duration}`
-🎥 **Status:** `Playing`
-🙋‍♂ **Atas Permintaan:** {m.from_user.mention}
-""",
-                            )
-                        except Exception as ep:
-                            await huehue.edit(f"`{ep}`")
-
-
-@Client.on_message(filters.command(["playfrom"], prefixes=f"{PREFIX}"))
-async def playfrom(client, m: Message):
-    chat_id = m.chat.id
-    if len(m.command) < 2:
-        await m.reply(
-            f"**PENGGUNAAN:** \n\n`{PREFIX}playfrom [chat_id/username]` \n`{PREFIX}playfrom [chat_id/username]`"
+            song = input
+    if not (reply or song):
+        return await xx.eor("Harap tentukan nama lagu atau balas ke file audio !", time=5
         )
+    await xx.eor(get_string("vcbot_20"), parse_mode="md")
+    if reply and reply.media and mediainfo(reply.media).startswith(("audio", "video")):
+        song, thumb, song_name, link, duration = await file_download(xx, reply)
     else:
-        args = m.text.split(maxsplit=1)[1]
-        if ";" in args:
-            chat = args.split(";")[0]
-            limit = int(args.split(";")[1])
+        song, thumb, song_name, link, duration = await download(song)
+        if len(link.strip().split()) > 1:
+            link = link.strip().split()
+    aySongs = Player(chat, event)
+    song_name = f"{song_name[:30]}..."
+    if not aySongs.group_call.is_connected:
+        if not (await aySongs.vc_joiner()):
+            return
+        await aySongs.group_call.start_audio(song)
+        if isinstance(link, list):
+            for lin in link[1:]:
+                add_to_queue(chat, song, lin, lin, None, from_user, duration)
+            link = song_name = link[0]
+        text = "📀 <strong>Sedang dimainkan: <a href={}>{}</a>\n⏰ Durasi:</strong> <code>{}</code>\n👥 <strong>Di:</strong> <code>{}</code>\n🙋‍♂ <strong>Diminta oleh: {}</strong>".format(
+            link, song_name, duration, chat, from_user
+        )
+        try:
+            await xx.reply(
+                text,
+                file=thumb,
+                link_preview=False,
+                parse_mode="html",
+            )
+            await xx.delete()
+        except ChatSendMediaForbiddenError:
+            await xx.eor(text, link_preview=False)
+        if thumb and os.path.exists(thumb):
+            os.remove(thumb)
+    else:
+        if not (
+            reply
+            and reply.media
+            and mediainfo(reply.media).startswith(("audio", "video"))
+        ):
+            song = None
+        if isinstance(link, list):
+            for lin in link[1:]:
+                add_to_queue(chat, song, lin, lin, None, from_user, duration)
+            link = song_name = link[0]
+        add_to_queue(chat, song, song_name, link, thumb, from_user, duration)
+        return await xx.eor(
+            f"✚ Ditambahkan 🎵 <a href={link}>{song_name}</a> antrian ke #{list(VC_QUEUE[chat].keys())[-1]}.",
+            parse_mode="html",
+        )
+
+
+@vc_asst("(mutevc|mt)")
+async def mute(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(f"**ERROR:**\n{str(e)}")
+    else:
+        chat = event.chat_id
+    aySongs = Player(chat)
+    await aySongs.group_call.set_is_mute(True)
+    await event.eor(get_string("vcbot_12"))
+
+
+@vc_asst("(unmutevc|unmt)")
+async def unmute(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(f"**ERROR:**\n{str(e)}")
+    else:
+        chat = event.chat_id
+    aySongs = Player(chat)
+    await aySongs.group_call.set_is_mute(False)
+    await event.eor("`Menyalakan pemutaran di obrolan ini.`")
+
+
+@vc_asst("(pausevc|ps)")
+async def pauser(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(f"**ERROR:**\n{str(e)}")
+    else:
+        chat = event.chat_id
+    aySongs = Player(chat)
+    await aySongs.group_call.set_pause(True)
+    await event.eor(get_string("vcbot_14"))
+
+
+@vc_asst("(resumevc|rs)")
+async def resumer(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(f"**ERROR:**\n{str(e)}")
+    else:
+        chat = event.chat_id
+    aySongs = Player(chat)
+    await aySongs.group_call.set_pause(False)
+    await event.eor(get_string("vcbot_13"))
+
+
+@vc_asst("replay")
+async def replayer(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(f"**ERROR:**\n{str(e)}")
+    else:
+        chat = event.chat_id
+    aySongs = Player(chat)
+    aySongs.group_call.restart_playout()
+    await event.eor("`Memutar ulang lagu saat ini.`")
+
+
+@vc_asst("(live|ytlive)")
+async def live_stream(e):
+    xx = await e.eor(get_string("com_1"))
+    if len(e.text.split()) <= 1:
+        return await xx.eor("Are You Kidding Me?\nWhat to Play?")
+    input = e.text.split()
+    if input[1][0] in ["@", "-"]:
+        chat = await e.client.parse_id(input[1])
+        song = e.text.split(maxsplit=2)[2]
+    else:
+        song = e.text.split(maxsplit=1)[1]
+        chat = e.chat_id
+    if not is_url_ok(song):
+        return await xx.eor(f"`{song}`\n\nNot a playable link.🥱")
+    is_live_vid = False
+    if re.search("youtu", song):
+        is_live_vid = (await bash(f'youtube-dl -j "{song}" | jq ".is_live"'))[0]
+    if is_live_vid != "true":
+        return await xx.eor(f"Only Live Youtube Urls supported!\n{song}")
+    file, thumb, title, link, duration = await download(song)
+    aySongs = Player(chat, e)
+    if not aySongs.group_call.is_connected and not (await aySongs.vc_joiner()):
+        return
+    from_user = inline_mention(e.sender)
+    await xx.reply(
+        "📀 **Sedang dimainkan:** [{}]({})\n⏰ **Durasi:** `{}`\n👥 **Di:** `{}`\n🙋‍♂ **Diminta oleh:** {}".format(
+            title, link, duration, chat, from_user
+        ),
+        file=thumb,
+        link_preview=False,
+    )
+    await xx.delete()
+    await aySongs.group_call.start_audio(file)
+    
+    
+@vc_asst("addauth", from_users=owner_and_sudos(), vc_auth=False)
+async def auth_group(event):
+    try:
+        key = event.text.split(" ", maxsplit=1)[1]
+        admins = "admins" in key
+    except IndexError:
+        admins = False
+    chat = event.chat_id
+    key = udB.get_key("VC_AUTH_GROUPS") or {}
+    cha, adm = (key[chat], key[chat]["admins"]) if key.get(chat) else (None, None)
+    if cha and adm == admins:
+        return await event.reply(get_string("vcbot_19"))
+    key.update({chat: {"admins": admins}})
+    udB.set_key("VC_AUTH_GROUPS", key)
+    kem = "Admins" if admins else "All"
+    await event.eor(
+        f"• Berhasil Ditambahkan ke Grup AUTH Untuk <code>{kem}</code>.",
+        parse_mode="html",
+    )
+
+
+@vc_asst("remauth", from_users=owner_and_sudos(), vc_auth=False)
+async def auth_group(event):
+    chat = event.chat_id
+    key = udB.get_key("VC_AUTH_GROUPS") or {}
+    gc = key.get(chat)
+    if not gc:
+        return await event.eor(get_string("vcbot_16"))
+    del key[chat]
+    if key:
+        udB.set_key("VC_AUTH_GROUPS", key)
+    else:
+        udB.del_key("VC_AUTH_GROUPS")
+    await event.eor(get_string("vcbot_10"))
+
+
+@vc_asst("listauth", from_users=owner_and_sudos(), vc_auth=False)
+async def listVc(e):
+    chats = udB.get_key("VC_AUTH_GROUPS")
+    if not chats:
+        return await e.eor(get_string("vcbot_18"))
+    text = "• <strong>Vc Auth Chats •</strong>\n\n"
+    for on in chats.keys():
+        st = "Admins" if chats[on]["admins"] else "All"
+        try:
+            title = (await e.client.get_entity(on)).title
+        except ValueError:
+            title = "No Info"
+        text += f"∆ <strong>{title}</strong> [ <code>{on}</code> ] : <code>{st}</code>"
+    await e.eor(text, parse_mode="html")
+    
+    
+@vc_asst("playlist")
+async def lstqueue(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(get_string("vcbot_2").format(str(e)))
+    else:
+        chat = event.chat_id
+    q = list_queue(chat)
+    if not q:
+        return await event.eor(get_string("vcbot_21"))
+    await event.eor(f"• <strong>Queue:</strong>\n\n{q}", parse_mode="html")
+
+
+@vc_asst("cplaylist")
+async def clean_queue(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(f"**ERROR:**\n{str(e)}")
+    else:
+        chat = event.chat_id
+    if VC_QUEUE.get(chat):
+        VC_QUEUE.pop(chat)
+    await event.eor(get_string("vcbot_22"), time=5)
+
+
+@vc_asst("rejoin")
+async def rejoiner(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(get_string("vcbot_2").format(str(e)))
+    else:
+        chat = event.chat_id
+    aySongs = Player(chat)
+    try:
+        await aySongs.group_call.reconnect()
+    except NotConnectedError:
+        return await event.eor(get_string("vcbot_6"))
+    await event.eor(get_string("vcbot_5"))
+    
+    
+@vc_asst("skip")
+async def skipper(event):
+    if len(event.text.split()) > 1:
+        chat = event.text.split()[1]
+        try:
+            chat = await event.client.parse_id(chat)
+        except Exception as e:
+            return await event.eor(f"**ERROR:**\n{str(e)}")
+    else:
+        chat = event.chat_id
+    aySongs = Player(chat, event)
+    await aySongs.play_from_queue()
+    
+    
+@vc_asst("vplay")
+async def video_c(event):
+    xx = await event.eor(get_string("com_1"))
+    chat = event.chat_id
+    from_user = inline_mention(event.sender)
+    reply, song = None, None
+    if event.reply_to:
+        reply = await event.get_reply_message()
+    if len(event.text.split()) > 1:
+        input = event.text.split(maxsplit=1)[1]
+        tiny_input = input.split()[0]
+        if tiny_input[0] in ["@", "-"]:
+            try:
+                chat = await event.client.parse_id(tiny_input)
+            except Exception as er:
+                LOGS.exception(er)
+                return await xx.edit(str(er))
+            try:
+                song = input.split(maxsplit=1)[1]
+            except BaseException:
+                pass
         else:
-            chat = args
-            limit = 10
-            lmt = 9
-        await m.delete()
-        hmm = await m.reply(f"**◈ Mengambil {limit} Lagu Acak Dari {chat}**")
-        try:
-            async for x in bot.search_messages(chat, limit=limit, filter="audio"):
-                location = await x.download()
-                if x.audio.title:
-                    songname = x.audio.title[:30] + "..."
-                else:
-                    songname = x.audio.file_name[:30] + "..."
-                link = x.link
-                if chat_id in QUEUE:
-                    add_to_queue(chat_id, songname, location, link, "Audio", 0)
-                else:
-                    await call_py.join_group_call(
-                        chat_id,
-                        AudioPiped(location),
-                        stream_type=StreamType().pulse_stream,
-                    )
-                    add_to_queue(chat_id, songname, location, link, "Audio", 0)
-                    # await m.reply_to_message.delete()
-                    await m.reply_photo(
-                        photo="https://telegra.ph/file/c3aeea866ebeb10829861.jpg",
-                        caption=f"""
-**📀 Mulai Memutar Lagu Dari {chat}
-🎵 Judul: [{songname}]({link})
-🎧 Status: Playing
-🙋‍♂ Atas Permintaan: {m.from_user.mention}**
-""",
-                    )
-            await hmm.delete()
-            await m.reply(
-                f"◈ Menambahkan {lmt} Lagu Ke Dalam Antrian\n◈ Klik {PREFIX}playlist Untuk Melihat Daftar Putar**"
-            )
-        except Exception as e:
-            await hmm.edit(f"**ERROR** \n`{e}`")
-
-
-@Client.on_message(filters.command(["playlist", "queue"], prefixes=f"{PREFIX}"))
-async def playlist(client, m: Message):
-    chat_id = m.chat.id
-    if chat_id in QUEUE:
-        chat_queue = get_queue(chat_id)
-        if len(chat_queue) == 1:
-            await m.delete()
-            await m.reply(
-                f"**📀 SEKARANG MEMUTAR:** \n[{chat_queue[0][0]}]({chat_queue[0][2]}) | `{chat_queue[0][3]}`",
-                disable_web_page_preview=True,
-            )
+            song = input
+    if not (reply or song):
+        return await xx.eor(get_string("vcbot_15"), time=5)
+    await xx.eor(get_string("vcbot_20"))
+    if reply and reply.media and mediainfo(reply.media).startswith("video"):
+        song, thumb, title, link, duration = await file_download(xx, reply)
+    else:
+        is_link = is_url_ok(song)
+        if is_link is False:
+            return await xx.eor(f"`{song}`\n\nBukan link yang bisa dimainkan.🥱")
+        if is_link is None:
+            song, thumb, title, link, duration = await vid_download(song)
+        elif re.search("youtube", song) or re.search("youtu", song):
+            song, thumb, title, link, duration = await vid_download(song)
         else:
-            QUE = f"**📀 SEKARANG MEMUTAR:** \n[{chat_queue[0][0]}]({chat_queue[0][2]}) | `{chat_queue[0][3]}` \n\n**✚ DAFTAR ANTRIAN:**"
-            l = len(chat_queue)
-            for x in range(1, l):
-                hmm = chat_queue[x][0]
-                hmmm = chat_queue[x][2]
-                hmmmm = chat_queue[x][3]
-                QUE = QUE + "\n" + f"**#{x}** - [{hmm}]({hmmm}) | `{hmmmm}`\n"
-            await m.reply(QUE, disable_web_page_preview=True)
-    else:
-        await m.reply("**Tidak Memutar Apapun...**")
-        
-@Client.on_message(filters.command(["skip"], prefixes=f"{PREFIX}"))
-@authorized_users_only
-async def skip(client, m: Message):
-    await m.delete()
-    chat_id = m.chat.id
-    if len(m.command) < 2:
-        op = await skip_current_song(chat_id)
-        if op == 0:
-            await m.reply("**❌ Tidak ada apapun didalam antrian untuk dilewati!**")
-        elif op == 1:
-            await m.reply("Antrian Kosong, Meninggalkan Obrolan Suara**")
-        else:
-            await m.reply(
-                f"**⏭️ Melewati pemutaran** \n**📀 Sekarang memutar** - [{op[0]}]({op[1]}) | `{op[2]}`",
-                disable_web_page_preview=True,
+            song, thumb, title, link, duration = (
+                song,
+                "https://telegra.ph/file/22bb2349da20c7524e4db.mp4",
+                song,
+                song,
+                "♾",
             )
+    aySongs = Player(chat, xx, True)
+    if not (await aySongs.vc_joiner()):
+        return
+    text = "🎥 **Sedang dimainkan:** [{}]({})\n⏰ **Durasi:** `{}`\n👥 **Di:** `{}`\n🙋‍♂ **Diminta oleh:** {}".format(
+        title, link, duration, chat, from_user
+    )
+    try:
+        await xx.reply(
+            text,
+            file=thumb,
+            link_preview=False,
+        )
+    except ChatSendMediaForbiddenError:
+        await xx.reply(text, link_preview=False)
+    await asyncio.sleep(1)
+    await aySongs.group_call.start_video(song, with_audio=True)
+    await xx.delete()
+    
+    
+@vc_asst("ytplaylist")
+async def live_stream(e):
+    xx = await e.eor(get_string("com_1"))
+    if len(e.text.split()) <= 1:
+        return await xx.eor("Apakah Anda Bercanda?\nYang Harus Dimainkan?")
+    input = e.text.split()
+    if input[1].startswith("-"):
+        chat = int(input[1])
+        song = e.text.split(maxsplit=2)[2]
+    elif input[1].startswith("@"):
+        cid_moosa = (await e.client.get_entity(input[1])).id
+        chat = int(f"-100{str(cid_moosa)}")
+        song = e.text.split(maxsplit=2)[2]
     else:
-        skip = m.text.split(None, 1)[1]
-        OP = "**🗑️ Menghapus lagu-lagu berikut dari Antrian: -**"
-        if chat_id in QUEUE:
-            items = [int(x) for x in skip.split(" ") if x.isdigit()]
-            items.sort(reverse=True)
-            for x in items:
-                if x == 0:
-                    pass
-                else:
-                    hm = await skip_item(chat_id, x)
-                    if hm == 0:
-                        pass
-                    else:
-                        OP = OP + "\n" + f"**#⃣{x}** - {hm}"
-            await m.reply(OP)
+        song = e.text.split(maxsplit=1)[1]
+        chat = e.chat_id
+    if not (re.search("youtu", song) and re.search("playlist\\?list", song)):
+        return await xx.eor(get_string("vcbot_8"))
+    if not is_url_ok(song):
+        return await xx.eor("`Tolong, hanya Daftar Putar Youtube.`")
+    await xx.edit(get_string("vcbot_7"))
+    file, thumb, title, link, duration = await dl_playlist(
+        chat, inline_mention(e), song
+    )
+    aySongs = Player(chat, e)
+    if not aySongs.group_call.is_connected:
+        if not (await aySongs.vc_joiner()):
+            return
+        from_user = inline_mention(e.sender)
+        await xx.reply(
+            "🎥 **Sedang dimainkan:** [{}]({})\n⏰ **Durasi:** `{}`\n👥 **Di:** `{}`\n🙋‍♂ **Diminta oleh:** {}".format(
+                f"{title[:30]}...", link, duration, chat, from_user
+            ),
+            file=thumb,
+            link_preview=False,
+        )
 
-
-@Client.on_message(filters.command(["end", "stop"], prefixes=f"{PREFIX}"))
-@authorized_users_only
-async def stop(client, m: Message):
-    await m.delete()
-    chat_id = m.chat.id
-    if chat_id in QUEUE:
-        try:
-            await call_py.leave_group_call(chat_id)
-            clear_queue(chat_id)
-            await m.reply("**❌ Mengakhiri pemutaran**")
-        except Exception as e:
-            await m.reply(f"**ERROR** \n`{e}`")
+        await xx.delete()
+        await aySongs.group_call.start_audio(file)
     else:
-        await m.reply("**❌ Tidak ada apapun yang sedang diputar!**")
-
-
-@Client.on_message(filters.command(["pause"], prefixes=f"{PREFIX}"))
-@authorized_users_only
-async def pause(client, m: Message):
-    await m.delete()
-    chat_id = m.chat.id
-    if chat_id in QUEUE:
-        try:
-            await call_py.pause_stream(chat_id)
-            await m.reply(
-                f"**⏸ Pemutaran dijeda.**\n\n• Untuk melanjutkan pemutaran, gunakan perintah » {PREFIX}resume"
-            )
-        except Exception as e:
-            await m.reply(f"**ERROR** \n`{e}`")
-    else:
-        await m.reply("** ❌ Tidak ada apapun yang sedang diputar!**")
-
-
-@Client.on_message(filters.command(["resume"], prefixes=f"{PREFIX}"))
-@authorized_users_only
-async def resume(client, m: Message):
-    await m.delete()
-    chat_id = m.chat.id
-    if chat_id in QUEUE:
-        try:
-            await call_py.resume_stream(chat_id)
-            await m.reply(
-                f"**▶️ Melanjutkan pemutaran yang dijeda**\n\n• Untuk menjeda pemutaran, gunakan perintah » {PREFIX}pause**"
-            )
-        except Exception as e:
-            await m.reply(f"**ERROR** \n`{e}`")
-    else:
-        await m.reply("**❌ Tidak ada apapun yang sedang dijeda!**")
+        from_user = inline_mention(e)
+        add_to_queue(chat, file, title, link, thumb, from_user, duration)
+        return await xx.eor(
+            f"✚ Ditambahkan 🎥 **[{title}]({link})** antrian ke #{list(VC_QUEUE[chat].keys())[-1]}.",
+        )
