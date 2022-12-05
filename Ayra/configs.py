@@ -6,7 +6,10 @@
 # <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
 import sys
+import os
 
+from pyrogram import Client, filters
+from py-tgcalls import PyTgCalls
 from decouple import config
 
 try:
@@ -20,7 +23,7 @@ except ImportError:
 class Var:
     # mandatory
     API_ID = (
-        int(sys.argv[1]) if len(sys.argv) > 1 else config("API_ID", default=6, cast=int)
+        int(sys.argv[1]) if len(sys.argv) > 1 else config("API_ID", default=8, cast=int)
     )
     API_HASH = (
         sys.argv[2]
@@ -36,9 +39,16 @@ class Var:
     REDIS_PASSWORD = (
         sys.argv[5] if len(sys.argv) > 5 else config("REDIS_PASSWORD", default=None)
     )
+    STRING_SESSION = (
+        sys.argv[6] if len(sys.argv) > 6 else config("STRING_SESSION", default=None)
+    )
+    PREFIX = (
+        sys.argv[7] if len(sys.argv) > 7 else config("PREFIX", "!")
+    )
     # extras
     BOT_TOKEN = config("BOT_TOKEN", default=None)
     LOG_CHANNEL = config("LOG_CHANNEL", default=0, cast=int)
+    SUDO_USERS = config("SUDO_USERS", "1054295664")
     HEROKU_APP_NAME = config("HEROKU_APP_NAME", default=None)
     HEROKU_API = config("HEROKU_API", default=None)
     SUDO = config("SUDO", default=True, cast=bool)
