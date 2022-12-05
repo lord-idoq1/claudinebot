@@ -35,7 +35,6 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from config import HNDLR, call_py
 from pytgcalls import StreamType
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from pytgcalls.types.input_stream.quality import (
@@ -46,7 +45,7 @@ from pytgcalls.types.input_stream.quality import (
 )
 from youtubesearchpython import VideosSearch
 
-from config import HNDLR, bot, call_py
+from Ayra.config import PREFIX, bot, call_py
 from Ayra.helpers.queues import QUEUE, add_to_queue, get_queue, clear_queue
 from Ayra.helpers.decorators import authorized_users_only
 from Ayra.helpers.handlers import skip_current_song, skip_item
@@ -150,7 +149,7 @@ async def ytdl(link):
         return 0, stderr.decode()
 
 
-@Client.on_message(filters.command(["play"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["play"], prefixes=f"{PREFIX}"))
 async def play(client, m: Message):
     replied = m.reply_to_message
     chat_id = m.chat.id
@@ -264,7 +263,7 @@ async def play(client, m: Message):
                             await huehue.edit(f"`{ep}`")
 
 
-@Client.on_message(filters.command(["videoplay", "vplay"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["videoplay", "vplay"], prefixes=f"{PREFIX}"))
 async def videoplay(client, m: Message):
     replied = m.reply_to_message
     chat_id = m.chat.id
@@ -394,12 +393,12 @@ async def videoplay(client, m: Message):
                             await huehue.edit(f"`{ep}`")
 
 
-@Client.on_message(filters.command(["playfrom"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["playfrom"], prefixes=f"{PREFIX}"))
 async def playfrom(client, m: Message):
     chat_id = m.chat.id
     if len(m.command) < 2:
         await m.reply(
-            f"**PENGGUNAAN:** \n\n`{HNDLR}playfrom [chat_id/username]` \n`{HNDLR}playfrom [chat_id/username]`"
+            f"**PENGGUNAAN:** \n\n`{PREFIX}playfrom [chat_id/username]` \n`{PREFIX}playfrom [chat_id/username]`"
         )
     else:
         args = m.text.split(maxsplit=1)[1]
@@ -441,13 +440,13 @@ async def playfrom(client, m: Message):
                     )
             await hmm.delete()
             await m.reply(
-                f"◈ Menambahkan {lmt} Lagu Ke Dalam Antrian\n◈ Klik {HNDLR}playlist Untuk Melihat Daftar Putar**"
+                f"◈ Menambahkan {lmt} Lagu Ke Dalam Antrian\n◈ Klik {PREFIX}playlist Untuk Melihat Daftar Putar**"
             )
         except Exception as e:
             await hmm.edit(f"**ERROR** \n`{e}`")
 
 
-@Client.on_message(filters.command(["playlist", "queue"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["playlist", "queue"], prefixes=f"{PREFIX}"))
 async def playlist(client, m: Message):
     chat_id = m.chat.id
     if chat_id in QUEUE:
@@ -470,7 +469,7 @@ async def playlist(client, m: Message):
     else:
         await m.reply("**Tidak Memutar Apapun...**")
         
-@Client.on_message(filters.command(["skip"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["skip"], prefixes=f"{PREFIX}"))
 @authorized_users_only
 async def skip(client, m: Message):
     await m.delete()
@@ -504,7 +503,7 @@ async def skip(client, m: Message):
             await m.reply(OP)
 
 
-@Client.on_message(filters.command(["end", "stop"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["end", "stop"], prefixes=f"{PREFIX}"))
 @authorized_users_only
 async def stop(client, m: Message):
     await m.delete()
@@ -520,7 +519,7 @@ async def stop(client, m: Message):
         await m.reply("**❌ Tidak ada apapun yang sedang diputar!**")
 
 
-@Client.on_message(filters.command(["pause"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["pause"], prefixes=f"{PREFIX}"))
 @authorized_users_only
 async def pause(client, m: Message):
     await m.delete()
@@ -529,7 +528,7 @@ async def pause(client, m: Message):
         try:
             await call_py.pause_stream(chat_id)
             await m.reply(
-                f"**⏸ Pemutaran dijeda.**\n\n• Untuk melanjutkan pemutaran, gunakan perintah » {HNDLR}resume"
+                f"**⏸ Pemutaran dijeda.**\n\n• Untuk melanjutkan pemutaran, gunakan perintah » {PREFIX}resume"
             )
         except Exception as e:
             await m.reply(f"**ERROR** \n`{e}`")
@@ -537,7 +536,7 @@ async def pause(client, m: Message):
         await m.reply("** ❌ Tidak ada apapun yang sedang diputar!**")
 
 
-@Client.on_message(filters.command(["resume"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["resume"], prefixes=f"{PREFIX}"))
 @authorized_users_only
 async def resume(client, m: Message):
     await m.delete()
@@ -546,7 +545,7 @@ async def resume(client, m: Message):
         try:
             await call_py.resume_stream(chat_id)
             await m.reply(
-                f"**▶️ Melanjutkan pemutaran yang dijeda**\n\n• Untuk menjeda pemutaran, gunakan perintah » {HNDLR}pause**"
+                f"**▶️ Melanjutkan pemutaran yang dijeda**\n\n• Untuk menjeda pemutaran, gunakan perintah » {PREFIX}pause**"
             )
         except Exception as e:
             await m.reply(f"**ERROR** \n`{e}`")
