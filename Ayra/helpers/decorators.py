@@ -3,7 +3,7 @@ from typing import Callable
 from pyrogram import Client
 from pyrogram.types import Message
 
-from Ayra.configs import SUDO_USERS
+from config import SUDO_USERS
 from Ayra.helpers.admins import get_administrators
 
 
