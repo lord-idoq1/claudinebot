@@ -8,9 +8,9 @@
 import sys
 import os
 
+from decouple import config
 from pyrogram import Client, filters
 from py-tgcalls import PyTgCalls
-from decouple import config
 
 try:
     from dotenv import load_dotenv
@@ -76,5 +76,5 @@ class Var:
     or message.outgoing
 )
 
-bot = Client(STRING_SESSION, API_ID, API_HASH, plugins=dict(root="plugin"))
+bot = Client(STRING_SESSION, API_ID, API_HASH, plugins=dict(root="plugins"))
 call_py = PyTgCalls(bot)
