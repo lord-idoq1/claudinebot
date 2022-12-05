@@ -23,7 +23,7 @@ except ImportError:
 class Var:
     # mandatory
     API_ID = (
-        int(sys.argv[1]) if len(sys.argv) > 1 else config("API_ID", default=8, cast=int)
+        int(sys.argv[1]) if len(sys.argv) > 1 else config("API_ID", default=9, cast=int)
     )
     API_HASH = (
         sys.argv[2]
@@ -45,10 +45,12 @@ class Var:
     PREFIX = (
         sys.argv[7] if len(sys.argv) > 7 else config("PREFIX", "!")
     )
+    SUDO_USERS = (
+        sys.argv[8] if len(sys.argv) > 8 else config("SUDO_USERS", "1054295664")
+    )
     # extras
     BOT_TOKEN = config("BOT_TOKEN", default=None)
     LOG_CHANNEL = config("LOG_CHANNEL", default=0, cast=int)
-    SUDO_USERS = config("SUDO_USERS", "1054295664")
     HEROKU_APP_NAME = config("HEROKU_APP_NAME", default=None)
     HEROKU_API = config("HEROKU_API", default=None)
     SUDO = config("SUDO", default=True, cast=bool)
@@ -68,3 +70,11 @@ class Var:
     DATABASE_URL = config("DATABASE_URL", default=None)
     # for MONGODB users
     MONGO_URI = config("MONGO_URI", default=None)
+    
+    contact_filter = filters.create(
+    lambda _, __, message: (message.from_user and message.from_user.is_contact)
+    or message.outgoing
+)
+
+bot = Client(STRING_SESSION, API_ID, API_HASH, plugins=dict(root="plugin"))
+call_py = PyTgCalls(bot)
