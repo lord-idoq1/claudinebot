@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from pyrogram import Client, filters
-from py-tgcalls import PyTgCalls
+from pytgcalls import PyTgCalls
 
 # For Local Deploy
 if os.path.exists(".env"):
@@ -12,7 +12,7 @@ if os.path.exists(".env"):
 API_ID = int(os.getenv("API_ID"))
 API_HASH = os.getenv("API_HASH")
 STRING_SESSION = os.getenv("STRING_SESSION")
-HNDLR = os.getenv("HNDLR", "!")
+PREFIX = os.getenv("PREFIX", "!")
 SUDO_USERS = list(map(int, os.getenv("SUDO_USERS").split()))
 
 
