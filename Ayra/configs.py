@@ -76,5 +76,5 @@ class Var:
     or message.outgoing
 )
 
-bot = Client(STRING_SESSION, API_ID, API_HASH, plugins=dict(root="plugins"))
+bot = Client(STRING_SESSION, API_ID, API_HASH, plugins=dict(root="Ayra"))
 call_py = PyTgCalls(bot)
