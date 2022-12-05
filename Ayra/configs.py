@@ -15,7 +15,7 @@ from pytgcalls import PyTgCalls
 try:
     from dotenv import load_dotenv
 
-    load_dotenv()
+    load_dotenv(.env)
 except ImportError:
     pass
 
@@ -76,5 +76,5 @@ class Var:
     or message.outgoing
 )
 
-bot = Client(STRING_SESSION, API_ID, API_HASH, plugins=dict(root="Ayra/Ayra/config"))
+bot = Client(STRING_SESSION, API_ID, API_HASH, plugins=dict(root="Ayra"))
 call_py = PyTgCalls(bot)
