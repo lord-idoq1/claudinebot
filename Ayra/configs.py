@@ -15,7 +15,6 @@ from pytgcalls import PyTgCalls
 try:
     from dotenv import load_dotenv
     
-    if os.path.exists(".env"):
     load_dotenv(".env")
 except ImportError:
     pass
