@@ -23,7 +23,7 @@ except ImportError:
 class Var:
     # mandatory
     API_ID = (
-        int(sys.argv[1]) if len(sys.argv) > 1 else config("API_ID", default=9, cast=int)
+        int(sys.argv[1]) if len(sys.argv) > 1 else config("API_ID", default=6, cast=int)
     )
     API_HASH = (
         sys.argv[2]
@@ -38,15 +38,6 @@ class Var:
     )
     REDIS_PASSWORD = (
         sys.argv[5] if len(sys.argv) > 5 else config("REDIS_PASSWORD", default=None)
-    )
-    STRING_SESSION = (
-        sys.argv[6] if len(sys.argv) > 6 else config("STRING_SESSION", default=None)
-    )
-    PREFIX = (
-        sys.argv[7] if len(sys.argv) > 7 else config("PREFIX", "!")
-    )
-    SUDO_USERS = (
-        sys.argv[8] if len(sys.argv) > 8 else config("SUDO_USERS", "1054295664")
     )
     # extras
     BOT_TOKEN = config("BOT_TOKEN", default=None)
