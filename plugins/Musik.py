@@ -45,7 +45,7 @@ from pytgcalls.types.input_stream.quality import (
 )
 from youtubesearchpython import VideosSearch
 
-from Ayra.configs import PREFIX, bot, call_py
+from config import PREFIX, bot, call_py
 from Ayra.helpers.queues import QUEUE, add_to_queue, get_queue, clear_queue
 from Ayra.helpers.decorators import authorized_users_only
 from Ayra.helpers.handlers import skip_current_song, skip_item
