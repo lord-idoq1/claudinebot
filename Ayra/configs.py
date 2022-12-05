@@ -9,13 +9,11 @@ import sys
 import os
 
 from decouple import config
-from pyrogram import Client, filters
-from pytgcalls import PyTgCalls
 
 try:
     from dotenv import load_dotenv
     
-    load_dotenv(".env")
+    load_dotenv()
 except ImportError:
     pass
 
