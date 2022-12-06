@@ -79,6 +79,8 @@ NOSPAM_CHAT = [
     -1001601365018,  # Stuf Chat
     -1001687155877,  # Cilik Support
     -1001070335805,  # Private AOT
+    -1001578091827,  # Prime Support
+    -1001675396283,  # Ayiin Support
 ]
 
 KANGING_STR = [
