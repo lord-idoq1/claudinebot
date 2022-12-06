@@ -1,9 +1,9 @@
-# Ayra - UserBot
-# Copyright (C) 2021-2022 senpai80
+# Ultroid - UserBot
+# Copyright (C) 2021-2022 TeamUltroid
 #
-# This file is a part of < https://github.com/senpai80/Ayra/ >
+# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
 # PLease read the GNU Affero General Public License in
-# <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
+# <https://github.com/TeamUltroid/Ayra/blob/main/LICENSE>.
 
 import base64
 import os
@@ -183,7 +183,7 @@ async def ReTrieveFile(input_file_name):
             if "image" not in contentType:
                 return False, (await out.json())
 
-            name = check_filename("ay-rmbg.png")
+            name = check_filename("ult-rmbg.png")
             file = await aiofiles.open(name, "wb")
             await file.write(await out.read())
             await file.close()
@@ -262,8 +262,8 @@ async def get_random_user_data():
 
 
 async def get_synonyms_or_antonyms(word, type_of_words):
-    if type_of_words not in ["sinonim", "antonim"]:
-        return "Bung! Harap berikan jenis kata yang Anda inginkan."
+    if type_of_words not in ["synonyms", "antonyms"]:
+        return "Dude! Please give a corrent type of words you want."
     s = await async_searcher(
         f"https://tuna.thesaurus.com/pageData/{word}", re_json=True
     )
@@ -317,12 +317,12 @@ async def get_insta_code(username, choice):
 
     async with asst.conversation(ayra_bot.uid, timeout=60 * 2) as conv:
         await conv.send_message(
-            "Masukkan **Kode Verifikasi Instagram** yang Dikirim ke Email Anda.."
+            "Enter The **Instagram Verification Code** Sent to Your Email.."
         )
         ct = await conv.get_response()
         while not ct.text.isdigit():
             if ct.message == "/cancel":
-                await conv.send_message("Verifikasi Dibatalkan!")
+                await conv.send_message("Cancelled Verification!")
                 return
             await conv.send_message(
                 "CODE SHOULD BE INTEGER\nSend The Code Back or\nUse /cancel to Cancel Process..."
@@ -489,7 +489,7 @@ class Quotly:
         sender=None,
         file_name="quote.webp",
     ):
-        """Buat kutipan kutipan."""
+        """Create quotely's quote."""
         if not isinstance(event, list):
             event = [event]
         from .. import udB
