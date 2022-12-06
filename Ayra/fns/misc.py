@@ -1,9 +1,9 @@
-# Ultroid - UserBot
-# Copyright (C) 2021-2022 TeamUltroid
+# Ayra - UserBot
+# Copyright (C) 2021-2022 senpai80
 #
-# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
+# This file is a part of < https://github.com/senpai80/Ayra/ >
 # PLease read the GNU Affero General Public License in
-# <https://github.com/TeamUltroid/Ayra/blob/main/LICENSE>.
+# <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
 import base64
 import os
@@ -183,7 +183,7 @@ async def ReTrieveFile(input_file_name):
             if "image" not in contentType:
                 return False, (await out.json())
 
-            name = check_filename("ult-rmbg.png")
+            name = check_filename("ay-rmbg.png")
             file = await aiofiles.open(name, "wb")
             await file.write(await out.read())
             await file.close()
@@ -262,8 +262,8 @@ async def get_random_user_data():
 
 
 async def get_synonyms_or_antonyms(word, type_of_words):
-    if type_of_words not in ["synonyms", "antonyms"]:
-        return "Dude! Please give a corrent type of words you want."
+    if type_of_words not in ["sinonim", "antonim"]:
+        return "Bung! Harap berikan jenis kata yang Anda inginkan."
     s = await async_searcher(
         f"https://tuna.thesaurus.com/pageData/{word}", re_json=True
     )
@@ -317,12 +317,12 @@ async def get_insta_code(username, choice):
 
     async with asst.conversation(ayra_bot.uid, timeout=60 * 2) as conv:
         await conv.send_message(
-            "Enter The **Instagram Verification Code** Sent to Your Email.."
+            "Masukkan **Kode Verifikasi Instagram** yang Dikirim ke Email Anda.."
         )
         ct = await conv.get_response()
         while not ct.text.isdigit():
             if ct.message == "/cancel":
-                await conv.send_message("Cancelled Verification!")
+                await conv.send_message("Verifikasi Dibatalkan!")
                 return
             await conv.send_message(
                 "CODE SHOULD BE INTEGER\nSend The Code Back or\nUse /cancel to Cancel Process..."
@@ -372,6 +372,7 @@ async def create_instagram_client(event):
 
 
 class Quotly:
+    _API = "https://bot.lyo.su/quote/generate"
     _entities = {
         types.MessageEntityPhone: "phone_number",
         types.MessageEntityMention: "mention",
@@ -479,51 +480,55 @@ class Quotly:
 
         return message
 
-O_API = "https://bot.lyo.su/quote/generate"
-
     async def create_quotly(
-    event,
-    url="https://qoute-api-akashpattnaik.koyeb.app/generate",
-    reply={},
-    bg=None,
-    sender=None,
-    file_name="quote.webp",
-):
-    if not isinstance(event, list):
-        event = [event]
-        url = O_API
-    if not bg:
-        bg = "#1b1429"
-    content = {
-        "type": "quote",
-        "format": "webp",
-        "backgroundColor": bg,
-        "width": 512,
-        "height": 768,
-        "scale": 2,
-        "messages": [
-            await _format_quote(message, reply=reply, sender=sender)
-            for message in event
-        ],
-    }
-    try:
-        request = await async_searcher(url, post=True, json=content, re_json=True)
-    except ContentTypeError as er:
-        if url != O_API:
-            return await create_quotly(event,
-                    url=O_API,
+        self,
+        event,
+        url="https://qoute-api-akashpattnaik.koyeb.app/generate",
+        reply={},
+        bg=None,
+        sender=None,
+        file_name="quote.webp",
+    ):
+        """Buat kutipan kutipan."""
+        if not isinstance(event, list):
+            event = [event]
+        from .. import udB
+
+        if udB.get_key("OQAPI"):
+            url = Quotly._API
+        if not bg:
+            bg = "#1b1429"
+        content = {
+            "type": "quote",
+            "format": "webp",
+            "backgroundColor": bg,
+            "width": 512,
+            "height": 768,
+            "scale": 2,
+            "messages": [
+                await self._format_quote(message, reply=reply, sender=sender)
+                for message in event
+            ],
+        }
+        try:
+            request = await async_searcher(url, post=True, json=content, re_json=True)
+        except ContentTypeError as er:
+            if url != self._API:
+                return await self.create_quotly(
+                    event,
+                    url=self._API,
                     bg=bg,
                     sender=sender,
                     reply=reply,
                     file_name=file_name,
-            )
-        raise er
-    if request.get("ok"):
-        with open(file_name, "wb") as file:
-            image = base64.decodebytes(request["result"]["image"].encode("utf-8"))
-            file.write(image)
-        return file_name
-    raise Exception(str(request))
+                )
+            raise er
+        if request.get("ok"):
+            with open(file_name, "wb") as file:
+                image = base64.decodebytes(request["result"]["image"].encode("utf-8"))
+                file.write(image)
+            return file_name
+        raise Exception(str(request))
 
 
 # Some Sarcasm
