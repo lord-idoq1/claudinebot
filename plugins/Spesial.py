@@ -43,9 +43,7 @@ from telethon.tl.types import DocumentAttributeVideo
 
 from Ayra.fns.google_image import googleimagesdownload
 from Ayra.fns.tools import metadata
-from Ayra.fns.misc import create_quotly
 
-from .Carbon import all_col
 from . import (
     HNDLR,
     AyConfig,
@@ -60,6 +58,7 @@ from . import (
     ayra_cmd,
     uploader,
 )
+from .Carbon import all_col
 
 File = []
 
@@ -299,7 +298,7 @@ async def wall(event):
     await nn.delete()
 
 
-@ayra_cmd(pattern="q( (.*)|$)")
+@ayra_cmd(pattern="q( (.*)|$)", manager=True, allow_pm=True)
 async def quott_(event):
     match = event.pattern_match.group(1).strip()
     if not event.is_reply:
@@ -351,7 +350,7 @@ async def quott_(event):
     if match == "random":
         match = choice(all_col)
     try:
-        file = await create_quotly(
+        file = await quotly.create_quotly(
             reply_, bg=match, reply=replied_to, sender=user
         )
     except Exception as er:
