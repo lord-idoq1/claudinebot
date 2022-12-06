@@ -1,9 +1,9 @@
-# Ultroid - UserBot
-# Copyright (C) 2021-2022 TeamUltroid
+# Ayra - UserBot
+# Copyright (C) 2021-2022 senpai80
 #
-# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
+# This file is a part of < https://github.com/senpai80/Ayra/ >
 # PLease read the GNU Affero General Public License in
-# <https://github.com/TeamUltroid/pyUltroid/blob/main/LICENSE>.
+# <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
 
 import json
 import math
@@ -84,22 +84,12 @@ async def async_searcher(
     re_json: bool = False,
     re_content: bool = False,
     real: bool = False,
-    *args,
-    **kwargs,
 ):
-    try:
-        import aiohttp
-    except ImportError:
-        raise DependencyMissingError(
-            "'aiohttp' is not installed!\nthis function requires aiohttp to be installed."
-        )
     async with aiohttp.ClientSession(headers=headers) as client:
         if post:
-            data = await client.post(
-                url, json=json, data=data, ssl=ssl, *args, **kwargs
-            )
+            data = await client.post(url, json=json, data=data, ssl=ssl)
         else:
-            data = await client.get(url, params=params, ssl=ssl, *args, **kwargs)
+            data = await client.get(url, params=params, ssl=ssl)
         if re_json:
             return await data.json()
         if re_content:
@@ -424,11 +414,11 @@ def check_filename(filroid):
     if os.path.exists(filroid):
         no = 1
         while True:
-            ult = "{0}_{2}{1}".format(*os.path.splitext(filroid) + (no,))
-            if os.path.exists(ult):
+            ay = "{0}_{2}{1}".format(*os.path.splitext(filroid) + (no,))
+            if os.path.exists(ay):
                 no += 1
             else:
-                return ult
+                return ay
     return filroid
 
 
@@ -764,7 +754,7 @@ class TgConverter:
         except ImportError:
             raise DependencyMissingError("This function needs 'cv2' to be installed.")
         img = cv2.VideoCapture(input_)
-        ult, roid = img.read()
+        ay, roid = img.read()
         cv2.imwrite(name, roid)
         if remove:
             os.remove(input_)
