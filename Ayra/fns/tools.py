@@ -84,12 +84,22 @@ async def async_searcher(
     re_json: bool = False,
     re_content: bool = False,
     real: bool = False,
+    *args,
+    **kwargs,
 ):
+    try:
+        import aiohttp
+    except ImportError:
+        raise DependencyMissingError(
+            "'aiohttp' is not installed!\nthis function requires aiohttp to be installed."
+        )
     async with aiohttp.ClientSession(headers=headers) as client:
         if post:
-            data = await client.post(url, json=json, data=data, ssl=ssl)
+            data = await client.post(
+                url, json=json, data=data, ssl=ssl, *args, **kwargs
+            )
         else:
-            data = await client.get(url, params=params, ssl=ssl)
+            data = await client.get(url, params=params, ssl=ssl, *args, **kwargs)
         if re_json:
             return await data.json()
         if re_content:
@@ -550,27 +560,13 @@ def make_html_telegraph(title, html=""):
 async def Carbon(
     code,
     base_url="https://carbonara-42.herokuapp.com/api/cook",
-    file_name="ayra",
-    download=False,
-    rayso=False,
+    file_name="Ayra-Userbot",
     **kwargs,
 ):
-    if rayso:
-        base_url = "https://raysoapi.herokuapp.com/generate"
-        kwargs["text"] = code
-        kwargs["theme"] = kwargs.get("theme", "meadow")
-        kwargs["darkMode"] = kwargs.get("darkMode", True)
-        kwargs["title"] = kwargs.get("title", "Ayra")
-    else:
-        kwargs["code"] = code
+    kwargs["code"] = code
     con = await async_searcher(base_url, post=True, json=kwargs, re_content=True)
-    if not download:
-        file = BytesIO(con)
-        file.name = file_name + ".jpg"
-    else:
-        file = file_name + ".jpg"
-        with open(file, "wb") as f:
-            f.write(con)
+    file = BytesIO(con)
+    file.name = f"{file_name}.jpg"
     return file
 
 
