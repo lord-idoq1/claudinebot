@@ -1,9 +1,9 @@
-# Ayra - UserBot
-# Copyright (C) 2021-2022 senpai80
+# Ultroid - UserBot
+# Copyright (C) 2021-2022 TeamUltroid
 #
-# This file is a part of < https://github.com/senpai80/Ayra/ >
+# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
 # PLease read the GNU Affero General Public License in
-# <https://www.github.com/senpai80/Ayra/blob/main/LICENSE/>.
+# <https://github.com/TeamUltroid/pyUltroid/blob/main/LICENSE>.
 
 import json
 import math
@@ -424,11 +424,11 @@ def check_filename(filroid):
     if os.path.exists(filroid):
         no = 1
         while True:
-            ay = "{0}_{2}{1}".format(*os.path.splitext(filroid) + (no,))
-            if os.path.exists(ay):
+            ult = "{0}_{2}{1}".format(*os.path.splitext(filroid) + (no,))
+            if os.path.exists(ult):
                 no += 1
             else:
-                return ay
+                return ult
     return filroid
 
 
@@ -560,13 +560,27 @@ def make_html_telegraph(title, html=""):
 async def Carbon(
     code,
     base_url="https://carbonara-42.herokuapp.com/api/cook",
-    file_name="Ayra-Userbot",
+    file_name="ayra",
+    download=False,
+    rayso=False,
     **kwargs,
 ):
-    kwargs["code"] = code
+    if rayso:
+        base_url = "https://raysoapi.herokuapp.com/generate"
+        kwargs["text"] = code
+        kwargs["theme"] = kwargs.get("theme", "meadow")
+        kwargs["darkMode"] = kwargs.get("darkMode", True)
+        kwargs["title"] = kwargs.get("title", "Ayra")
+    else:
+        kwargs["code"] = code
     con = await async_searcher(base_url, post=True, json=kwargs, re_content=True)
-    file = BytesIO(con)
-    file.name = f"{file_name}.jpg"
+    if not download:
+        file = BytesIO(con)
+        file.name = file_name + ".jpg"
+    else:
+        file = file_name + ".jpg"
+        with open(file, "wb") as f:
+            f.write(con)
     return file
 
 
@@ -750,7 +764,7 @@ class TgConverter:
         except ImportError:
             raise DependencyMissingError("This function needs 'cv2' to be installed.")
         img = cv2.VideoCapture(input_)
-        ay, roid = img.read()
+        ult, roid = img.read()
         cv2.imwrite(name, roid)
         if remove:
             os.remove(input_)
