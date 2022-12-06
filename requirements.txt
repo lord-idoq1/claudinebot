@@ -24,15 +24,3 @@ textblob
 wikipedia
 spotdl
 pyUltroid
-TgCrypto
-requests
-aiohttp
-aiofiles
-pillow
-asyncio
-wget
-python-arq
-youtube-search-python==1.4.6
-yt-dlp
-gTTS
-googletrans==4.0.0rc1
