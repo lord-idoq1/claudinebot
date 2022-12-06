@@ -57,8 +57,8 @@ from . import (
     ayra_bot,
     ayra_cmd,
     uploader,
-)
-from .import all_col
+    all_col,
+) 
 
 File = []
 
