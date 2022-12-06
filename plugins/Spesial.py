@@ -58,7 +58,7 @@ from . import (
     ayra_cmd,
     uploader,
     all_col,
-) 
+)
 
 File = []
 
@@ -298,7 +298,7 @@ async def wall(event):
     await nn.delete()
 
 
-@ayra_cmd(pattern="q( (.*)|$)", manager=True, allow_pm=True)
+@ayra_cmd(pattern="q( (.*)|$)")
 async def quott_(event):
     match = event.pattern_match.group(1).strip()
     if not event.is_reply:
