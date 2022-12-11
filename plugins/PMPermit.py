@@ -85,9 +85,9 @@ if udB.get_key("PM_TEXT"):
 WARNS = udB.get_key("PMWARNS") or 4
 PMCMDS = [
     f"{HNDLR}a",
-    f"{HNDLR}approve",
-    f"{HNDLR}da",
-    f"{HNDLR}disapprove",
+    f"{HNDLR}ok",
+    f"{HNDLR}no",
+    f"{HNDLR}tolak",
     f"{HNDLR}block",
     f"{HNDLR}unblock",
 ]
@@ -445,7 +445,7 @@ if udB.get_key("PMSETTING"):
         else:
             await apprvpm.eor("`User may already be approved.`", time=5)
 
-    @ayra_cmd(pattern="(da|no)(?: |$)", fullsudo=True)
+    @ayra_cmd(pattern="(no|tolak)(?: |$)", fullsudo=True)
     async def disapprovepm(e):
         if e.reply_to_msg_id:
             user = (await e.get_reply_message()).sender
