@@ -29,6 +29,7 @@ from pprint import pprint
 
 from telethon.utils import get_display_name
 from Ayra.fns.tools import Carbon
+from . import ATRA_COL
 from Ayra import _ignore_eval
 
 from . import *
