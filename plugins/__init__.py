@@ -81,6 +81,10 @@ NOSPAM_CHAT = [
     -1001070335805,  # Private AOT
     -1001578091827,  # Prime Support
     -1001675396283,  # Ayiin Support
+    -1001572486389,  # Pluvia Musik
+    -1001692751821,  # Ram Support
+    -1001675459127,  # Tede Group
+    -1001795125065,  # Bagaskara Support
 ]
 
 KANGING_STR = [
