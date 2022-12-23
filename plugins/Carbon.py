@@ -26,19 +26,14 @@ from telethon.utils import get_display_name
 from Ayra.fns.tools import Carbon
 from . import ayra_cmd, eor, get_string, inline_mention, os
 
-_colorspath = "resources/colorlist.txt"
-
 def vcmention(user):
     full_name = get_display_name(user)
     if not isinstance(user, types.User):
         return full_name
     return f"[{full_name}](tg://user?id={user.id})"
-
-if os.path.exists(_colorspath):
-    with open(_colorspath, "r") as f:
-        all_col = f.read().split()
-else:
-    all_col = [
+    
+    
+all_col = [
     "Black",
     "Navy",
     "DarkBlue",
