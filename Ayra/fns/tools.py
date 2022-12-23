@@ -8,10 +8,12 @@
 import json
 import math
 import os
+import os.path
 import random
 import re
 import secrets
 import ssl
+import aiohttp
 from io import BytesIO
 from json.decoder import JSONDecodeError
 from traceback import format_exc
@@ -84,22 +86,12 @@ async def async_searcher(
     re_json: bool = False,
     re_content: bool = False,
     real: bool = False,
-    *args,
-    **kwargs,
 ):
-    try:
-        import aiohttp
-    except ImportError:
-        raise DependencyMissingError(
-            "'aiohttp' is not installed!\nthis function requires aiohttp to be installed."
-        )
     async with aiohttp.ClientSession(headers=headers) as client:
         if post:
-            data = await client.post(
-                url, json=json, data=data, ssl=ssl, *args, **kwargs
-            )
+            data = await client.post(url, json=json, data=data, ssl=ssl)
         else:
-            data = await client.get(url, params=params, ssl=ssl, *args, **kwargs)
+            data = await client.get(url, params=params, ssl=ssl)
         if re_json:
             return await data.json()
         if re_content:
