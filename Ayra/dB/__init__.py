@@ -14,10 +14,14 @@ DEVLIST = [
     1322549723,  # @danish_00
     1903729401,  # @its_buddhhu
     1054295664,  # @riizzvbss
-    1027174031,  # @kalijogo
-    1793365274,  # @Rvbeee
-    1191668125,  # @xtsea
+    1924219811, # @Banned_3
+    883761960,  # @SilenceSpe4ks
+    1720836764, # @thisrama
+    1803618640, # @onlymeriz
+    874946835,  # @vckyaz
+    997461844, # @AyiinXd
     1784606556,  # @greyvbss
+    844432220,  # @mrismanaziz
 ]
 
 AYRA_IMAGES = [
