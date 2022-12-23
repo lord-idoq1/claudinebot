@@ -76,7 +76,6 @@ NOSPAM_CHAT = [
     -1001050982793,  # Python
     -1001256902287,  # DurovsChat
     -1001473548283,  # SharingUserbot
-    -1001601365018,  # Stuf Chat
     -1001687155877,  # Cilik Support
     -1001070335805,  # Private AOT
     -1001578091827,  # Prime Support
