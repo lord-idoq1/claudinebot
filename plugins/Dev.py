@@ -29,7 +29,7 @@ from pprint import pprint
 
 from telethon.utils import get_display_name
 from Ayra.fns.tools import Carbon
-from Carbon import all_col
+from . import all_col
 from Ayra import _ignore_eval
 
 from . import *
