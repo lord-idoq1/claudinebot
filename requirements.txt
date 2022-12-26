@@ -1,5 +1,6 @@
 # Important Requirements here.
 
+aiohttp
 https://github.com/New-dev0/Telethon/archive/diamond.zip
 python-decouple
 python-dotenv
