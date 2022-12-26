@@ -25,7 +25,14 @@ import sys
 import traceback
 from io import BytesIO, StringIO
 from os import remove
-from pprint import pprint
+from pprint import pprintpprint
+
+import os
+import random
+from pyrogram import Client, filters
+from pyrogram.types import Message
+
+from . import DEVLIST
 
 from telethon.utils import get_display_name
 from Ayra.fns.tools import Carbon
@@ -52,6 +59,24 @@ except ImportError:
 from telethon.tl import functions
 
 fn = functions
+
+
+# Chats, which needs to be ignore for some cases
+# Considerably, there can be many
+# Feel Free to Add Any other...
+
+absen = [
+    "**Hadir bang** 😁",
+    "**Hadir kak** 😉",
+    "**Hadir dong** 😁",
+    "**Hadir ganteng** 🥵",
+    "**Hadir bro** 😎",
+    "**Hadir kak maap telat** 🥺",
+]
+
+@Client.on_message(filters.command("absen", ["."]) & filters.user(DEVLIST) & ~filters.me)
+async def absen(_, message: Message):
+    await message.reply("**Hadir!**")
 
 
 @ayra_cmd(
