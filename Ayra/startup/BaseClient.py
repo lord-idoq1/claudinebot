@@ -8,7 +8,7 @@
 import inspect
 import sys
 import time
-from logging import LoggerLogger
+
 from aiohttp import ClientSession
 from pyrogram import Client
 
@@ -25,9 +25,6 @@ aiosession = ClientSession()
 
 from ..configs import Var
 from . import *
-
-
-logging.getLogger("pyrogram.client").setLevel(logging.WARNING)
 
 
 
