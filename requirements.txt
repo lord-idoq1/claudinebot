@@ -23,4 +23,5 @@ speedtest-cli
 textblob
 wikipedia
 spotdl
+pyrogram
 pyUltroid
