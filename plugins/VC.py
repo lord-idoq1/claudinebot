@@ -133,7 +133,7 @@ async def join_(event):
         await aySongs.vc_joiner()
 
 
-@vc_asst("(leavevc)")
+@vc_asst("(end|leavevc)")
 async def leaver(event):
     if len(event.text.split()) > 1:
         chat = event.text.split()[1]
