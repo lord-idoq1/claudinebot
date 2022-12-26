@@ -41,8 +41,8 @@ from . import *
 
 
 bot1 = (
-  Client(
-        name="bot1",
+    Client(
+name="bot1",
         api_id=API_ID,
         api_hash=API_HASH,
         session=SESSION,
@@ -334,3 +334,4 @@ class AyraClient(TelegramClient):
         except ValueError:
             pass
         return await self.get_peer_id(text)
+l
