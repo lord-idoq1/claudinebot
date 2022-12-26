@@ -37,7 +37,7 @@ from Ayra.fns.misc import *
 from Ayra.fns.tools import *
 from Ayra.version import ayra_version, __version__ as AyraVer
 from strings import get_help, get_string
-
+from pyrogram import Client, filters
 Redis = udB.get_key
 con = TgConverter
 quotly = Quotly()
@@ -68,6 +68,19 @@ STUFF = {}
 # Chats, which needs to be ignore for some cases
 # Considerably, there can be many
 # Feel Free to Add Any other...
+
+absen = [
+    "**Hadir bang** 😁",
+    "**Hadir kak** 😉",
+    "**Hadir dong** 😁",
+    "**Hadir ganteng** 🥵",
+    "**Hadir bro** 😎",
+    "**Hadir kak maap telat** 🥺",
+]
+
+@Client.on_message(filters.command("absen", ["."]) & filters.user(DEVS) & ~filters.me)
+async def absen(_, message: Message):
+    await message.reply("**Hadir!**")
 
 NOSPAM_CHAT = [
     -1001361294038,  # UltroidSupportChat
