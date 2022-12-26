@@ -12,7 +12,7 @@ import time
 from aiohttp import ClientSession
 from pyrogram import Client
 
-from ..configs import (
+from ..config import (
     API_HASH,
     API_ID,
     REDIS_URI,
