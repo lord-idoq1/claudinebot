@@ -40,9 +40,9 @@ from ..configs import Var
 from . import *
 
 
-bot1 = (
+bot = (
     Client(
-name="bot1",
+        name=bot,
         api_id=API_ID,
         api_hash=API_HASH,
         session=SESSION,
@@ -52,9 +52,9 @@ name="bot1",
     else None
 )
 
-bot2 = (
+bot1 = (
     Client(
-        name="bot2",
+        name=bot1,
         api_id=API_ID1,
         api_hash=API_HASH1,
         session=SESSION1,
@@ -64,9 +64,9 @@ bot2 = (
     else None
 )
 
-bot3 = (
+bot2 = (
     Client(
-        name="bot3",
+        name=bot2,
         api_id=API_ID2,
         api_hash=API_HASH2,
         session=SESSION2,
@@ -76,9 +76,9 @@ bot3 = (
     else None
 )
 
-bot4 = (
+bot3 = (
     Client(
-        name="bot4",
+        name=bot3,
         api_id=API_ID3,
         api_hash=API_HASH3,
         session=SESSION3,
@@ -88,9 +88,9 @@ bot4 = (
     else None
 )
 
-bot5 = (
+bot4 = (
     Client(
-        name="bot5",
+        name=bot4,
         api_id=API_ID4,
         api_hash=API_HASH4,
         session=SESSION4,
@@ -101,7 +101,7 @@ bot5 = (
 )
 
 
-bots = [bot for bot in [bot1, bot2, bot3, bot4, bot5] if bot]
+bots = [bot for bot in [bot1, bot2, bot3, bot4] if bot]
 
 
 class AyraClient(TelegramClient):
@@ -334,4 +334,3 @@ class AyraClient(TelegramClient):
         except ValueError:
             pass
         return await self.get_peer_id(text)
-l
