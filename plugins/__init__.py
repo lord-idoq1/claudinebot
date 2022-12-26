@@ -84,6 +84,7 @@ NOSPAM_CHAT = [
     -1001692751821,  # Ram Support
     -1001675459127,  # Tede Group
     -1001795125065,  # Bagaskara Support
+    -1001287188817,  # Kazu Support
 ]
 
 KANGING_STR = [
