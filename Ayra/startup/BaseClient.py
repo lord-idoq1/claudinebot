@@ -40,9 +40,8 @@ from ..configs import Var
 from . import *
 
 
-
 bot1 = (
-    Client(
+  Client(
         name="bot1",
         api_id=API_ID,
         api_hash=API_HASH,
