@@ -12,6 +12,19 @@ import time
 from aiohttp import ClientSession
 from pyrogram import Client
 
+from Ayra.config import (
+    API_HASH,
+    API_ID,
+    REDIS_URI,
+    REDIS_PASSWORD,
+    SESSION,
+    SESSION1,
+    SESSION2,
+    SESSION3,
+    SESSION4,
+    SUDO,
+)
+
 from telethon import TelegramClient
 from telethon import utils as telethon_utils
 from telethon.errors import (
