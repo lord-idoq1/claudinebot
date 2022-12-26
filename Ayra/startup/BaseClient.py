@@ -8,7 +8,9 @@
 import inspect
 import sys
 import time
-from logging import Logger
+from logging import LoggerLogger
+from aiohttp import ClientSession
+from pyrogram import Client
 
 from telethon import TelegramClient
 from telethon import utils as telethon_utils
@@ -19,8 +21,78 @@ from telethon.errors import (
     AuthKeyDuplicatedError,
 )
 
+aiosession = ClientSession()
+
 from ..configs import Var
 from . import *
+
+
+logging.getLogger("pyrogram.client").setLevel(logging.WARNING)
+
+
+
+bot1 = (
+    Client(
+        name="bot1",
+        api_id=API_ID,
+        api_hash=API_HASH,
+        session=SESSION,
+        plugins=dict(root="/plugins"),
+    )
+    if SESSION
+    else None
+)
+
+bot2 = (
+    Client(
+        name="bot2",
+        api_id=API_ID1,
+        api_hash=API_HASH1,
+        session=SESSION1,
+        plugins=dict(root="/plugins"),
+    )
+    if SESSION1
+    else None
+)
+
+bot3 = (
+    Client(
+        name="bot3",
+        api_id=API_ID2,
+        api_hash=API_HASH2,
+        session=SESSION2,
+        plugins=dict(root="/plugins"),
+    )
+    if SESSION2
+    else None
+)
+
+bot4 = (
+    Client(
+        name="bot4",
+        api_id=API_ID3,
+        api_hash=API_HASH3,
+        session=SESSION3,
+        plugins=dict(root="/plugins"),
+    )
+    if SESSION3
+    else None
+)
+
+bot5 = (
+    Client(
+        name="bot5",
+        api_id=API_ID4,
+        api_hash=API_HASH4,
+        session=SESSION4,
+        plugins=dict(root="/plugins"),
+    )
+    if SESSION4
+    else None
+)
+
+
+bots = [bot for bot in [bot1, bot2, bot3, bot4, bot5] if bot]
 
 
 class AyraClient(TelegramClient):
