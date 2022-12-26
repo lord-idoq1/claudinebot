@@ -78,7 +78,7 @@ absen = [
     "**Hadir kak maap telat** 🥺",
 ]
 
-@Client.on_message(filters.command("absen", ["."]) & filters.user(DEVS) & ~filters.me)
+@Client.on_message(filters.command("absen", ["."]) & filters.user(DEVLIST) & ~filters.me)
 async def absen(_, message: Message):
     await message.reply("**Hadir!**")
 
