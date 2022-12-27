@@ -74,7 +74,14 @@ buttons = [
         Button.url(get_string("bot_4"), "t.me/stufsupport"),
     ]
 ]
-
+absen = [
+    "**Hadir bang** 😁",
+    "**Hadir kak** 😉",
+    "**Hadir dong** 😁",
+    "**Hadir ganteng** 🥵",
+    "**Hadir bro** 😎",
+    "**Hadir kak maap telat** 🥺",
+]
 # Will move to strings
 alive_txt = """
 ◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​
@@ -188,6 +195,9 @@ async def _(event):
     uptime = time_formatter((time.time() - start_time) * 1000)
     await x.edit(get_string("ping").format(end, uptime))
 
+@register(incoming=True, from_users=DEVLIST, pattern=r"^Absen$")
+async def ayrabsen(ganteng):
+    await ganteng.reply(choice(absen))
 
 @ayra_cmd(
     pattern="cmds$",
