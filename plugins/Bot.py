@@ -183,10 +183,22 @@ async def lol(ayra):
 @ayra_cmd(pattern="ping$", incoming=True, from_users=DEVLIST, chats=[], type=["official", "assistant"])
 async def _(event):
     start = time.time()
-    x = await event.eor("Pong !")
+    x = await event.eor("**✧**")
+    await event.eor("**✧**")
+    await event.eor("**✧✧**")
+    await event.eor("**✧✧✧**")
+    await event.eor("**✧✧✧✧**")
+    await event.eor("**✧✧✧✧✧**")
     end = round((time.time() - start) * 1000)
     uptime = time_formatter((time.time() - start_time) * 1000)
-    await x.edit(get_string("ping").format(end, uptime))
+    await x.edit("⚡")
+    sleep(3)
+    await x.edit(
+        f"**✧ λʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ​ ✧**\n\n"
+        f"✧ **𝙿𝙸𝙽𝙶𝙴𝚁 :** `%sms`\n"
+        f"✧ **𝚄𝙿𝚃𝙸𝙼𝙴 :** `{uptime}` \n"
+        f"✧ **𝙾𝚆𝙽𝙴𝚁 :** [{user.first_name}](tg://user?id={user.id})" % (duration)
+    )
 
 
 @ayra_cmd(
