@@ -14,7 +14,7 @@ COPY installer.sh .
 RUN bash installer.sh
 
 # changing workdir
-WORKDIR "/root/senpai80"
+WORKDIR "/root/Onlymeriz"
 
 # start the bot.
 CMD ["bash", "startup"]
