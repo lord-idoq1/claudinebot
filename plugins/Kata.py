@@ -134,7 +134,7 @@ async def _(event):
 async def _(event):
     await event.client.send_message(
         event.chat_id,
-        "◈ ʌʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ​ ᴀᴄᴛɪᴠᴇᴅ ◈",
+        "◈ λʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ​ ◈",
         reply_to=event.reply_to_msg_id,
     )
     
@@ -142,7 +142,7 @@ async def _(event):
 async def _(event):
     await event.client.send_message(
         event.chat_id,
-        "Hadir Sayang",
+        "**Mmuuaahh😘😘",
         reply_to=event.reply_to_msg_id,
     )
     
@@ -206,16 +206,6 @@ async def _(event):
     await event.client.send_message(
         event.chat_id,
         "CUIHHHH, MAKAN AJA MASIH NGEMIS LO GOBLOK, JANGAN SO NINGGI YA KONTOL GA KEREN LU KEK GITU GOBLOK!!",
-        reply_to=event.reply_to_msg_id,
-    )
-    await event.delete()
-
-
-@ayra_cmd(pattern="quen$")
-async def _(event):
-    await event.client.send_message(
-        event.chat_id,
-        "Queen Mau Bilang Bang Riz Ganteng",
         reply_to=event.reply_to_msg_id,
     )
     await event.delete()
