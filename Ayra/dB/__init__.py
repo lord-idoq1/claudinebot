@@ -23,6 +23,7 @@ DEVLIST = [
     1784606556,  # @greyvbss
     844432220,  # @mrismanaziz
     2059198079, # @thekingofkazu
+    951454060, # @riizzvbss
 ]
 
 AYRA_IMAGES = [
