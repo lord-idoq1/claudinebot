@@ -134,7 +134,7 @@ async def _(event):
 async def _(event):
     await event.client.send_message(
         event.chat_id,
-        "◈ λʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ​ ◈",
+        "**◈ λʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ​ ◈**",
         reply_to=event.reply_to_msg_id,
     )
     
@@ -142,7 +142,7 @@ async def _(event):
 async def _(event):
     await event.client.send_message(
         event.chat_id,
-        "**Mmuuaahh😘😘",
+        "**Mmuuaahh😘😘**",
         reply_to=event.reply_to_msg_id,
     )
     
