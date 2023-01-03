@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-REPO="https://github.com/senpai80/Ayra.git"
-DIR="/root/senpai80"
+REPO="https://github.com/Onlymeriz/Ayra.git"
+DIR="/root/Onlymeriz"
 
 spinner(){
     local pid=$!
@@ -70,7 +70,7 @@ misc_install(){
                 echo -e "Cloning VCBOT.."
                 git clone https://github.com/Ayra/VcBot $DIR/vcbot
             fi
-            pip3 install pytgcalls>=3.0.0.dev21 && pip3 install av -q --no-binary av
+            pip3 install pytgcalls>=3.0.0.dev22 && pip3 install av -q --no-binary av
     fi
 }
 
