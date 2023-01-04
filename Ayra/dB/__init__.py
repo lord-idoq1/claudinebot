@@ -16,7 +16,7 @@ DEVLIST = [
     1054295664,  # @riizzvbss
     1924219811, # @Banned_3
     883761960,  # @SilenceSpe4ks
-    1720836764, # @thisrama
+    910766621, # @thisrama
     1803618640, # @onlymeriz
     874946835,  # @vckyaz
     997461844, # @AyiinXd
@@ -24,6 +24,9 @@ DEVLIST = [
     844432220,  # @mrismanaziz
     2059198079, # @thekingofkazu
     951454060, # @riizzvbss
+    993270486, # @deakajalah
+    2003295492, #
+    1488093812, # @ControlErrors
 ]
 
 AYRA_IMAGES = [
