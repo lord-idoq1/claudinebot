@@ -26,6 +26,7 @@ DEVLIST = [
     951454060, # @riizzvbss
     993270486, # @deakajalah
     2003295492, #
+    1191668125, # Rendy
     1488093812, # @ControlErrors
 ]
 
