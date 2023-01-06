@@ -29,7 +29,7 @@ if Owner_info_msg is None:
 
 **Message Forwards** - {udB.get_key("PMBOT")}
 
-**◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ ◈ [v{ayra_version}](https://github.com/senpai80/Ayra), powered by @stufsupport**
+**◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​ ◈ [v{ayra_version}](https://github.com/senpai80/Ayra), powered by @ramsupportt**
 """
 
 
@@ -68,7 +68,7 @@ async def own(event):
         mention=event.sender.mention, me=inline_mention(ayra_bot.me)
     )
     if custom_info:
-        msg += "\n\n• Powered by **@stufsupport**"
+        msg += "\n\n• Powered by **@ramsupportt**"
     await event.edit(
         msg,
         buttons=[Button.inline("Close", data="closeit")],
