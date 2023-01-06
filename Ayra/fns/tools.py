@@ -525,7 +525,7 @@ def telegraph_client():
     except Exception as er:
         if "SHORT_NAME_TOO_LONG" in str(er):
             TelegraphClient.create_account(
-                short_name="ayraruser", author_name=gd_name, author_url=profile_url
+                short_name="ayrauser", author_name=gd_name, author_url=profile_url
             )
         else:
             LOGS.exception(er)
