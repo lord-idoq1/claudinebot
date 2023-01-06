@@ -33,7 +33,7 @@ from . import _ayra_cache
 SUP_BUTTONS = [
     [
         Button.url("• Repo •", url="https://github.com/senpai80/Ayra"),
-        Button.url("• Support •", url="t.me/stufsupport"),
+        Button.url("• Support •", url="t.me/ramsupportt"),
     ],
 ]
 
@@ -575,7 +575,7 @@ async def inline_tl(ay):
                 await ay.builder.article(
                     title="How to Use?",
                     description="Tl Searcher by Ayra",
-                    url="https://t.me/stufsupport",
+                    url="https://t.me/ramsupportt",
                     text=text,
                 )
             ],
@@ -598,7 +598,7 @@ async def inline_tl(ay):
                 await ay.builder.article(
                     title=key.__name__,
                     description=tyyp,
-                    url="https://t.me/stufsupport",
+                    url="https://t.me/ramsupportt",
                     text=text[:4000],
                 )
             )
@@ -610,12 +610,12 @@ InlinePlugin.update(
     {
         "Pʟᴀʏ Sᴛᴏʀᴇ Aᴘᴘs": "app telegram",
         "Mᴏᴅᴅᴇᴅ Aᴘᴘs": "mods minecraft",
-        "Sᴇᴀʀᴄʜ Oɴ Gᴏᴏɢʟᴇ": "go StufSupport",
+        "Sᴇᴀʀᴄʜ Oɴ Gᴏᴏɢʟᴇ": "go ramsupportt",
         "WʜɪSᴘᴇʀ": "wspr @username Hello🎉",
         "YᴏᴜTᴜʙᴇ Dᴏᴡɴʟᴏᴀᴅᴇʀ": "yt Ed Sheeran Perfect",
         "Piston Eval": "run javascript console.log('Hello Ayra')",
         "OʀᴀɴɢᴇFᴏx🦊": "ofox beryllium",
-        "Tᴡɪᴛᴛᴇʀ Usᴇʀ": "twitter stufsupport",
+        "Tᴡɪᴛᴛᴇʀ Usᴇʀ": "twitter ramsupportt",
         "Fᴅʀᴏɪᴅ Sᴇᴀʀᴄʜ": "fdroid telegram",
         "Sᴀᴀᴠɴ sᴇᴀʀᴄʜ": "saavn",
         "Tʟ Sᴇᴀʀᴄʜ": "tl",
