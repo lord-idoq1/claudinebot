@@ -24,7 +24,7 @@ MSG = f"""
 **ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​**
 ➖➖➖➖➖➖➖➖➖➖
 **Owner**: [{OWNER}](tg://user?id={ayra_bot.uid})
-**Support**: @stufsupport
+**Support**: @ramsupportt
 ➖➖➖➖➖➖➖➖➖➖
 """
 
@@ -34,7 +34,7 @@ IN_BTTS = [
             "Repository",
             url="https://github.com/senpai80/ayra",
         ),
-        Button.url("Support", url="https://t.me/stufsupport"),
+        Button.url("Support", url="https://t.me/ramsupportt"),
     ]
 ]
 
@@ -92,7 +92,7 @@ def in_pattern(pattern=None, owner=False, **kwargs):
                 res = [
                     await event.builder.article(
                         title="ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​",
-                        url="https://t.me/stufsupport​",
+                        url="https://t.me/ramsupportt​",
                         description="©↻ꝛɪᴢ",
                         text=MSG,
                         thumb=InputWebDocument(
@@ -127,7 +127,7 @@ def in_pattern(pattern=None, owner=False, **kwargs):
                                 title="Unhandled Exception has Occured!",
                                 text=error_text(),
                                 buttons=Button.url(
-                                    "Report", "https://t.me/stufsupport"
+                                    "Report", "https://t.me/ramsupportt"
                                 ),
                             )
                         ]
