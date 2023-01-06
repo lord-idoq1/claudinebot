@@ -617,8 +617,7 @@ def _package_rpc(text, lang_src="auto", lang_tgt="auto"):
     escaped_parameter = json.dumps(parameter, separators=(",", ":"))
     rpc = [[[random.choice(GOOGLE_TTS_RPC), escaped_parameter, None, "generic"]]]
     espaced_rpc = json.dumps(rpc, separators=(",", ":"))
-    freq_initial = "f.req={}&".format(quote(espaced_rpc))
-    freq = freq_initial
+    freq = "f.req={}&".format(quote(espaced_rpc))
     return freq
 
 
