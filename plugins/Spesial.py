@@ -58,7 +58,7 @@ from . import (
     ayra_cmd,
     uploader,
 )
-from .Carbon import all_col
+from .Karbon import all_col
 
 File = []
 
