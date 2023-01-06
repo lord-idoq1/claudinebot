@@ -28,8 +28,6 @@ from os import remove
 from pprint import pprint
 
 from telethon.utils import get_display_name
-from Ayra.fns.tools import Carbon
-from . import ATRA_COL
 from Ayra import _ignore_eval
 
 from . import *
@@ -98,7 +96,7 @@ async def _(event):
                 code=stdout,
                 file_name="bash",
                 download=True,
-                backgroundColor=choice(ATRA_COL),
+                backgroundColor=choice(all_col),
             )
             url = f"https://graph.org{uf(li)[-1]}"
             OUT = f"[\xad]({url}){OUT}"
