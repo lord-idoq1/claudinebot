@@ -8,10 +8,12 @@
 import json
 import math
 import os
+import os.path
 import random
 import re
 import secrets
 import ssl
+import aiohttp
 from io import BytesIO
 from json.decoder import JSONDecodeError
 from traceback import format_exc
@@ -84,22 +86,12 @@ async def async_searcher(
     re_json: bool = False,
     re_content: bool = False,
     real: bool = False,
-    *args,
-    **kwargs,
 ):
-    try:
-        import aiohttp
-    except ImportError:
-        raise DependencyMissingError(
-            "'aiohttp' is not installed!\nthis function requires aiohttp to be installed."
-        )
     async with aiohttp.ClientSession(headers=headers) as client:
         if post:
-            data = await client.post(
-                url, json=json, data=data, ssl=ssl, *args, **kwargs
-            )
+            data = await client.post(url, json=json, data=data, ssl=ssl)
         else:
-            data = await client.get(url, params=params, ssl=ssl, *args, **kwargs)
+            data = await client.get(url, params=params, ssl=ssl)
         if re_json:
             return await data.json()
         if re_content:
@@ -416,7 +408,6 @@ async def get_chatbot_reply(message):
     except Exception:
         LOGS.info(f"**ERROR:**`{format_exc()}`")
 
-
 def check_filename(filroid):
     if os.path.exists(filroid):
         no = 1
@@ -534,7 +525,7 @@ def telegraph_client():
     except Exception as er:
         if "SHORT_NAME_TOO_LONG" in str(er):
             TelegraphClient.create_account(
-                short_name="ayrauser", author_name=gd_name, author_url=profile_url
+                short_name="ayraruser", author_name=gd_name, author_url=profile_url
             )
         else:
             LOGS.exception(er)
@@ -566,7 +557,7 @@ async def Carbon(
     kwargs["text"] = code
     kwargs["theme"] = kwargs.get("theme", "meadow")
     kwargs["darkMode"] = kwargs.get("darkMode", True)
-    kwargs["title"] = kwargs.get("title", "ayra")
+    kwargs["title"] = kwargs.get("title", "Ayra")
     # else:
     #    kwargs["code"] = code
     con = await async_searcher(base_url, post=True, json=kwargs, re_content=True)
