@@ -8,12 +8,10 @@
 import json
 import math
 import os
-import os.path
 import random
 import re
 import secrets
 import ssl
-import aiohttp
 from io import BytesIO
 from json.decoder import JSONDecodeError
 from traceback import format_exc
@@ -86,12 +84,22 @@ async def async_searcher(
     re_json: bool = False,
     re_content: bool = False,
     real: bool = False,
+    *args,
+    **kwargs,
 ):
+    try:
+        import aiohttp
+    except ImportError:
+        raise DependencyMissingError(
+            "'aiohttp' is not installed!\nthis function requires aiohttp to be installed."
+        )
     async with aiohttp.ClientSession(headers=headers) as client:
         if post:
-            data = await client.post(url, json=json, data=data, ssl=ssl)
+            data = await client.post(
+                url, json=json, data=data, ssl=ssl, *args, **kwargs
+            )
         else:
-            data = await client.get(url, params=params, ssl=ssl)
+            data = await client.get(url, params=params, ssl=ssl, *args, **kwargs)
         if re_json:
             return await data.json()
         if re_content:
@@ -399,11 +407,8 @@ async def get_paste(data: str, extension: str = "txt"):
 
 
 async def get_chatbot_reply(message):
-    from .. import ayra_bot
-
-    chatbot_base = "https://kukiapi.xyz/api/apikey=ULTROIDUSERBOT/Ultroid/{}/message={}"
+    chatbot_base = "https://kuki-api-lac.vercel.app/message={}"
     req_link = chatbot_base.format(
-        ayra_bot.me.first_name or "ayra user",
         message,
     )
     try:
@@ -520,7 +525,7 @@ def telegraph_client():
     profile_url = (
         f"https://t.me/{ayra_bot.me.username}"
         if ayra_bot.me.username
-        else "https://t.me/stufsupport"
+        else "https://t.me/ramsupportt"
     )
     try:
         TelegraphClient.create_account(
@@ -551,14 +556,27 @@ def make_html_telegraph(title, html=""):
 
 async def Carbon(
     code,
-    base_url="https://carbonara-42.herokuapp.com/api/cook",
-    file_name="Ayra-Userbot",
+    base_url="https://rayso-api-desvhu-33.koyeb.app/generate",
+    file_name="ayra",
+    download=False,
+    rayso=False,
     **kwargs,
 ):
-    kwargs["code"] = code
+    # if rayso:
+    kwargs["text"] = code
+    kwargs["theme"] = kwargs.get("theme", "meadow")
+    kwargs["darkMode"] = kwargs.get("darkMode", True)
+    kwargs["title"] = kwargs.get("title", "ayra")
+    # else:
+    #    kwargs["code"] = code
     con = await async_searcher(base_url, post=True, json=kwargs, re_content=True)
-    file = BytesIO(con)
-    file.name = f"{file_name}.jpg"
+    if not download:
+        file = BytesIO(con)
+        file.name = file_name + ".jpg"
+    else:
+        file = file_name + ".jpg"
+        with open(file, "wb") as f:
+            f.write(con)
     return file
 
 
