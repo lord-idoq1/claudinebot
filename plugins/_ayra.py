@@ -15,17 +15,17 @@ from . import LOG_CHANNEL, LOGS, Button, asst, ayra_cmd, eor, get_string
 
 REPOMSG = """
 ◈ **ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​** ◈\n
-◈ Repo - [Click Here](https://github.com/senpai80/Ayra)
+◈ Repo - [Click Here](https://github.com/Onlymeriz/Ayra)
 ◈ Addons - [Click Here](https://github.com/senpai80/addons)
-◈ Support - @stufsupport
+◈ Support - @ramsupportt
 """
 
 RP_BUTTONS = [
     [
-        Button.url(get_string("bot_3"), "https://github.com/senpai80/Ayra"),
-        Button.url("Addons", "https://github.com/senpai80/addons"),
+        Button.url(get_string("bot_3"), "https://github.com/Onlymeriz/Ayra"),
+        Button.url("Addons", "https://github.com/Onlymeriz/addons"),
     ],
-    [Button.url("Support Group", "t.me/stufsupport")],
+    [Button.url("Support Group", "t.me/ramsupportt")],
 ]
 
 AYSTRING = """🎇 **Thanks for Deploying ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ!**
