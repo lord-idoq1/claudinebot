@@ -62,7 +62,7 @@ async def _(e):
         return await xx.edit(f"Error: `{y}`")
     with open("neo.txt", "r") as neo:
         p = (neo.read()).replace("\n\n", "")
-    haa = await Carbon(code=p, file_name="neofetch", backgroundColor=choice(ATRA_COL))
+    haa = await Carbon(code=p, file_name="neofetch", backgroundColor=choice(all_col))
     await e.reply(file=haa)
     await xx.delete()
     remove("neo.txt")
