@@ -237,7 +237,7 @@ async def autopilot():
             r = await ayra_bot(
                 CreateChannelRequest(
                     title="Aʏʀᴀ ꭙ Lᴏɢs",
-                    about="Aʏʀᴀ ꭙ Gʀᴏᴜᴘ \n\n Cʀᴇᴀᴛᴇᴅ Bʏ @stufsupport",
+                    about="Aʏʀᴀ ꭙ Gʀᴏᴜᴘ \n\n Cʀᴇᴀᴛᴇᴅ Bʏ @ramsupportt",
                     megagroup=True,
                 ),
             )
@@ -371,7 +371,7 @@ async def customize():
         await asyncio.sleep(1)
         await ayra_bot.send_message(
             "botfather",
-            f"✨ Powerful Ayra Assistant Bot ✨\n✨ Master ~ {sir} ✨\n\n✨ Powered By ~ @stufsupport ✨",
+            f"✨ Powerful Ayra Assistant Bot ✨\n✨ Master ~ {sir} ✨\n\n✨ Powered By ~ @ramsupportt ✨",
         )
         await asyncio.sleep(2)
         await msg.edit("Completed **Auto Customisation** at @BotFather.")
@@ -435,7 +435,7 @@ async def ready():
         BTTS = Button.inline("• Click to Start •", "initft_2")
         udB.set_key("INIT_DEPLOY", "Done")
     else:
-        MSG = f"**Ayra has been deployed!**\n➖➖➖➖➖➖➖➖➖➖\n**UserMode**: {inline_mention(ayra_bot.me)}\n**Assistant**: @{asst.me.username}\n➖➖➖➖➖➖➖➖➖➖\n**Support**: @stufsupport\n➖➖➖➖➖➖➖➖➖➖"
+        MSG = f"**Ayra has been deployed!**\n➖➖➖➖➖➖➖➖➖➖\n**UserMode**: {inline_mention(ayra_bot.me)}\n**Assistant**: @{asst.me.username}\n➖➖➖➖➖➖➖➖➖➖\n**Support**: @ramsupportt\n➖➖➖➖➖➖➖➖➖➖"
         BTTS, PHOTO = None, None
         prev_spam = udB.get_key("LAST_UPDATE_LOG_SPAM")
         if prev_spam:
