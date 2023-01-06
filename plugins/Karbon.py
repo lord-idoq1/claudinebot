@@ -103,7 +103,6 @@ RaySoTheme = [
     "midnight",
 ]
 
-
 @ayra_cmd(pattern="rayso")
 async def pass_on(ay):
     spli = ay.text.split()
