@@ -70,21 +70,21 @@ def AYRAPIC():
 
 buttons = [
     [
-        Button.url(get_string("bot_3"), "https://github.com/senpai80/Ayra"),
-        Button.url(get_string("bot_4"), "t.me/ramsupportt"),
+        Button.url(get_string("bot_3"), "https://github.com/sen/wkkw"),
+        Button.url(get_string("bot_4"), "t.me/idoganzzbot"),
     ]
 ]
 
 # Will move to strings
 alive_txt = """
-◈ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​
+◈ Miku userbot
 
   ◈ Version - {}
-  ◈ Ayra - {}
+  ◈ Miku - {}
   ◈ Telethon - {}
 """
 
-in_alive = "{}\n\n◈ <b>Ayra Version -><b> <code>{}</code>\n◈ <b>Ayra -></b> <code>{}</code>\n◈ <b>Python -></b> <code>{}</code>\n◈ <b>Waktu aktif -></b> <code>{}</code>\n◈ <b>Branch -></b> [ {} ]\n\n• <b>©↻˹ҡʏɴλɴ˼𐦝</b>"
+in_alive = "{}\n\n◈ <b>Miku Version -><b> <code>{}</code>\n◈ <b>Miku -></b> <code>{}</code>\n◈ <b>Python -></b> <code>{}</code>\n◈ <b>Waktu aktif -></b> <code>{}</code>\n◈ <b>Branch -></b> [ {} ]\n\n• <b>©↻˹ҡʏɴλɴ˼𐦝</b>"
 
 
 @callback("alive")
