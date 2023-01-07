@@ -159,7 +159,7 @@ async def ayra(event):
 @callback("stat", owner=True)
 async def botstat(event):
     ok = len(get_all_users("BOT_USERS"))
-    msg = """Ayra Assistant - Stats
+    msg = """Miku Assistant - Stats
 Total Users - {}""".format(
         ok,
     )
