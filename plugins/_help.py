@@ -36,13 +36,13 @@ async def _help(ayra):
                 output = f"**Plugin** - `{plug}`\n"
                 for i in HELP["Official"][plug]:
                     output += i
-                output += "\n◈ ʌʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ"
+                output += "\nMiku userbot"
                 await ayra.eor(output)
             elif HELP.get("Addons") and plug in HELP["Addons"]:
                 output = f"**Plugin** - `{plug}`\n"
                 for i in HELP["Addons"][plug]:
                     output += i
-                output += "\n◈ ʌʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ"
+                output += "\nMiku userbot"
                 await ayra.eor(output)
             else:
                 try:
@@ -50,7 +50,7 @@ async def _help(ayra):
                     for d in LIST[plug]:
                         x += HNDLR + d
                         x += "\n"
-                    x += "\n◈ ʌʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ"
+                    x += "\nMiku userbot"
                     await ayra.eor(x)
                 except BaseException:
                     file = None
@@ -82,7 +82,7 @@ async def _help(ayra):
                     elif HELP.get("Addons") and file in HELP["Addons"]:
                         for i in HELP["Addons"][file]:
                             output += i
-                    output += "\n◈ ʌʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ"
+                    output += "\nMiku userbot"
                     await ayra.eor(output)
         except BaseException as er:
             LOGS.exception(er)
