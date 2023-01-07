@@ -2,9 +2,7 @@ name: Indonesia
 natively: Indonesia
 
 authors:
-  - itsmenandos
-  - mrismanaziz
-  - riizz
+  - idoganz
 
 # commons
 com_1: "`Sedang Memproses...`"
@@ -136,12 +134,12 @@ autopic_4: "AUTOPIC tidak digunakan !!"
 autopic_5: "AUTOPIC Berhenti!"
 
 # inline
-riz_1: "ʌʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ "
+riz_1: "@punya_ra"
 inline_1: "**◈ {}\n\n๏ Modul : {}**"
 inline_2: "**◈ {}\n\n๏ Tambahan : {}**"
 inline_3: "**◈ {}\n\n๏ Tambahan : {}\n\n Ketik `.setdb ADDONS True` Kemudian Restart.**"
 inline_4: "**◈ {}\n\n๏ Inline Menu \n\n Modul : {}\n Tambahan : {}\n Perintah : {}**"
-inline_5: "**Menu Di Tutup**"
+inline_5: "**Close Menu**"
 inline_6: "**Menu Bantuan untuk Voice Chat {}**\n**Perintah yang tersedia:** `{}`\n\nʌʏꝛᴀ ꭙ ᴜꜱᴇꝛʙᴏᴛ"
 inline_7: "Ketik `.help {}` untuk mendapatkan daftar perintah."
 inline_8: "Klik tombol di bawah ini untuk memperbarui!"
@@ -172,7 +170,7 @@ bot_2: "Stats"
 bot_3: "Repo"
 bot_4: "Support"
 bot_5: "`Sedang Merestart...`"
-alive_1: "**❏ ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ ʙʏ [˹↻ꝛɪᴢ˼](t.me/riizzvbss)**\n\n**{}**\n\n┏━━━━━━━━━━━━━━━━━━━━━\n┣ **Owner** - `{}`\n┣ **Version** - `{}`\n┣ **Py-Ayra** - `{}`\n┣ **UpTime** - `{}`\n┣ **Python** - `{}`\n┣ **Telethon** - `{}`\n┣ **Branch** - `{}`\n┗━━━━━━━━━━━━━━━━━━━━━"
+alive_1: "**❏Miku ubot(t.me/punyaa_ra)**\n\n**{}**\n\n┏━━━━━━━━━━━━━━━━━━━━━\n┣ **Owner** - `{}`\n┣ **Version** - `{}`\n┣ **Py-Ayra** - `{}`\n┣ **UpTime** - `{}`\n┣ **Python** - `{}`\n┣ **Telethon** - `{}`\n┣ **Branch** - `{}`\n┗━━━━━━━━━━━━━━━━━━━━━"
 log: "**Heroku** Ayra Logs.\nKlik [here]({})!"
 ping: "**Pong !!** `{}ms`\n**Waktu aktif** - `{}`"
 usage: "**⚙️ Informasi Dyno ⚙️**:\n\n➠ **Penggunaan Dyno** `{}`:\n  •  **{}h**  **{}m |** `[{}%]`\n➠ **Sisa kuota dyno bulan ini :**\n  •  **{}h**  **{}m |** `[{}%]`\n\n**Total Ruang Disk:**: `{}`\n**Terpakai**: `{}`\n**Kosong**: `{}`\n\n**📊 Penggunaan Data 📊**\n**Upload**: `{}`\n**Down**: `{}`\n\n**CPU**: `{}%`\n**RAM**: `{}%`\n**DISK**: `{}%`"
