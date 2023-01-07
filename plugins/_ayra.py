@@ -14,21 +14,21 @@ from telethon.errors import (
 from . import LOG_CHANNEL, LOGS, Button, asst, ayra_cmd, eor, get_string
 
 REPOMSG = """
-◈ **ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ​** ◈\n
-◈ Repo - [Click Here](https://github.com/Onlymeriz/Ayra)
-◈ Addons - [Click Here](https://github.com/senpai80/addons)
-◈ Support - @ramsupportt
+◈ **Miku userbot\n
+◈ Repo - [Click Here](https://github.com/kepo/akwkw)
+◈ Addons - [Click Here](https://github.com/kepo/wkw)
+◈ Owner - @punyaa_ra
 """
 
 RP_BUTTONS = [
     [
-        Button.url(get_string("bot_3"), "https://github.com/Onlymeriz/Ayra"),
-        Button.url("Addons", "https://github.com/Onlymeriz/addons"),
+        Button.url(get_string("bot_3"), "https://github.com/kepo/akwkw"),
+        Button.url("Addons", "https://github.com/kepo/akwkkw"),
     ],
-    [Button.url("Support Group", "t.me/ramsupportt")],
+    [Button.url("Support Group", "t.me/idoganzzbot")],
 ]
 
-AYSTRING = """🎇 **Thanks for Deploying ᴀʏʀᴀ ꭙ ᴜꜱᴇʀʙᴏᴛ!**
+AYSTRING = """🎇 **Thanks for Deploying Miku userbot!**
 
 • Here, are the Some Basic stuff from, where you can Know, about its Usage."""
 
